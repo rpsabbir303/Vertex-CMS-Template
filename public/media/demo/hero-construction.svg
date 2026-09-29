@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Construction site illustration">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E8EEF4"/>
+      <stop offset="100%" stop-color="#F5F7FA"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2F5496"/>
+      <stop offset="100%" stop-color="#0B1F33"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <rect x="0" y="720" width="1600" height="280" fill="#D9E0E8"/>
+  <rect x="180" y="380" width="420" height="340" fill="#667085" opacity="0.35"/>
+  <rect x="640" y="260" width="520" height="460" fill="url(#steel)" opacity="0.92"/>
+  <rect x="700" y="320" width="80" height="400" fill="#B94712" opacity="0.85"/>
+  <rect x="820" y="280" width="60" height="440" fill="#244275"/>
+  <rect x="920" y="300" width="70" height="420" fill="#B94712" opacity="0.75"/>
+  <path d="M1180 720 L1320 420 L1460 720 Z" fill="#0B1F33" opacity="0.9"/>
+  <rect x="200" y="640" width="960" height="24" fill="#111827" opacity="0.15"/>
+  <circle cx="300" cy="180" r="90" fill="#B94712" opacity="0.12"/>
+</svg>

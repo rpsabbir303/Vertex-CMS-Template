@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Healthcare construction project">
+  <rect width="1200" height="900" fill="#F5F7FA"/>
+  <rect x="120" y="220" width="960" height="520" fill="#E8EEF4"/>
+  <rect x="180" y="280" width="860" height="400" fill="#0B1F33" opacity="0.88"/>
+  <rect x="520" y="340" width="180" height="280" fill="#2F5496"/>
+  <rect x="240" y="360" width="220" height="60" fill="#B94712" opacity="0.9"/>
+  <rect x="240" y="440" width="220" height="60" fill="#667085" opacity="0.5"/>
+  <rect x="780" y="360" width="220" height="140" fill="#667085" opacity="0.45"/>
+</svg>
