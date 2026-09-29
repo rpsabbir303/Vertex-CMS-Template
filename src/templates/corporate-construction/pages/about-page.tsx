@@ -29,7 +29,12 @@ export function CorporateConstructionAboutPage(props: TemplatePageProps) {
   const certifications = unwrapCollectionItems(props.payload.certifications);
   const paragraphs = splitDescription(company?.description);
   const introduction = paragraphs[0];
-  const storyParagraphs = paragraphs.slice(1);
+  /**
+   * Short descriptions stay in the hero only.
+   * Longer multi-paragraph copy expands in Who We Are.
+   * Company Story uses founded year (CMS) as the history signal.
+   */
+  const overviewParagraphs = paragraphs.length > 1 ? paragraphs : [];
   const hasHeroImage = Boolean(company?.heroImage?.url);
 
   if (!company) {
@@ -55,15 +60,11 @@ export function CorporateConstructionAboutPage(props: TemplatePageProps) {
 
       <CorporateAboutOverview
         company={company}
-        paragraphs={paragraphs}
-        /* Avoid repeating the hero image when it already anchors the page opening */
+        paragraphs={overviewParagraphs}
         showImage={!hasHeroImage}
       />
 
-      <CorporateAboutStory
-        foundedYear={company.foundedYear}
-        storyParagraphs={storyParagraphs}
-      />
+      <CorporateAboutStory foundedYear={company.foundedYear} storyParagraphs={[]} />
 
       <CorporateAboutApproach />
 

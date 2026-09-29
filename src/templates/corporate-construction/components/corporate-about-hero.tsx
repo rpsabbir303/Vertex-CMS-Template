@@ -7,7 +7,6 @@ import { previewHref } from "@/templates/corporate-construction/utils/preview-hr
 type CorporateAboutHeroProps = {
   company: Company;
   mode: TemplateRenderMode;
-  /** Short company introduction from CMS description */
   introduction?: string;
 };
 
