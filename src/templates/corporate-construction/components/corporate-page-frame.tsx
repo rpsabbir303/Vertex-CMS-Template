@@ -24,6 +24,7 @@ export function CorporatePageFrame({
         <CorporateHeader
           payload={payload}
           company={company}
+          contact={contact}
           currentPath={currentPath}
           mode={mode}
         />

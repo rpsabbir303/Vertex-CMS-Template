@@ -1,82 +1,80 @@
 import type { TemplatePageProps } from "@/registry/template-types";
 import { getVisibleServices, unwrapEnvelope } from "@/templates/shared/cms/resolve-content";
-import { ButtonLink } from "@/templates/shared/components/ui/button-link";
-import { CmsImageMedia } from "@/templates/shared/media/cms-image";
 import { CorporatePageFrame } from "@/templates/corporate-construction/components/corporate-page-frame";
-import { CorporatePageHero } from "@/templates/corporate-construction/components/corporate-page-hero";
+import { CorporateServicesHero } from "@/templates/corporate-construction/components/corporate-services-hero";
+import { ServicesCapabilityField } from "@/templates/corporate-construction/components/services-capability-field";
+import { ServicesFeatured } from "@/templates/corporate-construction/components/services-featured";
+import {
+  planServicesField,
+  planServicesPair,
+} from "@/templates/corporate-construction/components/services-field-plan";
+import { CorporateServicesCta } from "@/templates/corporate-construction/sections/services-cta";
 import { previewHref } from "@/templates/corporate-construction/utils/preview-href";
+
+const DEFAULT_TITLE = "Capabilities";
+const DEFAULT_DESCRIPTION =
+  "Each service is scoped to the project. Offerings below come from the tenant services collection.";
 
 export function CorporateConstructionServicesPage(props: TemplatePageProps) {
   const company = unwrapEnvelope(props.payload.company);
+  const collection = unwrapEnvelope(props.payload.services);
   const services = getVisibleServices(props.payload.services);
+  const section = collection?.section;
+  const count = services.length;
+
+  const title = section?.title?.trim() || DEFAULT_TITLE;
+  const eyebrow = section?.eyebrow?.trim() || "Services";
+  const description = section?.description?.trim() || DEFAULT_DESCRIPTION;
+  const heroImage = services.find((s) => s.image?.url)?.image ?? company?.heroImage ?? null;
+  const contactHref = previewHref(props.mode, "/contact");
 
   return (
     <CorporatePageFrame {...props}>
-      <CorporatePageHero
-        eyebrow="Services"
-        title="Delivery disciplines for commercial and institutional work"
-        summary="Each service is scoped to the project. The list below comes from the tenant's CMS services collection."
-        image={services[0]?.image ?? company?.heroImage}
+      <CorporateServicesHero
+        eyebrow={eyebrow}
+        title={title}
+        description={description}
+        image={heroImage}
+        ctaHref={contactHref}
+        ctaLabel="Start a conversation"
       />
-      {services.length ? (
-        <section aria-labelledby="services-list-heading">
-          <h2 id="services-list-heading" className="sr-only">
-            Service list
-          </h2>
-          <ol>
-            {services.map((service, index) => (
-              <li
-                key={service.id}
-                id={service.slug}
-                className="border-b border-[var(--color-border)] bg-[var(--color-surface)]"
-              >
-                <div className="vertex-container grid gap-8 py-14 lg:grid-cols-12 lg:py-20">
-                  <p className="text-sm font-semibold tabular-nums text-[var(--color-secondary)] lg:col-span-1">
-                    {String(index + 1).padStart(2, "0")}
-                  </p>
-                  <div className="min-w-0 lg:col-span-5">
-                    <h3 className="text-balance font-[family-name:var(--font-display)] text-3xl font-semibold text-[var(--color-primary)]">
-                      {service.title}
-                    </h3>
-                    {service.summary ? (
-                      <p className="mt-4 text-pretty text-lg text-[var(--color-text)]">
-                        {service.summary}
-                      </p>
-                    ) : null}
-                    {service.description ? (
-                      <p className="mt-4 text-pretty leading-relaxed text-[var(--color-text-muted)]">
-                        {service.description}
-                      </p>
-                    ) : null}
-                  </div>
-                  {service.image?.url ? (
-                    <div className="min-w-0 lg:col-span-6">
-                      <CmsImageMedia
-                        image={service.image}
-                        aspect="card"
-                        className="w-full"
-                        sizes="(max-width: 1024px) 100vw, 42vw"
-                      />
-                    </div>
-                  ) : null}
-                </div>
-              </li>
-            ))}
-          </ol>
+
+      {!count ? (
+        <section className="vertex-container py-16 md:py-20">
+          <p className="text-[var(--color-text-muted)]">
+            Services have not been published yet.
+          </p>
         </section>
-      ) : (
-        <section className="vertex-container py-20">
-          <p className="text-[var(--color-text-muted)]">Services have not been published yet.</p>
-        </section>
-      )}
-      <section className="bg-[var(--color-primary)] text-[var(--color-text-inverse)]">
-        <div className="vertex-container flex flex-col gap-6 py-16 md:flex-row md:items-center md:justify-between">
-          <h2 className="max-w-xl font-[family-name:var(--font-display)] text-3xl font-semibold">
-            Not sure which service fits the site?
-          </h2>
-          <ButtonLink href={previewHref(props.mode, "/contact")}>Describe the project</ButtonLink>
-        </div>
-      </section>
+      ) : null}
+
+      {count === 1 && services[0] ? (
+        <ServicesFeatured service={services[0]} index={0} />
+      ) : null}
+
+      {count === 2 ? (
+        <ServicesCapabilityField
+          services={services}
+          startIndex={0}
+          plan={planServicesPair()}
+          heading="Service offering"
+        />
+      ) : null}
+
+      {count >= 3 && services[0] ? (
+        <>
+          <ServicesFeatured service={services[0]} index={0} />
+          <ServicesCapabilityField
+            services={services.slice(1)}
+            startIndex={1}
+            plan={planServicesField(services.length - 1)}
+            heading="Additional capabilities"
+          />
+        </>
+      ) : null}
+
+      {count > 0 ? (
+        <CorporateServicesCta mode={props.mode} companyName={company?.name} />
+      ) : null}
     </CorporatePageFrame>
   );
 }

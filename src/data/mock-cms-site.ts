@@ -11,8 +11,9 @@ export const mockCmsSitePayload: CmsSitePayload = {
       "Alden Commercial Builders plans and builds occupied, phased, and ground-up commercial work for healthcare, education, workplace, and industrial clients.\n\nProject teams stay with the work from early pricing through closeout, so owners have one point of accountability for schedule, field coordination, and turnover.",
     logo: demoMedia.logo,
     heroImage: demoMedia.hero,
-    phone: "+1 (312) 555-0148",
-    email: "projects@aldenbuilders.example",
+    /** Prefer contact envelope on the Contact page; company fields are fallback only. */
+    phone: "+1 (312) 555-0190",
+    email: "inquiries@aldenbuilders.example",
     address: {
       line1: "180 North Wacker Drive",
       line2: "Suite 900",
@@ -26,6 +27,26 @@ export const mockCmsSitePayload: CmsSitePayload = {
         platform: "linkedin",
         label: "LinkedIn",
         url: "https://www.linkedin.com",
+      },
+      {
+        platform: "instagram",
+        label: "Instagram",
+        url: "https://www.instagram.com",
+      },
+      {
+        platform: "facebook",
+        label: "Facebook",
+        url: "https://www.facebook.com",
+      },
+      {
+        platform: "youtube",
+        label: "YouTube",
+        url: "https://www.youtube.com",
+      },
+      {
+        platform: "x",
+        label: "X",
+        url: "https://x.com",
       },
     ],
     foundedYear: 1978,
@@ -331,18 +352,241 @@ export const mockCmsSitePayload: CmsSitePayload = {
       id: "opt_safety",
       title: "Safety",
       slug: "safety",
+      headline: "Safety is built into every phase of the work",
       heroImage: demoMedia.crane,
-      body: "Field work follows a written site safety program. Superintendents review logistics, temporary protection, and daily planning before crews start.\n\nThis page is sample tenant content for the approved optional-page pattern. It is not a certification claim.",
+      body:
+        "Field work follows a written site safety program. Superintendents review logistics, temporary protection, and daily planning before crews start.\n\n" +
+        "Safety planning begins in preconstruction and continues through field coordination and closeout. Project teams review access, temporary protection, and trade sequencing with the superintendent before each major phase of work.\n\n" +
+        "Daily site coordination keeps crews aligned on logistics, temporary controls, and the conditions that change as the building advances. When conditions shift, the superintendent updates the plan with the trades before work continues.",
+      approachHeading: "How safety is managed on site",
+      commitmentHeading: "Safety is part of how we plan, coordinate, and deliver the work.",
+      commitmentBody:
+        "Project teams stay accountable for temporary protection, logistics, and daily coordination so field conditions remain clear as the work advances.",
+      practices: [
+        {
+          id: "safe_plan",
+          title: "Site safety planning",
+          description:
+            "Logistics, temporary protection, and trade sequencing are reviewed before mobilization and ahead of major phase changes.",
+          sortOrder: 1,
+        },
+        {
+          id: "safe_daily",
+          title: "Daily site coordination",
+          description:
+            "Superintendents align crews on access, temporary controls, and site conditions that change as the building advances.",
+          sortOrder: 2,
+        },
+        {
+          id: "safe_training",
+          title: "Worker orientation",
+          description:
+            "New workers receive site orientation covering access routes, temporary protection, and emergency muster points.",
+          sortOrder: 3,
+        },
+        {
+          id: "safe_ppe",
+          title: "PPE and site controls",
+          description:
+            "Required personal protective equipment and temporary site controls stay visible and enforced for occupied or constrained work.",
+          sortOrder: 4,
+        },
+        {
+          id: "safe_emergency",
+          title: "Emergency preparedness",
+          description:
+            "Muster points, first-aid locations, and emergency contacts are posted and reviewed with trade partners.",
+          sortOrder: 5,
+        },
+        {
+          id: "safe_review",
+          title: "Safety reviews",
+          description:
+            "Field leadership reviews incidents, near misses, and temporary protection adjustments with the project team.",
+          sortOrder: 6,
+        },
+      ],
       showInNavigation: true,
       sortOrder: 1,
     },
     {
       id: "opt_privacy",
-      title: "Privacy",
+      title: "Privacy Policy",
       slug: "privacy",
-      body: "This privacy notice is placeholder copy for the template preview.",
+      headline: "Privacy Policy",
+      effectiveDate: "January 1, 2026",
+      intro:
+        "This notice explains how this company website may collect and use information when you contact the project team or browse published pages. It is sample tenant content for the template preview.",
+      sections: [
+        {
+          id: "privacy-intro",
+          heading: "Introduction",
+          content:
+            "This Privacy Policy describes how personal information may be handled when you use this website or submit a project inquiry.\n\nIt applies to information collected through this website only. It is not a certification claim and should be replaced with the tenant’s approved legal text before production use.",
+          sortOrder: 1,
+        },
+        {
+          id: "privacy-collect",
+          heading: "Information We Collect",
+          content:
+            "Depending on how you use the site, we may collect:\n\n- Contact details you submit through an inquiry form, such as name, company, email, and phone\n- Project details you choose to share, such as location and scope notes\n- Technical information commonly provided by browsers, such as device type or approximate location derived from IP address",
+          sortOrder: 2,
+        },
+        {
+          id: "privacy-use",
+          heading: "How We Use Information",
+          content:
+            "Information submitted through the site is used to:\n\n1. Respond to project inquiries and schedule discussions\n2. Route messages to the appropriate preconstruction or operations contact\n3. Improve website clarity and performance where analytics are enabled by the tenant",
+          sortOrder: 3,
+        },
+        {
+          id: "privacy-share",
+          heading: "Information Sharing",
+          content:
+            "Personal information is not sold. It may be shared with service providers who host the website, deliver email, or support form processing, only as needed to operate the site and respond to inquiries.\n\nInformation may also be disclosed when required by law.",
+          sortOrder: 4,
+        },
+        {
+          id: "privacy-security",
+          heading: "Data Security",
+          content:
+            "Reasonable administrative and technical safeguards are used to protect information submitted through the website. No method of transmission over the internet is completely secure.",
+          sortOrder: 5,
+        },
+        {
+          id: "privacy-rights",
+          heading: "Your Rights",
+          content:
+            "Depending on your location, you may have rights to request access, correction, or deletion of personal information held about you in connection with this website.\n\nUse the Contact page to submit a privacy-related request.",
+          sortOrder: 6,
+        },
+        {
+          id: "privacy-contact",
+          heading: "Contact",
+          content:
+            "Questions about this Privacy Policy can be directed through the website Contact page or the phone and email listed in the site footer.",
+          sortOrder: 7,
+        },
+      ],
       showInNavigation: false,
       sortOrder: 2,
+    },
+    {
+      id: "opt_terms",
+      title: "Terms & Conditions",
+      slug: "terms",
+      headline: "Terms & Conditions",
+      effectiveDate: "January 1, 2026",
+      intro:
+        "These terms describe the conditions for using this company website. They are sample tenant content for the template preview and are not a project contract.",
+      sections: [
+        {
+          id: "terms-acceptance",
+          heading: "Acceptance of Terms",
+          content:
+            "By accessing this website, you agree to these Terms & Conditions.\n\nIf you do not agree, do not use the site. Construction services remain governed by separate project agreements, not by this page alone.",
+          sortOrder: 1,
+        },
+        {
+          id: "terms-use",
+          heading: "Website Use",
+          content:
+            "You may browse published pages and submit inquiries for legitimate business purposes.\n\nYou agree not to:\n\n- Attempt to disrupt or overload the website\n- Submit false or misleading inquiry information intentionally\n- Scrape or republish site content without permission",
+          sortOrder: 2,
+        },
+        {
+          id: "terms-content",
+          heading: "Site Content",
+          content:
+            "Project descriptions, photographs, and company information on this site are provided for general information.\n\nThey do not constitute an offer, guarantee of availability, or contractual commitment unless confirmed in a signed agreement.",
+          sortOrder: 3,
+        },
+        {
+          id: "terms-inquiries",
+          heading: "Project Inquiries",
+          content:
+            "Submitting an inquiry does not create a contract. Responses are provided for discussion only until a formal agreement is executed.",
+          sortOrder: 4,
+        },
+        {
+          id: "terms-liability",
+          heading: "Limitation of Liability",
+          content:
+            "To the extent permitted by law, the company is not liable for damages arising from use of this website or reliance on general site information alone.\n\nThis limitation does not replace warranties or obligations set out in a signed construction contract.",
+          sortOrder: 5,
+        },
+        {
+          id: "terms-changes",
+          heading: "Changes",
+          content:
+            "These terms may be updated from time to time. The effective date at the top of this page reflects the current version for this website.",
+          sortOrder: 6,
+        },
+        {
+          id: "terms-contact",
+          heading: "Contact",
+          content:
+            "Questions about these Terms & Conditions can be directed through the website Contact page.",
+          sortOrder: 7,
+        },
+      ],
+      showInNavigation: false,
+      sortOrder: 3,
+    },
+    {
+      id: "opt_cookie",
+      title: "Cookie Policy",
+      slug: "cookie",
+      headline: "Cookie Policy",
+      effectiveDate: "January 1, 2026",
+      intro:
+        "This notice explains how cookies and similar technologies may be used on this website. It is sample tenant content for the template preview.",
+      sections: [
+        {
+          id: "cookie-what",
+          heading: "What Are Cookies",
+          content:
+            "Cookies are small text files stored on your device when you visit a website. They help the site function, remember preferences, or understand how pages are used.",
+          sortOrder: 1,
+        },
+        {
+          id: "cookie-how",
+          heading: "How This Site May Use Cookies",
+          content:
+            "Depending on the tenant’s configuration, this website may use cookies to:\n\n- Support essential site functions and security\n- Remember basic preferences during a visit\n- Measure aggregate traffic and page performance when analytics are enabled",
+          sortOrder: 2,
+        },
+        {
+          id: "cookie-types",
+          heading: "Types of Cookies",
+          content:
+            "Common categories include:\n\n1. Essential cookies required for core site operation\n2. Preference cookies that remember choices you make\n3. Analytics cookies that help understand site usage in aggregate",
+          sortOrder: 3,
+        },
+        {
+          id: "cookie-manage",
+          heading: "Managing Cookies",
+          content:
+            "Most browsers allow you to control or delete cookies through settings. Blocking some cookies may affect how parts of the site work.\n\nIf a cookie consent tool is enabled for this tenant, you can update preferences there.",
+          sortOrder: 4,
+        },
+        {
+          id: "cookie-updates",
+          heading: "Updates",
+          content:
+            "This Cookie Policy may change when site technologies or legal requirements change. The effective date above reflects the current version.",
+          sortOrder: 5,
+        },
+        {
+          id: "cookie-contact",
+          heading: "Contact",
+          content:
+            "Questions about cookies on this website can be directed through the Contact page.",
+          sortOrder: 6,
+        },
+      ],
+      showInNavigation: false,
+      sortOrder: 4,
     },
   ]),
 

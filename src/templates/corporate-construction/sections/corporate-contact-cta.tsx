@@ -3,7 +3,7 @@ import type { TemplateRenderMode } from "@/registry/template-types";
 import type { Company } from "@/templates/shared/cms/types/company";
 import type { Contact } from "@/templates/shared/cms/types/contact";
 import { ContactForm } from "@/templates/shared/components/forms/contact-form";
-import { formatAddressInline } from "@/utils/format-address";
+import { resolveCorporateContact } from "@/templates/corporate-construction/utils/resolve-corporate-contact";
 
 type CorporateContactCtaProps = {
   company: Company;
@@ -16,17 +16,10 @@ export function CorporateContactCta({
   contact,
   mode,
 }: CorporateContactCtaProps) {
-  const phone = contact?.phone ?? company.phone;
-  const email = contact?.email ?? company.email;
-  const address = contact?.address ?? company.address;
-  const addressLine = address ? formatAddressInline(address) : null;
-  const form = contact?.form;
-  const hours = contact?.hours ?? [];
+  const resolved = resolveCorporateContact(company, contact);
+  const { phone, email, addressInline, hours, form, hasDetails, hasForm } = resolved;
 
-  const hasContactInfo = phone || email || addressLine || hours.length;
-  const hasForm = form?.enabled && form.fields.length;
-
-  if (!hasContactInfo && !hasForm) {
+  if (!hasDetails && !hasForm) {
     return null;
   }
 
@@ -55,7 +48,7 @@ export function CorporateContactCta({
               Share scope, schedule, and location details. Our preconstruction team routes
               inquiries to the appropriate estimator or operations lead.
             </p>
-            {hasContactInfo ? (
+            {hasDetails ? (
               <ul className="mt-8 space-y-4 border-t border-[var(--color-border)] pt-8 text-sm md:text-base">
                 {phone ? (
                   <li>
@@ -83,18 +76,18 @@ export function CorporateContactCta({
                     </a>
                   </li>
                 ) : null}
-                {addressLine ? (
+                {addressInline ? (
                   <li>
                     <span className="block text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text-muted)]">
                       Office
                     </span>
                     <span className="mt-1 block text-pretty break-words text-[var(--color-text)]">
-                      {addressLine}
+                      {addressInline}
                     </span>
                   </li>
                 ) : null}
                 {hours.map((entry) => (
-                  <li key={entry.days}>
+                  <li key={`${entry.days}-${entry.hours}`}>
                     <span className="block text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text-muted)]">
                       {entry.days}
                     </span>
@@ -115,7 +108,7 @@ export function CorporateContactCta({
             </p>
           </div>
 
-          {hasForm ? (
+          {hasForm && form ? (
             <div className="min-w-0 lg:col-span-7">
               <div className="border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-6 md:p-8 [&_button]:rounded-none [&_input]:rounded-none [&_select]:rounded-none [&_textarea]:rounded-none">
                 <ContactForm config={form} />

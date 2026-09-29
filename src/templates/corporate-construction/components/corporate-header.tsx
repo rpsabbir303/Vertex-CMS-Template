@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { TemplateRenderMode } from "@/registry/template-types";
 import type { CmsSitePayload } from "@/templates/shared/cms/types";
 import type { Company } from "@/templates/shared/cms/types/company";
+import type { Contact } from "@/templates/shared/cms/types/contact";
 import { MobileNav } from "@/templates/shared/layout/mobile-nav";
 import {
   isNavItemActive,
@@ -9,11 +10,13 @@ import {
 } from "@/templates/shared/navigation/resolve-navigation";
 import { ButtonLink } from "@/templates/shared/components/ui/button-link";
 import { CorporateUtilityBar } from "@/templates/corporate-construction/components/corporate-utility-bar";
+import { resolveCorporateContact } from "@/templates/corporate-construction/utils/resolve-corporate-contact";
 import { cn } from "@/utils/cn";
 
 type CorporateHeaderProps = {
   payload: CmsSitePayload;
   company: Company;
+  contact: Contact | null;
   currentPath?: string;
   mode: TemplateRenderMode;
 };
@@ -21,6 +24,7 @@ type CorporateHeaderProps = {
 export function CorporateHeader({
   payload,
   company,
+  contact,
   currentPath = "/",
   mode,
 }: CorporateHeaderProps) {
@@ -36,9 +40,11 @@ export function CorporateHeader({
   const isActive = (href: string) =>
     isNavItemActive(withPreview(href), resolvedPath);
 
+  const resolvedContact = resolveCorporateContact(company, contact);
+
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]">
-      <CorporateUtilityBar company={company} />
+      <CorporateUtilityBar contact={resolvedContact} />
 
       <div className="vertex-container flex items-center gap-4 py-4 lg:gap-6 lg:py-5">
         <Link

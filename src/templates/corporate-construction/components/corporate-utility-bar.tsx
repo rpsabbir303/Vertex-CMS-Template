@@ -1,14 +1,14 @@
-import type { Company } from "@/templates/shared/cms/types/company";
+import type { ResolvedCorporateContact } from "@/templates/corporate-construction/utils/resolve-corporate-contact";
 
 type CorporateUtilityBarProps = {
-  company: Company;
+  contact: ResolvedCorporateContact;
 };
 
-export function CorporateUtilityBar({ company }: CorporateUtilityBarProps) {
-  const phone = company.phone;
-  const email = company.email;
-  const locationHint = company.address
-    ? [company.address.city, company.address.region].filter(Boolean).join(", ")
+export function CorporateUtilityBar({ contact }: CorporateUtilityBarProps) {
+  const phone = contact.phone;
+  const email = contact.email;
+  const locationHint = contact.address
+    ? [contact.address.city, contact.address.region].filter(Boolean).join(", ")
     : null;
 
   if (!phone && !email && !locationHint) {

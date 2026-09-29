@@ -1,38 +1,33 @@
 import type { CmsImage } from "@/templates/shared/cms/types/media";
 import { CmsImageMedia } from "@/templates/shared/media/cms-image";
 
-export type CorporateContactHeroProps = {
+type SafetyHeroProps = {
   eyebrow?: string;
   title: string;
   description?: string;
   image?: CmsImage | null;
-  /** When true, primary CTA scrolls to the inquiry form on this page */
-  inquiryCta?: boolean;
 };
 
-const INQUIRY_TARGET = "contact-inquiry";
-
-export function CorporateContactHero({
-  eyebrow = "Contact",
+export function SafetyHero({
+  eyebrow = "Safety",
   title,
   description,
   image,
-  inquiryCta = false,
-}: CorporateContactHeroProps) {
+}: SafetyHeroProps) {
   const hasImage = Boolean(image?.url);
 
   return (
     <section
       className="border-b border-[var(--color-border)] bg-[var(--color-surface)]"
-      aria-labelledby="contact-page-hero-heading"
+      aria-labelledby="safety-hero-heading"
     >
-      <div className="vertex-container grid items-start gap-8 py-10 md:gap-10 md:py-12 lg:grid-cols-12 lg:gap-x-10 lg:py-14">
+      <div className="vertex-container grid items-start gap-8 py-12 md:gap-10 md:py-14 lg:grid-cols-12 lg:gap-x-10 lg:py-16">
         <div className="min-w-0 border-l-2 border-[var(--color-accent)] pl-5 md:pl-7 lg:col-span-5 lg:self-center">
           <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-secondary)]">
             {eyebrow}
           </p>
           <h1
-            id="contact-page-hero-heading"
+            id="safety-hero-heading"
             className="mt-3 max-w-xl text-balance break-words font-[family-name:var(--font-display)] text-[2.15rem] font-semibold leading-[1.08] text-[var(--color-primary)] md:text-5xl lg:text-[2.85rem]"
           >
             {title}
@@ -41,15 +36,6 @@ export function CorporateContactHero({
             <p className="mt-5 max-w-md text-pretty break-words text-base leading-relaxed text-[var(--color-text-muted)]">
               {description}
             </p>
-          ) : null}
-          {inquiryCta ? (
-            <a
-              href={`#${INQUIRY_TARGET}`}
-              className="mt-7 inline-flex min-h-11 items-center gap-2 bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white no-underline transition-colors hover:bg-[var(--color-accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] motion-reduce:transition-none"
-            >
-              Start an inquiry
-              <span aria-hidden>→</span>
-            </a>
           ) : null}
         </div>
 
@@ -66,7 +52,7 @@ export function CorporateContactHero({
             <CmsImageMedia
               image={image}
               aspect="hero"
-              className="w-full max-h-[18rem] md:max-h-[20rem] lg:max-h-[22rem]"
+              className="w-full"
               sizes="(max-width: 1024px) 100vw, 58vw"
               priority
             />
@@ -76,6 +62,3 @@ export function CorporateContactHero({
     </section>
   );
 }
-
-/** Anchor id for the inquiry block below the hero (set on the contact page section). */
-export const CONTACT_INQUIRY_SECTION_ID = INQUIRY_TARGET;

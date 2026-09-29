@@ -1,83 +1,91 @@
 import type { TemplatePageProps } from "@/registry/template-types";
-import { unwrapCollectionItems } from "@/templates/shared/cms/resolve-content";
-import { ProjectCardBase } from "@/templates/shared/components/cards/project-card-base";
-import { ButtonLink } from "@/templates/shared/components/ui/button-link";
+import {
+  getSortedCollectionItems,
+  unwrapEnvelope,
+} from "@/templates/shared/cms/resolve-content";
 import { CorporatePageFrame } from "@/templates/corporate-construction/components/corporate-page-frame";
-import { CorporatePageHero } from "@/templates/corporate-construction/components/corporate-page-hero";
+import { CorporateProjectsHero } from "@/templates/corporate-construction/components/corporate-projects-hero";
+import { ProjectsEditorialStories } from "@/templates/corporate-construction/components/projects-editorial-stories";
+import { ProjectsFeaturedStory } from "@/templates/corporate-construction/components/projects-featured-story";
+import { ProjectsIndex } from "@/templates/corporate-construction/components/projects-index";
+import {
+  planProjectsListing,
+  selectPrimaryProject,
+} from "@/templates/corporate-construction/components/projects-listing-plan";
+import { CorporateProjectsCta } from "@/templates/corporate-construction/sections/projects-cta";
 import { previewHref } from "@/templates/corporate-construction/utils/preview-href";
 
+const HERO_TITLE = "Selected work";
+const HERO_DESCRIPTION =
+  "Selected work across commercial, institutional, and complex occupied environments.";
+
 export function CorporateConstructionProjectsPage(props: TemplatePageProps) {
-  const projects = unwrapCollectionItems(props.payload.projects);
-  const featured = projects.find((project) => project.featured) ?? projects[0];
-  const rest = projects.filter((project) => project.id !== featured?.id);
+  const company = unwrapEnvelope(props.payload.company);
+  const projects = getSortedCollectionItems(props.payload.projects);
+  const { primary, rest, all } = selectPrimaryProject(projects);
+  const plan = planProjectsListing(rest, all.length);
+  const detailHref = (slug: string) => previewHref(props.mode, `/projects/${slug}`);
+
+  const heroImage = primary?.image ?? rest.find((p) => p.image?.url)?.image ?? null;
+
+  /** Absolute index map for consistent numbering across sections */
+  const indexById = new Map(all.map((project, index) => [project.id, index]));
+
+  const editorialOffset =
+    plan.editorial[0] && indexById.has(plan.editorial[0].id)
+      ? (indexById.get(plan.editorial[0].id) as number)
+      : primary
+        ? 1
+        : 0;
+
+  const indexOffset =
+    plan.indexProjects[0] && indexById.has(plan.indexProjects[0].id)
+      ? (indexById.get(plan.indexProjects[0].id) as number)
+      : 1;
 
   return (
     <CorporatePageFrame {...props}>
-      <CorporatePageHero
-        eyebrow="Projects"
-        title="Selected commercial and institutional work"
-        summary="A sample of buildings where phasing, occupancy, or site constraints shaped the delivery plan."
-        image={featured?.image}
+      <CorporateProjectsHero
+        title={HERO_TITLE}
+        description={HERO_DESCRIPTION}
+        image={heroImage}
+        projectCount={all.length || undefined}
       />
-      {!projects.length ? (
-        <section className="vertex-container py-20">
+
+      {!all.length ? (
+        <section className="vertex-container py-16 md:py-20">
           <p className="text-[var(--color-text-muted)]">No projects have been published yet.</p>
         </section>
-      ) : (
-        <section className="bg-[var(--color-surface-muted)]" aria-labelledby="project-index-heading">
-          <div className="vertex-container py-[var(--spacing-section-y-lg)]">
-            <h2 id="project-index-heading" className="sr-only">
-              Project index
-            </h2>
-            {featured ? (
-              <article className="grid gap-8 border-b border-[var(--color-border)] pb-14 lg:grid-cols-12">
-                <div className="min-w-0 lg:col-span-7">
-                  <ProjectCardBase
-                    project={featured}
-                    detailHref={previewHref(props.mode, `/projects/${featured.slug}`)}
-                    priorityImage
-                  />
-                </div>
-                <div className="flex min-w-0 flex-col justify-end lg:col-span-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-secondary)]">
-                    Featured
-                  </p>
-                  {featured.description ? (
-                    <p className="mt-4 text-pretty leading-relaxed text-[var(--color-text-muted)]">
-                      {featured.description.split(/\n\n+/)[0]}
-                    </p>
-                  ) : null}
-                  <ButtonLink
-                    href={previewHref(props.mode, `/projects/${featured.slug}`)}
-                    className="mt-6 self-start"
-                  >
-                    View project
-                  </ButtonLink>
-                </div>
-              </article>
-            ) : null}
-            {rest.length ? (
-              <ul className="mt-14 grid gap-12 md:grid-cols-2">
-                {rest.map((project) => (
-                  <li key={project.id}>
-                    <ProjectCardBase
-                      project={project}
-                      detailHref={previewHref(props.mode, `/projects/${project.slug}`)}
-                    />
-                    <ButtonLink
-                      href={previewHref(props.mode, `/projects/${project.slug}`)}
-                      variant="ghost"
-                      className="mt-4"
-                    >
-                      View project
-                    </ButtonLink>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-        </section>
-      )}
+      ) : null}
+
+      {primary ? (
+        <ProjectsFeaturedStory
+          project={primary}
+          index={indexById.get(primary.id) ?? 0}
+          detailHref={detailHref(primary.slug)}
+        />
+      ) : null}
+
+      {plan.editorial.length ? (
+        <ProjectsEditorialStories
+          projects={plan.editorial}
+          indexOffset={editorialOffset}
+          detailHref={detailHref}
+        />
+      ) : null}
+
+      {plan.showIndex && plan.indexProjects.length ? (
+        <ProjectsIndex
+          projects={plan.indexProjects}
+          indexOffset={indexOffset}
+          detailHref={detailHref}
+          dense={plan.denseIndex}
+        />
+      ) : null}
+
+      {all.length ? (
+        <CorporateProjectsCta mode={props.mode} companyName={company?.name} />
+      ) : null}
     </CorporatePageFrame>
   );
 }
