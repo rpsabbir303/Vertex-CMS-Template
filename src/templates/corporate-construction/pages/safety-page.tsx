@@ -70,7 +70,7 @@ export function CorporateConstructionSafetyPage({ page, ...props }: CorporateSaf
                     </div>
                   ) : null}
                   <div className="mt-8">
-                    <h3 className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[-0.03em] text-[var(--color-primary)]">
+                    <h3 className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[-0.03em] text-[var(--color-text)]">
                       {practice.title}
                     </h3>
                     {practice.description ? <p className={cn(ui.small, "mt-3")}>{practice.description}</p> : null}
@@ -94,7 +94,7 @@ export function CorporateConstructionSafetyPage({ page, ...props }: CorporateSaf
             <ul className={cn("divide-y border-t lg:col-span-8", ui.rule)}>
               {content.records.map((record) => (
                 <li key={record.id} className="grid gap-2 py-5 sm:grid-cols-[1fr_auto] sm:items-baseline">
-                  <p className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[-0.03em] text-[var(--color-primary)]">
+                  <p className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[-0.03em] text-[var(--color-text)]">
                     {record.name}
                   </p>
                   <p className={cn(ui.mono, "text-[var(--color-text-muted)]")}>
@@ -108,7 +108,7 @@ export function CorporateConstructionSafetyPage({ page, ...props }: CorporateSaf
       ) : null}
 
       {content.commitmentHeading ? (
-        <section className="relative overflow-hidden bg-[#070c16] text-white" aria-labelledby="commitment-heading">
+        <section className="relative overflow-hidden bg-[var(--cc-ink)] text-white" aria-labelledby="commitment-heading">
           <ArchitecturalGrid tone="dark" className="absolute inset-0" />
           <div className="vertex-container relative py-28 md:py-40">
             <p className={ui.eyebrow}>Commitment</p>

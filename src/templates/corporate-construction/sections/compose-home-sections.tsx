@@ -16,7 +16,6 @@ import { CorporateContactCta } from "./corporate-contact-cta";
 import { CorporateHero } from "./corporate-hero";
 import { CorporateInsideWork } from "./corporate-inside-work";
 import { CorporateCredentials, uniqueSectors } from "./corporate-home-metrics";
-import { CorporateLeadership } from "./corporate-leadership";
 import { CorporateProjects, selectLeadProject } from "./corporate-projects";
 import { CorporateProjectStories } from "./corporate-project-stories";
 import { CorporateProofStrip } from "./corporate-proof-strip";
@@ -46,7 +45,6 @@ export function composeCorporateHomeSections(
   const servicesCopy = unwrapEnvelope(payload.services)?.section;
   const allProjects = getSortedCollectionItems(payload.projects);
   const featuredProjects = allProjects.filter((p) => p.featured);
-  const team = getSortedCollectionItems(payload.team);
   const testimonials = getSortedCollectionItems(payload.testimonials);
   const certifications = unwrapCollectionItems(payload.certifications);
 
@@ -128,10 +126,7 @@ export function composeCorporateHomeSections(
     "home-metrics": (
       <CorporateCredentials key="credentials" certifications={certifications} projects={allProjects} />
     ),
-    team:
-      hasOptionalSection(payload.team) && team.length ? (
-        <CorporateLeadership key="leadership" company={company} mode={mode} team={team} />
-      ) : null,
+    team: null,
     testimonials:
       hasOptionalSection(payload.testimonials) && testimonials.length ? (
         <CorporateTestimonials key="testimonials" testimonials={testimonials} />

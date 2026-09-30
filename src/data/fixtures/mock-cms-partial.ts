@@ -17,5 +17,6 @@ export const mockCmsSitePayloadPartial: CmsSitePayload = {
   projects: createEnvelope({ items: [] }, { state: "no-data", source: "none" }),
   team: createEnvelope({ items: [] }, { state: "no-data", source: "none" }),
   testimonials: createEnvelope({ items: [] }, { state: "no-data", source: "none" }),
+  blog: createEnvelope({ items: [] }, { state: "no-data", source: "none" }),
   certifications: createEnvelope({ items: [] }, { state: "no-data", source: "none" }),
 };

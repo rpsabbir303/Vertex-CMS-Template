@@ -43,7 +43,7 @@ export function ProjectsLedger({ projects, mode }: ProjectsLedgerProps) {
                     <span
                       className={cn(
                         "block truncate font-[family-name:var(--font-display)] text-[clamp(1.375rem,2.4vw,2.5rem)] font-semibold leading-none tracking-[-0.03em] transition-colors motion-reduce:transition-none",
-                        isActive ? "text-[var(--color-primary)]" : "text-[var(--color-primary)]/60 group-hover:text-[var(--color-primary)]",
+                        isActive ? "text-[var(--color-text)]" : "text-[var(--color-text)]/60 group-hover:text-[var(--color-text)]",
                       )}
                     >
                       {project.title}
@@ -55,7 +55,7 @@ export function ProjectsLedger({ projects, mode }: ProjectsLedgerProps) {
                     aria-hidden
                     className={cn(
                       "hidden h-10 w-10 items-center justify-center justify-self-end rounded-full border transition-colors motion-reduce:transition-none md:flex",
-                      isActive ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-white" : "border-[var(--color-primary)]/15 text-[var(--color-primary)]/50",
+                      isActive ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-white" : "border-[var(--color-primary)]/15 text-[var(--color-text)]/50",
                     )}
                   >
                     →

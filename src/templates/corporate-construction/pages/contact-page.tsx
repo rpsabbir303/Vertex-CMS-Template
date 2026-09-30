@@ -42,7 +42,7 @@ export function CorporateConstructionContactPage(props: TemplatePageProps) {
                       <dd>
                         <a
                           href={`tel:${contact.phone.replace(/\s/g, "")}`}
-                          className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[-0.03em] text-[var(--color-primary)] hover:text-[var(--color-accent)]"
+                          className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[-0.03em] text-[var(--color-text)] hover:text-[var(--color-accent)]"
                         >
                           {contact.phone}
                         </a>
@@ -55,7 +55,7 @@ export function CorporateConstructionContactPage(props: TemplatePageProps) {
                       <dd className="min-w-0">
                         <a
                           href={`mailto:${contact.email}`}
-                          className="break-all font-[family-name:var(--font-display)] text-xl font-semibold tracking-[-0.02em] text-[var(--color-primary)] hover:text-[var(--color-accent)]"
+                          className="break-all font-[family-name:var(--font-display)] text-xl font-semibold tracking-[-0.02em] text-[var(--color-text)] hover:text-[var(--color-accent)]"
                         >
                           {contact.email}
                         </a>
@@ -65,7 +65,7 @@ export function CorporateConstructionContactPage(props: TemplatePageProps) {
                   {contact.addressBlock ? (
                     <div className="grid grid-cols-[6rem_1fr] gap-4 py-5">
                       <dt className={cn(ui.mono, "text-[var(--color-text-muted)]")}>Office</dt>
-                      <dd className="whitespace-pre-line text-base leading-relaxed text-[var(--color-primary)]">
+                      <dd className="whitespace-pre-line text-base leading-relaxed text-[var(--color-text)]">
                         {contact.addressBlock}
                       </dd>
                     </div>
@@ -74,7 +74,7 @@ export function CorporateConstructionContactPage(props: TemplatePageProps) {
                     <div className="grid grid-cols-[6rem_1fr] gap-4 py-5">
                       <dt className={cn(ui.mono, "text-[var(--color-text-muted)]")}>Hours</dt>
                       <dd>
-                        <ul className="space-y-1 text-base leading-relaxed text-[var(--color-primary)]">
+                        <ul className="space-y-1 text-base leading-relaxed text-[var(--color-text)]">
                           {contact.hours.map((h) => (
                             <li key={h.days} className="flex justify-between gap-6">
                               <span>{h.days}</span>

@@ -7,6 +7,8 @@ export type PageSlug =
   | "projects"
   | "project-detail"
   | "team"
+  | "blog"
+  | "blog-post"
   | "contact";
 
 /** Repeatable practice/process items for structured optional pages (e.g. Safety). */

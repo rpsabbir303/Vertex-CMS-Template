@@ -51,7 +51,7 @@ export function CorporateHeader({ payload, company, currentPath = "/", mode }: C
         className={cn(
           "mx-auto flex max-w-[var(--spacing-container-max)] items-center gap-4 rounded-full border px-3 py-2 transition-[background-color,border-color,box-shadow] duration-300 motion-reduce:transition-none md:px-4",
           scrolled
-            ? "border-[var(--color-primary)]/10 bg-white/85 shadow-[0_8px_30px_-12px_rgba(10,18,32,0.25)] backdrop-blur-xl"
+            ? "border-[var(--color-border)] bg-white/85 shadow-[0_8px_30px_-12px_rgba(17,17,17,0.12)] backdrop-blur-xl"
             : "border-transparent bg-white/60 backdrop-blur-md",
         )}
       >
@@ -72,7 +72,7 @@ export function CorporateHeader({ payload, company, currentPath = "/", mode }: C
           ) : (
             <span className="h-8 w-8 shrink-0 rounded-md bg-[var(--color-primary)]" aria-hidden />
           )}
-          <span className="hidden min-w-0 truncate font-[family-name:var(--font-display)] text-[0.9375rem] font-semibold tracking-[-0.02em] text-[var(--color-primary)] sm:block">
+          <span className="hidden min-w-0 truncate font-[family-name:var(--font-display)] text-[0.9375rem] font-semibold tracking-[-0.02em] text-[var(--color-text)] sm:block">
             {company.name}
           </span>
         </Link>
@@ -85,8 +85,8 @@ export function CorporateHeader({ payload, company, currentPath = "/", mode }: C
               className={cn(
                 "relative inline-flex min-h-10 items-center rounded-full px-3.5 text-[0.8125rem] font-medium transition-colors motion-reduce:transition-none",
                 isActive(item.href)
-                  ? "bg-[var(--color-primary)]/[0.06] text-[var(--color-primary)]"
-                  : "text-[var(--color-text-muted)] hover:bg-[var(--color-primary)]/[0.05] hover:text-[var(--color-primary)]",
+                  ? "bg-[var(--color-primary)]/[0.06] text-[var(--color-text)]"
+                  : "text-[var(--color-text-muted)] hover:bg-[var(--color-primary)]/[0.05] hover:text-[var(--color-text)]",
               )}
               aria-current={isActive(item.href) ? "page" : undefined}
             >
@@ -107,7 +107,7 @@ export function CorporateHeader({ payload, company, currentPath = "/", mode }: C
             currentPath={resolvedPath}
             ctaHref={withPreview("/contact")}
             ctaLabel="Start a project"
-            buttonClassName="rounded-full border-[var(--color-primary)]/15"
+            buttonClassName="rounded-full border-[var(--color-border)]"
           />
         </div>
       </div>

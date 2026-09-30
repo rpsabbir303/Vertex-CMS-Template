@@ -8,6 +8,7 @@ export const mockCmsSitePayloadEmpty: CmsSitePayload = {
   projects: { data: null, meta: noDataMeta },
   team: { data: null, meta: noDataMeta },
   testimonials: { data: null, meta: noDataMeta },
+  blog: { data: null, meta: noDataMeta },
   certifications: { data: null, meta: noDataMeta },
   contact: { data: null, meta: noDataMeta },
   optionalPages: { data: [], meta: noDataMeta },

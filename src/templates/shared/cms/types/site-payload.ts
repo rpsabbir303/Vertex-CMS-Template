@@ -1,3 +1,4 @@
+import type { BlogCollection } from "./blog";
 import type { CmsEnvelope } from "./cms-state";
 import type { CertificationsCollection } from "./certifications";
 import type { Company } from "./company";
@@ -15,6 +16,8 @@ export type CmsSitePayload = {
   projects: CmsEnvelope<ProjectsCollection>;
   team: CmsEnvelope<TeamCollection>;
   testimonials: CmsEnvelope<TestimonialsCollection>;
+  /** Optional editorial posts; templates hide blog surfaces when absent. */
+  blog?: CmsEnvelope<BlogCollection>;
   certifications: CmsEnvelope<CertificationsCollection>;
   contact: CmsEnvelope<Contact>;
   optionalPages: CmsEnvelope<OptionalPage[]>;

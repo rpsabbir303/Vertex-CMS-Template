@@ -5,7 +5,9 @@ import { CorporatePageFrame } from "@/templates/corporate-construction/component
 import { ArchitecturalGrid } from "@/templates/corporate-construction/components/ui/architectural-grid";
 import { CtaBand } from "@/templates/corporate-construction/components/ui/cta-band";
 import { Reveal } from "@/templates/corporate-construction/components/ui/reveal";
+import { ProjectBeforeAfterBlock } from "@/templates/corporate-construction/components/project-before-after-block";
 import { splitParagraphs } from "@/templates/corporate-construction/utils/page-seo";
+import { projectHasBeforeAfter } from "@/templates/corporate-construction/utils/project-filters";
 import { previewHref } from "@/templates/corporate-construction/utils/preview-href";
 import { pad, ui } from "@/templates/corporate-construction/theme/ui";
 import { cn } from "@/utils/cn";
@@ -51,7 +53,7 @@ export function CorporateConstructionProjectDetailPage(props: TemplatePageProps)
         <ArchitecturalGrid className="absolute inset-x-0 top-0 h-[36rem]" />
         <div className="vertex-container relative pt-36 md:pt-44">
           <p className={cn(ui.mono, "cc-rise flex flex-wrap items-center gap-x-4 gap-y-2 text-[var(--color-text-muted)]")}>
-            <a href={previewHref(props.mode, "/projects")} className="hover:text-[var(--color-primary)]">
+            <a href={previewHref(props.mode, "/projects")} className="hover:text-[var(--color-text)]">
               Projects
             </a>
             <span aria-hidden>/</span>
@@ -69,7 +71,7 @@ export function CorporateConstructionProjectDetailPage(props: TemplatePageProps)
                 {facts.map(([label, value]) => (
                   <div key={label} className={cn("border-t pt-3", ui.rule)}>
                     <dt className={cn(ui.mono, "text-[var(--color-text-muted)]")}>{label}</dt>
-                    <dd className="mt-1.5 text-sm font-medium text-[var(--color-primary)]">{value}</dd>
+                    <dd className="mt-1.5 text-sm font-medium text-[var(--color-text)]">{value}</dd>
                   </div>
                 ))}
               </dl>
@@ -95,7 +97,7 @@ export function CorporateConstructionProjectDetailPage(props: TemplatePageProps)
               </p>
             </div>
             <Reveal className="lg:col-span-7">
-              <p className="max-w-3xl text-balance font-[family-name:var(--font-display)] text-[clamp(1.5rem,2.6vw,2.5rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[var(--color-primary)]">
+              <p className="max-w-3xl text-balance font-[family-name:var(--font-display)] text-[clamp(1.5rem,2.6vw,2.5rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[var(--color-text)]">
                 {narrative[0]}
               </p>
               {narrative.length > 1 ? (
@@ -108,6 +110,14 @@ export function CorporateConstructionProjectDetailPage(props: TemplatePageProps)
                 </div>
               ) : null}
             </Reveal>
+          </div>
+        </section>
+      ) : null}
+
+      {projectHasBeforeAfter(project) ? (
+        <section className="bg-[var(--color-surface-muted)]" aria-labelledby="project-before-after-heading">
+          <div className="vertex-container py-20 md:py-28">
+            <ProjectBeforeAfterBlock project={project} headingId="project-before-after-heading" />
           </div>
         </section>
       ) : null}

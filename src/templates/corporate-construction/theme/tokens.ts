@@ -1,4 +1,5 @@
 import { sharedThemeDefaults } from "@/templates/shared/theme/base-tokens";
+
 import type { TemplateThemeTokens } from "@/templates/shared/theme/types";
 
 /** Corporate Construction — product-grade, modern, construction-first */
@@ -8,22 +9,23 @@ export const corporateConstructionTheme: TemplateThemeTokens = {
   cssVariables: {
     ...sharedThemeDefaults,
     "--vertex-font-display":
-      "var(--font-display-corporate, \"Inter Tight\", ui-sans-serif, system-ui, sans-serif)",
-    "--vertex-font-body": "var(--font-body-corporate, \"Inter\", ui-sans-serif, system-ui, sans-serif)",
-    "--vertex-font-mono": "var(--font-mono-corporate, \"IBM Plex Mono\", ui-monospace, monospace)",
-    "--vertex-primary": "#0A1220",
-    "--vertex-primary-hover": "#141F33",
-    "--vertex-secondary": "#3B4B63",
-    "--vertex-secondary-hover": "#2A3648",
-    "--vertex-accent": "#E8590C",
-    "--vertex-accent-hover": "#C64A08",
-    "--vertex-accent-muted": "#FDEBDF",
+      'var(--font-display-corporate, "Inter Tight", ui-sans-serif, system-ui, sans-serif)',
+    "--vertex-font-body": 'var(--font-body-corporate, "Inter", ui-sans-serif, system-ui, sans-serif)',
+    "--vertex-font-mono": 'var(--font-mono-corporate, "IBM Plex Mono", ui-monospace, monospace)',
+    "--vertex-primary": "#294A3D",
+    "--vertex-primary-hover": "#1F352C",
+    "--vertex-secondary": "#3A5549",
+    "--vertex-secondary-hover": "#294A3D",
+    "--vertex-accent": "#294A3D",
+    "--vertex-accent-hover": "#1F352C",
+    "--vertex-accent-muted": "#E8EBE6",
     "--vertex-surface": "#FFFFFF",
-    "--vertex-surface-muted": "#F4F3EF",
-    "--vertex-text": "#0A1220",
-    "--vertex-text-muted": "#5B6472",
-    "--vertex-border": "#E3E2DC",
+    "--vertex-surface-muted": "#F3F0E8",
+    "--vertex-text": "#111111",
+    "--vertex-text-muted": "#4A4A45",
+    "--vertex-border": "#D8D6CF",
     "--vertex-text-inverse": "#FFFFFF",
+    "--vertex-focus": "#294A3D",
     "--vertex-section-y": "6rem",
     "--vertex-section-y-lg": "9rem",
     "--vertex-container-max": "84rem",

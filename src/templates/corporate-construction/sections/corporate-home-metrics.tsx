@@ -40,7 +40,7 @@ export function CorporateCredentials({ certifications, projects }: CorporateCred
               <p className={cn(ui.mono, "text-[var(--color-text-muted)]")}>Sectors served</p>
               <ul className={cn("mt-4 divide-y", ui.rule)}>
                 {sectors.map((s) => (
-                  <li key={s} className="py-3 font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[-0.03em] text-[var(--color-primary)]">
+                  <li key={s} className="py-3 font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[-0.03em] text-[var(--color-text)]">
                     {s}
                   </li>
                 ))}
@@ -54,7 +54,7 @@ export function CorporateCredentials({ certifications, projects }: CorporateCred
               <ul className={cn("mt-4 divide-y", ui.rule)}>
                 {certifications.map((c) => (
                   <li key={c.id} className="py-3">
-                    <p className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[-0.03em] text-[var(--color-primary)]">
+                    <p className="font-[family-name:var(--font-display)] text-2xl font-semibold tracking-[-0.03em] text-[var(--color-text)]">
                       {c.name}
                     </p>
                     {c.issuer || c.year ? (

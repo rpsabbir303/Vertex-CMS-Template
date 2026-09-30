@@ -1,9 +1,10 @@
 /* Corporate Construction — template-scoped motion and texture */
 
 .corporate-root {
-  --cc-ink: #0a1220;
-  --cc-bone: #f4f3ef;
-  --cc-orange: #e8590c;
+  /* Dark band colour for footer / field sections (deep brand green). */
+  --cc-ink: #1f352c;
+  --cc-bone: #f3f0e8;
+  --cc-orange: #294a3d;
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
 }
@@ -64,16 +65,73 @@
   to { opacity: 1; transform: none; }
 }
 
+/* Project showcase: slow push-in on the active frame, per-slide progress, copy swap */
+.cc-kenburns {
+  animation: cc-kenburns var(--cc-slide-ms, 6500ms) linear both;
+}
+@keyframes cc-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+.cc-progress {
+  transform-origin: left center;
+  animation: cc-progress var(--cc-slide-ms, 6500ms) linear both;
+}
+@keyframes cc-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.cc-fade {
+  animation: cc-fade 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes cc-fade {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: none; }
+}
+.is-paused .cc-kenburns,
+.is-paused .cc-progress {
+  animation-play-state: paused;
+}
+
+/* Perspective ticker: continuous vertical scroll of quotes */
+.cc-ticker {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+}
+.cc-ticker-track {
+  animation: cc-ticker 36s linear infinite;
+}
+.cc-ticker:hover .cc-ticker-track,
+.cc-ticker:focus-within .cc-ticker-track {
+  animation-play-state: paused;
+}
+@keyframes cc-ticker {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cc-reveal,
   .cc-plate img,
-  .cc-rise {
+  .cc-rise,
+  .cc-fade {
     opacity: 1;
     transform: none;
     transition: none;
     animation: none;
   }
-  .cc-marquee-track {
+  .cc-marquee-track,
+  .cc-ticker-track,
+  .cc-kenburns {
     animation: none;
+  }
+  .cc-progress {
+    animation: none;
+    transform: scaleX(1);
+  }
+  .cc-ticker {
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }

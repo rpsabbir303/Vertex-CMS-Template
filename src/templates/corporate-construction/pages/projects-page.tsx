@@ -1,17 +1,14 @@
 import type { TemplatePageProps } from "@/registry/template-types";
 import { getSortedCollectionItems, unwrapEnvelope } from "@/templates/shared/cms/resolve-content";
 import { CorporatePageFrame } from "@/templates/corporate-construction/components/corporate-page-frame";
-import { ProjectsLedger } from "@/templates/corporate-construction/components/projects-ledger";
+import { CorporateProjectsPageBody } from "@/templates/corporate-construction/components/corporate-projects-page-body";
 import { CtaBand } from "@/templates/corporate-construction/components/ui/cta-band";
 import { PageIntro } from "@/templates/corporate-construction/components/ui/page-intro";
 import { uniqueSectors } from "@/templates/corporate-construction/sections/corporate-home-metrics";
-import { CorporateProjectStories } from "@/templates/corporate-construction/sections/corporate-project-stories";
-import { pageSeoDescription } from "@/templates/corporate-construction/utils/page-seo";
 
 export function CorporateConstructionProjectsPage(props: TemplatePageProps) {
   const company = unwrapEnvelope(props.payload.company);
   const projects = getSortedCollectionItems(props.payload.projects);
-  const featured = projects.filter((p) => p.featured);
   const sectors = uniqueSectors(projects);
 
   const meta = [
@@ -19,14 +16,12 @@ export function CorporateConstructionProjectsPage(props: TemplatePageProps) {
     ...sectors,
   ].filter((v): v is string => Boolean(v));
 
+  const lead =
+    "A collection of commercial and residential work delivered through careful planning, coordination and execution.";
+
   return (
     <CorporatePageFrame {...props}>
-      <PageIntro
-        eyebrow="Projects"
-        title="The work, on record."
-        lead={pageSeoDescription(props.payload, "projects")}
-        meta={meta}
-      />
+      <PageIntro eyebrow="Selected work" title="Projects built to perform." lead={lead} meta={meta} />
 
       {!projects.length ? (
         <section className="vertex-container py-16 md:py-20">
@@ -34,11 +29,7 @@ export function CorporateConstructionProjectsPage(props: TemplatePageProps) {
         </section>
       ) : null}
 
-      {projects.length ? <ProjectsLedger projects={projects} mode={props.mode} /> : null}
-
-      {featured.length ? (
-        <CorporateProjectStories projects={featured} startIndex={1} total={featured.length} mode={props.mode} />
-      ) : null}
+      {projects.length ? <CorporateProjectsPageBody projects={projects} mode={props.mode} /> : null}
 
       {projects.length ? (
         <CtaBand

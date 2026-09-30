@@ -77,7 +77,7 @@ export const mockCmsSitePayload: CmsSitePayload = {
         summary: "Estimating and constructability joined to design before documents are frozen.",
         description:
           "Design-build teams bring pricing, phasing, and system choices forward so the documents reflect how the building will actually be built on an occupied or constrained site.",
-        image: demoMedia.crane,
+        image: demoMedia.towers,
         sortOrder: 2,
       },
       {
@@ -87,7 +87,7 @@ export const mockCmsSitePayload: CmsSitePayload = {
         summary: "Budgets, schedules, and logistics before mobilization.",
         description:
           "Preconstruction covers conceptual estimates, milestone schedules, long-lead review, and site logistics so the owner can decide scope before the field starts.",
-        image: demoMedia.concrete,
+        image: demoMedia.plans,
         sortOrder: 3,
       },
       {
@@ -107,7 +107,7 @@ export const mockCmsSitePayload: CmsSitePayload = {
         summary: "Phased interior and envelope work in buildings that stay open.",
         description:
           "Renovation teams sequence noisy and disruptive work around occupants, with temporary protection, after-hours windows, and clear handoffs between phases.",
-        image: demoMedia.interior,
+        image: demoMedia.renovation,
         sortOrder: 5,
       },
       {
@@ -117,7 +117,7 @@ export const mockCmsSitePayload: CmsSitePayload = {
         summary: "Healthcare and education projects with phased occupancy.",
         description:
           "Institutional projects coordinate infection-control or campus constraints, owner user groups, and inspections without treating the building as an empty site.",
-        image: demoMedia.healthcare,
+        image: demoMedia.education,
         sortOrder: 6,
       },
     ],
@@ -144,10 +144,14 @@ export const mockCmsSitePayload: CmsSitePayload = {
         location: "Milwaukee, WI",
         year: 2024,
         featured: true,
+        beforeImage: demoMedia.renovation,
+        afterImage: demoMedia.healthcare,
         metadata: {
           sector: "Healthcare",
           scope: "Core and shell with phased interior build-out",
           duration: "22 months",
+          status: "ongoing",
+          buildingType: "commercial",
         },
         sortOrder: 1,
       },
@@ -169,10 +173,14 @@ export const mockCmsSitePayload: CmsSitePayload = {
         location: "Indianapolis, IN",
         year: 2023,
         featured: true,
+        beforeImage: demoMedia.concrete,
+        afterImage: demoMedia.industrial,
         metadata: {
           sector: "Industrial",
           scope: "Ground-up building and site work",
           duration: "14 months",
+          status: "completed",
+          buildingType: "commercial",
         },
         sortOrder: 2,
       },
@@ -187,10 +195,14 @@ export const mockCmsSitePayload: CmsSitePayload = {
         location: "Madison, WI",
         year: 2023,
         featured: true,
+        beforeImage: demoMedia.renovation,
+        afterImage: demoMedia.education,
         metadata: {
           sector: "Education",
           scope: "Interior renovation",
           duration: "11 months",
+          status: "completed",
+          buildingType: "commercial",
         },
         sortOrder: 3,
       },
@@ -215,6 +227,8 @@ export const mockCmsSitePayload: CmsSitePayload = {
         metadata: {
           sector: "Workplace",
           scope: "Base building and tenant interiors",
+          status: "completed",
+          buildingType: "commercial",
         },
         sortOrder: 4,
       },
@@ -268,6 +282,77 @@ export const mockCmsSitePayload: CmsSitePayload = {
         personRole: "Facilities lead",
         companyName: "Sample owner organization",
         sortOrder: 1,
+      },
+      {
+        id: "tst_sample_2",
+        quote:
+          "Sample client note: the preconstruction team flagged long-lead switchgear early enough that our opening date never moved. This quote is fictional demonstration copy, not a verified endorsement.",
+        personName: "Sample campus planner",
+        personRole: "Director of Capital Projects",
+        companyName: "Sample university",
+        sortOrder: 2,
+      },
+      {
+        id: "tst_sample_3",
+        quote:
+          "Sample client note: the superintendent walked our clinical staff through each phase before it started, so operations were never surprised. This quote is fictional demonstration copy, not a verified endorsement.",
+        personName: "Sample operations lead",
+        personRole: "Vice President, Facilities",
+        companyName: "Sample health system",
+        sortOrder: 3,
+      },
+    ],
+  }),
+
+  blog: createEnvelope({
+    items: [
+      {
+        id: "post_phasing",
+        title: "Phasing an occupied hospital addition without closing the front door",
+        slug: "phasing-occupied-hospital-addition",
+        excerpt:
+          "How the Lakeshore team split structural, envelope, and interior work into three occupancy phases while the existing entries stayed open.",
+        body:
+          "Additions to working hospitals are planned backwards from what cannot stop: patient access, emergency routes, and clinical schedules. On Lakeshore, the team mapped those constraints first and then built the construction sequence around them.\n\n" +
+          "Structural steel went up beside the existing entry with a protected walkway and after-hours deliveries. The envelope followed in a second window, and interior build-out was released floor by floor so inspections never overlapped with active clinic days.\n\n" +
+          "The lesson is simple to state and hard to do: publish the phase plan to the owner's operations staff before mobilization, then hold every trade to it in the weekly look-ahead.",
+        image: demoMedia.healthcare,
+        category: "Field notes",
+        author: "Marcus Ellison",
+        publishedAt: "2026-08-18",
+        sortOrder: 1,
+      },
+      {
+        id: "post_longlead",
+        title: "What long-lead review actually covers in preconstruction",
+        slug: "long-lead-review-preconstruction",
+        excerpt:
+          "Switchgear, elevators, curtain wall, and lab casework decide the schedule long before the slab is poured. Here is how we review them.",
+        body:
+          "Long-lead review is a preconstruction checklist that asks one question of every major system: when does this have to be ordered for the schedule to hold?\n\n" +
+          "For most commercial work the answer is driven by electrical switchgear, elevators, exterior enclosure, and any owner-furnished equipment. Each gets a release date, a fallback product, and a named decision owner.\n\n" +
+          "When the answer lands before design documents are frozen, the owner can trade scope for schedule with real numbers instead of guesses.",
+        image: demoMedia.plans,
+        category: "Preconstruction",
+        author: "Priya Shah",
+        publishedAt: "2026-07-02",
+        sortOrder: 2,
+      },
+      {
+        id: "post_lookahead",
+        title: "The weekly look-ahead: one page that keeps a site honest",
+        slug: "weekly-look-ahead",
+        excerpt:
+          "A superintendent's three-week look-ahead is the most useful document on any of our jobs. This is what goes on it.",
+        body:
+          "Every Alden superintendent publishes a three-week look-ahead each Monday. It lists the trades on site, the deliveries expected, the inspections scheduled, and the temporary controls that change that week.\n\n" +
+          "The look-ahead is reviewed with trade foremen and shared with the owner's facilities contact. When it is accurate, coordination problems show up on paper before they show up on the floor.\n\n" +
+          "It is also the record we return to when the schedule is questioned. What was planned, what moved, and why is written down every week.",
+        image: demoMedia.worker,
+        category: "Field notes",
+        author: "Jordan Hale",
+        publishedAt: "2026-05-21",
+        sortOrder: 3,
       },
     ],
   }),
@@ -595,7 +680,7 @@ export const mockCmsSitePayload: CmsSitePayload = {
     { label: "About", href: "/about", pageSlug: "about" },
     { label: "Services", href: "/services", pageSlug: "services" },
     { label: "Projects", href: "/projects", pageSlug: "projects" },
-    { label: "Team", href: "/team", pageSlug: "team" },
+    { label: "Blog", href: "/blog", pageSlug: "blog" },
     { label: "Contact", href: "/contact", pageSlug: "contact" },
     { label: "Safety", href: "/safety", pageSlug: "safety" },
   ]),
@@ -632,9 +717,9 @@ export const mockCmsSitePayload: CmsSitePayload = {
       description: "Selected commercial, healthcare, education, and industrial projects.",
     },
     {
-      pageSlug: "team",
-      title: "Team",
-      description: "Leadership for preconstruction, field operations, and project controls.",
+      pageSlug: "blog",
+      title: "Blog",
+      description: "Field notes and preconstruction insight from Alden Commercial Builders.",
     },
     {
       pageSlug: "contact",

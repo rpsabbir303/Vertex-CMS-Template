@@ -27,6 +27,10 @@ export function resolvePublicPath(segments?: string[]): ResolvedPublicPath | nul
         : { page: "projects", path: "/projects" };
     case "team":
       return second ? null : { page: "team", path: "/team" };
+    case "blog":
+      return second
+        ? { page: "blog-post", entitySlug: second, path: `/blog/${second}` }
+        : { page: "blog", path: "/blog" };
     case "contact":
       return second ? null : { page: "contact", path: "/contact" };
     default:

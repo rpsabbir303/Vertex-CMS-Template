@@ -5,6 +5,7 @@ export * from "./services";
 export * from "./projects";
 export * from "./team";
 export * from "./testimonials";
+export * from "./blog";
 export * from "./certifications";
 export * from "./contact";
 export * from "./pages";

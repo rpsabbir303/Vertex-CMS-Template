@@ -7,13 +7,14 @@ import { projectPortfolioTheme } from "@/templates/project-portfolio/theme/token
 import { specialtyContractorTheme } from "@/templates/specialty-contractor/theme/tokens";
 import { corporateHomeSectionOrder } from "@/templates/corporate-construction/config/home-sections";
 import { CorporateConstructionAboutPage } from "@/templates/corporate-construction/pages/about-page";
+import { CorporateConstructionBlogPage } from "@/templates/corporate-construction/pages/blog-page";
+import { CorporateConstructionBlogPostPage } from "@/templates/corporate-construction/pages/blog-post-page";
 import { CorporateConstructionContactPage } from "@/templates/corporate-construction/pages/contact-page";
 import { CorporateConstructionHomePage } from "@/templates/corporate-construction/pages/home-page";
 import { CorporateConstructionOptionalPage } from "@/templates/corporate-construction/pages/optional-page";
 import { CorporateConstructionProjectDetailPage } from "@/templates/corporate-construction/pages/project-detail-page";
 import { CorporateConstructionProjectsPage } from "@/templates/corporate-construction/pages/projects-page";
 import { CorporateConstructionServicesPage } from "@/templates/corporate-construction/pages/services-page";
-import { CorporateConstructionTeamPage } from "@/templates/corporate-construction/pages/team-page";
 import type { TemplateDefinition } from "./template-types";
 
 const registry: TemplateDefinition[] = [
@@ -35,7 +36,6 @@ const registry: TemplateDefinition[] = [
       "home-craftsmanship",
       "featured-projects",
       "project-stories",
-      "team",
       "testimonials",
       "contact-cta",
     ],
@@ -46,7 +46,8 @@ const registry: TemplateDefinition[] = [
       services: CorporateConstructionServicesPage,
       projects: CorporateConstructionProjectsPage,
       "project-detail": CorporateConstructionProjectDetailPage,
-      team: CorporateConstructionTeamPage,
+      blog: CorporateConstructionBlogPage,
+      "blog-post": CorporateConstructionBlogPostPage,
       contact: CorporateConstructionContactPage,
     },
     optionalPage: CorporateConstructionOptionalPage,

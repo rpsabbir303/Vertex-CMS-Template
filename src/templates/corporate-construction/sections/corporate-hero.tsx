@@ -50,7 +50,7 @@ export function CorporateHero({ company, mode, meta = [], marquee = [] }: Corpor
         ) : null}
 
         <h1
-          className="cc-rise mt-8 max-w-[15ch] text-balance font-[family-name:var(--font-display)] text-[clamp(2.875rem,6.6vw,7rem)] font-semibold leading-[0.9] tracking-[-0.05em] text-[var(--color-primary)]"
+          className="cc-rise mt-8 max-w-[15ch] text-balance font-[family-name:var(--font-display)] text-[clamp(2.875rem,6.6vw,7rem)] font-semibold leading-[0.9] tracking-[-0.05em] text-[var(--color-text)]"
           data-delay="1"
         >
           {headline}
@@ -83,7 +83,7 @@ export function CorporateHero({ company, mode, meta = [], marquee = [] }: Corpor
               <p
                 className={cn(
                   ui.mono,
-                  "absolute bottom-4 left-4 rounded-full bg-white/85 px-3 py-1.5 text-[var(--color-primary)] backdrop-blur md:bottom-6 md:left-6",
+                  "absolute bottom-4 left-4 rounded-full bg-white/85 px-3 py-1.5 text-[var(--color-text)] backdrop-blur md:bottom-6 md:left-6",
                 )}
               >
                 {company.tagline}
@@ -94,7 +94,7 @@ export function CorporateHero({ company, mode, meta = [], marquee = [] }: Corpor
       ) : null}
 
       {marquee.length ? (
-        <div className="mt-10 border-y border-[var(--color-primary)]/10 py-4">
+        <div className="mt-10 border-y border-[var(--color-border)] py-4">
           <Marquee items={marquee} />
         </div>
       ) : null}

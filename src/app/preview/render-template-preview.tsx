@@ -44,7 +44,9 @@ export async function generatePreviewMetadata({
   const payload = getCmsPayload(parseFixture(fixture));
   const pageSlug =
     resolved?.page === "optional" ? (resolved.entitySlug ?? "home") : (resolved?.page ?? "home");
-  return buildPageMetadata(payload, pageSlug === "project-detail" ? "projects" : pageSlug);
+  const seoSlug =
+    pageSlug === "project-detail" ? "projects" : pageSlug === "blog-post" ? "blog" : pageSlug;
+  return buildPageMetadata(payload, seoSlug);
 }
 
 export async function TemplatePreviewPage({ params, searchParams }: PreviewPageProps) {
@@ -56,6 +58,12 @@ export async function TemplatePreviewPage({ params, searchParams }: PreviewPageP
   const resolved = resolvePublicPath(segments);
 
   if (!definition || !resolved) {
+    notFound();
+  }
+
+  // Templates that register pages 404 on routes they no longer provide (e.g. a removed Team page).
+  const hasRegisteredPages = Object.keys(definition.pages).length > 0;
+  if (hasRegisteredPages && resolved.page !== "optional" && !definition.pages[resolved.page]) {
     notFound();
   }
 
@@ -79,6 +87,13 @@ export async function TemplatePreviewPage({ params, searchParams }: PreviewPageP
   if (resolved.page === "project-detail") {
     const projects = unwrapEnvelope(payload.projects)?.items ?? [];
     if (!projects.some((project) => project.slug === resolved.entitySlug)) {
+      notFound();
+    }
+  }
+
+  if (resolved.page === "blog-post") {
+    const posts = payload.blog ? (unwrapEnvelope(payload.blog)?.items ?? []) : [];
+    if (!posts.some((post) => post.slug === resolved.entitySlug)) {
       notFound();
     }
   }

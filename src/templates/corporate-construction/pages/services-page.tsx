@@ -76,7 +76,7 @@ export function CorporateConstructionServicesPage(props: TemplatePageProps) {
                           sizes={wide ? "(min-width: 1440px) 66vw, 100vw" : "(min-width: 1440px) 33vw, 100vw"}
                         />
                       </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#070c16]/90 via-[#070c16]/30 to-transparent" aria-hidden />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[var(--cc-ink)]/90 via-[var(--cc-ink)]/30 to-transparent" aria-hidden />
                       <span className={cn(ui.mono, "absolute left-5 top-5 rounded-full bg-white/15 px-3 py-1.5 backdrop-blur")}>
                         {pad(index + 1)}
                       </span>

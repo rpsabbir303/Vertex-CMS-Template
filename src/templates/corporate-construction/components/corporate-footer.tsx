@@ -36,7 +36,7 @@ export function CorporateFooter({ payload, company, contact, mode }: CorporateFo
   const socialLinks = footerSocialLinks(company.socialLinks, 5);
 
   return (
-    <footer className="bg-[#070c16] text-white">
+    <footer className="bg-[var(--cc-ink)] text-white">
       <h2 className="sr-only">Site footer</h2>
       <div className="vertex-container pt-20 md:pt-24">
         <div className="grid gap-12 lg:grid-cols-12">
@@ -84,59 +84,81 @@ export function CorporateFooter({ payload, company, contact, mode }: CorporateFo
                 </ul>
               </nav>
             ) : null}
-            {phone || email || addressBlock ? (
+            {phone || email || addressBlock || socialLinks.length ? (
               <div>
                 <p className={cn(ui.mono, "text-white/45")}>Contact</p>
-                <address className="mt-4 space-y-2 text-sm not-italic leading-relaxed text-white/70">
-                  {addressBlock ? <p className="whitespace-pre-line">{addressBlock}</p> : null}
-                  {phone ? (
-                    <p>
-                      <a className={link} href={`tel:${phone.replace(/\s/g, "")}`}>
-                        {phone}
-                      </a>
-                    </p>
-                  ) : null}
-                  {email ? (
-                    <p>
-                      <a className={cn(link, "break-all")} href={`mailto:${email}`}>
-                        {email}
-                      </a>
-                    </p>
-                  ) : null}
-                </address>
+                {addressBlock || phone || email ? (
+                  <address className="mt-4 space-y-2 text-sm not-italic leading-relaxed text-white/70">
+                    {addressBlock ? <p className="whitespace-pre-line">{addressBlock}</p> : null}
+                    {phone ? (
+                      <p>
+                        <a className={link} href={`tel:${phone.replace(/\s/g, "")}`}>
+                          {phone}
+                        </a>
+                      </p>
+                    ) : null}
+                    {email ? (
+                      <p>
+                        <a className={cn(link, "break-all")} href={`mailto:${email}`}>
+                          {email}
+                        </a>
+                      </p>
+                    ) : null}
+                  </address>
+                ) : null}
+                {socialLinks.length ? (
+                  <ul
+                    className="mt-4 flex items-center gap-1"
+                    aria-label="Social media"
+                  >
+                    {socialLinks.map((s) => (
+                      <li key={s.url}>
+                        <a
+                          href={s.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={s.label}
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                        >
+                          <FooterSocialIcon platform={s.platform} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
             ) : null}
           </div>
         </div>
 
-        <div className="mt-20 flex flex-col gap-4 border-t border-white/10 py-6 md:flex-row md:items-center md:justify-between">
-          <p className={cn(ui.mono, "text-white/40")}>
+        <div
+          className="mt-20 grid min-w-0 grid-cols-1 items-center gap-3 border-t border-white/15 py-5 md:grid-cols-[1fr_auto_1fr] md:gap-x-6"
+          aria-label="Footer legal"
+        >
+          <p className={cn(ui.mono, "text-left text-white/40")}>
             © {new Date().getFullYear()} {company.name}
           </p>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            {legalItems.map((item) => (
-              <Link key={item.id} href={withPreview(item.href)} className={cn(ui.mono, "text-white/50 hover:text-white")}>
-                {item.label}
-              </Link>
-            ))}
-            {socialLinks.length ? (
-              <ul className="flex items-center gap-1" aria-label="Social media">
-                {socialLinks.map((s) => (
-                  <li key={s.url}>
-                    <a
-                      href={s.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={s.label}
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white"
-                    >
-                      <FooterSocialIcon platform={s.platform} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
+          <p className={cn(ui.mono, "text-left text-white/40 md:text-center")}>
+            Built by Vertex Software and Tech. Inc.
+          </p>
+          {legalItems.length ? (
+            <nav
+              aria-label="Legal policies"
+              className="flex flex-wrap gap-x-6 gap-y-2 text-left md:justify-end md:text-right"
+            >
+              {legalItems.map((item) => (
+                <Link
+                  key={item.id}
+                  href={withPreview(item.href)}
+                  className={cn(ui.mono, "text-white/50 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white")}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          ) : (
+            <span className="hidden md:block" aria-hidden />
+          )}
         </div>
       </div>
     </footer>

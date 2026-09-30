@@ -66,13 +66,13 @@ export function CorporateProjectStories({
                       {project.metadata?.scope ? (
                         <div>
                           <dt className={cn(ui.mono, "text-[var(--color-text-muted)]")}>Scope</dt>
-                          <dd className="mt-1 text-sm font-medium text-[var(--color-primary)]">{project.metadata.scope}</dd>
+                          <dd className="mt-1 text-sm font-medium text-[var(--color-text)]">{project.metadata.scope}</dd>
                         </div>
                       ) : null}
                       {project.metadata?.duration ? (
                         <div>
                           <dt className={cn(ui.mono, "text-[var(--color-text-muted)]")}>Duration</dt>
-                          <dd className="mt-1 text-sm font-medium text-[var(--color-primary)]">{project.metadata.duration}</dd>
+                          <dd className="mt-1 text-sm font-medium text-[var(--color-text)]">{project.metadata.duration}</dd>
                         </div>
                       ) : null}
                     </dl>

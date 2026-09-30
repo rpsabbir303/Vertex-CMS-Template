@@ -39,11 +39,11 @@ export function CorporateDelivery() {
               delay={(index % 4) as 0 | 1 | 2 | 3}
               className="group flex min-h-[16rem] flex-col justify-between bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-muted)] motion-reduce:transition-none lg:min-h-[20rem]"
             >
-              <span className="font-[family-name:var(--font-display)] text-[clamp(3rem,4.5vw,4.5rem)] font-semibold leading-none tracking-[-0.05em] text-[var(--color-primary)]/15 transition-colors group-hover:text-[var(--color-accent)] motion-reduce:transition-none">
+              <span className="font-[family-name:var(--font-display)] text-[clamp(3rem,4.5vw,4.5rem)] font-semibold leading-none tracking-[-0.05em] text-[var(--color-text)]/15 transition-colors group-hover:text-[var(--color-accent)] motion-reduce:transition-none">
                 {pad(index + 1)}
               </span>
               <div>
-                <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-[-0.02em] text-[var(--color-primary)]">
+                <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-[-0.02em] text-[var(--color-text)]">
                   {phase.title}
                 </h3>
                 <p className={cn(ui.small, "mt-2")}>{phase.body}</p>

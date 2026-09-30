@@ -80,7 +80,7 @@ function round(value: number): number {
 
 /**
  * Architectural hairline grid as a real SVG.
- * Spacing is 6rem. Light stroke is #0A1220 at 10% opacity; dark is white at 8%.
+ * Spacing is 6rem. Light stroke is brand green #294A3D at ~7% effective opacity; dark is white at 8%.
  * A top-centered radial fade matches the previous CSS mask.
  */
 export function ArchitecturalGrid({ tone = "light", className }: ArchitecturalGridProps) {
@@ -112,8 +112,8 @@ export function ArchitecturalGrid({ tone = "light", className }: ArchitecturalGr
     return () => observer.disconnect();
   }, []);
 
-  const color = tone === "dark" ? "#FFFFFF" : "#0A1220";
-  const baseOpacity = tone === "dark" ? 0.08 : 0.1;
+  const color = tone === "dark" ? "#FFFFFF" : "#294A3D";
+  const baseOpacity = tone === "dark" ? 0.08 : 0.07;
   const lines = box ? buildLines(box.width, box.height, box.step, baseOpacity) : [];
 
   return (

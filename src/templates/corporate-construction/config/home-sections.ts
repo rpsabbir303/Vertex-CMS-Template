@@ -14,7 +14,6 @@ export const corporateHomeSectionOrder: TemplateSectionId[] = [
   "delivery-approach", // 08 process
   "home-craftsmanship", // 09 field execution
   "home-metrics", // 10 proof / metrics
-  "team", // 11 leadership
-  "testimonials", // 12 client perspective
+  "testimonials", // 11 client perspective
   "contact-cta", // 13 final cta
 ];

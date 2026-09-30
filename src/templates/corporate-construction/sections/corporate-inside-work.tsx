@@ -27,7 +27,7 @@ function Figure({
         <CmsImageMedia image={project.image} aspect="auto" className="h-full" sizes={sizes} />
       </div>
       <figcaption className="mt-3 flex flex-col gap-1">
-        <span className="text-sm font-medium text-[var(--color-primary)]">{project.title}</span>
+        <span className="text-sm font-medium text-[var(--color-text)]">{project.title}</span>
         {meta ? <span className={cn(ui.mono, "text-[var(--color-text-muted)]")}>{meta}</span> : null}
       </figcaption>
     </Reveal>

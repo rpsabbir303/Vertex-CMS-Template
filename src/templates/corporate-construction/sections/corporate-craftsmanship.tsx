@@ -39,7 +39,7 @@ export function CorporateCraftsmanship({ company, projects }: CorporateCraftsman
   const visual = resolveSiteVisual(company, projects);
 
   return (
-    <section className="relative overflow-hidden bg-[#070c16] text-white" aria-labelledby="field-heading">
+    <section className="relative overflow-hidden bg-[var(--cc-ink)] text-white" aria-labelledby="field-heading">
       <ArchitecturalGrid tone="dark" className="absolute inset-0" />
       <div className="vertex-container relative grid gap-12 py-24 md:py-32 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">

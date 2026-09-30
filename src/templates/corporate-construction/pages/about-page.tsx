@@ -11,7 +11,6 @@ import { PageIntro } from "@/templates/corporate-construction/components/ui/page
 import { Reveal } from "@/templates/corporate-construction/components/ui/reveal";
 import { CorporateCraftsmanship } from "@/templates/corporate-construction/sections/corporate-craftsmanship";
 import { CorporateCredentials } from "@/templates/corporate-construction/sections/corporate-home-metrics";
-import { CorporateLeadership } from "@/templates/corporate-construction/sections/corporate-leadership";
 import { CorporateProofStrip } from "@/templates/corporate-construction/sections/corporate-proof-strip";
 import { pageSeoDescription, splitParagraphs } from "@/templates/corporate-construction/utils/page-seo";
 import { ui } from "@/templates/corporate-construction/theme/ui";
@@ -19,7 +18,6 @@ import { cn } from "@/utils/cn";
 
 export function CorporateConstructionAboutPage(props: TemplatePageProps) {
   const company = unwrapEnvelope(props.payload.company);
-  const team = getSortedCollectionItems(props.payload.team);
   const projects = getSortedCollectionItems(props.payload.projects);
   const services = getVisibleServices(props.payload.services);
   const certifications = unwrapCollectionItems(props.payload.certifications);
@@ -44,7 +42,6 @@ export function CorporateConstructionAboutPage(props: TemplatePageProps) {
   const meta = [
     company.foundedYear ? `Est. ${company.foundedYear}` : undefined,
     area || undefined,
-    team.length ? `${team.length} leaders` : undefined,
   ].filter((v): v is string => Boolean(v));
 
   return (
@@ -64,7 +61,7 @@ export function CorporateConstructionAboutPage(props: TemplatePageProps) {
             <Reveal className="lg:col-span-9">
               <p
                 id="about-statement"
-                className="max-w-4xl text-balance font-[family-name:var(--font-display)] text-[clamp(1.75rem,3.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[var(--color-primary)]"
+                className="max-w-4xl text-balance font-[family-name:var(--font-display)] text-[clamp(1.75rem,3.4vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[var(--color-text)]"
               >
                 {statement}
               </p>
@@ -90,8 +87,6 @@ export function CorporateConstructionAboutPage(props: TemplatePageProps) {
       />
 
       <CorporateCraftsmanship company={company} projects={projects} />
-
-      {team.length ? <CorporateLeadership company={company} mode={props.mode} team={team} /> : null}
 
       <CorporateCredentials certifications={certifications} projects={projects} />
 

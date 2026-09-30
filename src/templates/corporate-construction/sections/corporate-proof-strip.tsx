@@ -54,7 +54,7 @@ export function CorporateProofStrip({
               <Reveal key={fact.label} delay={(index % 4) as 0 | 1 | 2 | 3} className="bg-[var(--color-surface-muted)] p-6 md:p-8">
                 <dt className={cn(ui.mono, "text-[var(--color-text-muted)]")}>{fact.label}</dt>
                 <dd className="mt-6">
-                  <span className="block font-[family-name:var(--font-display)] text-[clamp(3.5rem,6vw,6rem)] font-semibold leading-none tracking-[-0.05em] text-[var(--color-primary)]">
+                  <span className="block font-[family-name:var(--font-display)] text-[clamp(3.5rem,6vw,6rem)] font-semibold leading-none tracking-[-0.05em] text-[var(--color-text)]">
                     {fact.value}
                   </span>
                   {fact.note ? <span className={cn(ui.small, "mt-3 block")}>{fact.note}</span> : null}
