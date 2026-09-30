@@ -43,13 +43,13 @@ export function CorporateHeader({
   const resolvedContact = resolveCorporateContact(company, contact);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+    <header className="sticky top-0 z-40 border-b border-[var(--color-border)]/80 bg-[var(--color-surface)]/95 backdrop-blur-[6px] supports-[backdrop-filter]:bg-[var(--color-surface)]/90">
       <CorporateUtilityBar contact={resolvedContact} />
 
-      <div className="vertex-container flex items-center gap-4 py-4 lg:gap-6 lg:py-5">
+      <div className="vertex-container flex items-center gap-5 py-3.5 lg:gap-8 lg:py-4">
         <Link
           href={withPreview("/")}
-          className="flex min-w-0 max-w-[min(100%,20rem)] items-center gap-3"
+          className="flex min-w-0 max-w-[min(100%,18rem)] items-center gap-3"
           aria-label={`${company.name} home`}
         >
           {company.logo?.url ? (
@@ -57,12 +57,12 @@ export function CorporateHeader({
             <img
               src={company.logo.url}
               alt=""
-              className="h-10 w-10 shrink-0 object-contain md:h-11 md:w-11"
-              width={44}
-              height={44}
+              className="h-9 w-9 shrink-0 object-contain md:h-10 md:w-10"
+              width={40}
+              height={40}
             />
           ) : null}
-          <span className="min-w-0 text-balance font-[family-name:var(--font-display)] text-base font-semibold leading-tight text-[var(--color-primary)] sm:text-lg md:text-xl">
+          <span className="min-w-0 text-balance font-[family-name:var(--font-display)] text-[0.9375rem] font-semibold leading-tight text-[var(--color-primary)] sm:text-base md:text-lg">
             {company.name}
           </span>
         </Link>
@@ -76,16 +76,16 @@ export function CorporateHeader({
               key={item.href}
               href={withPreview(item.href)}
               className={cn(
-                "relative inline-flex min-h-11 items-center px-3 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]",
+                "relative inline-flex min-h-11 items-center px-3.5 text-[0.8125rem] font-medium tracking-[0.02em] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] xl:px-4",
                 isActive(item.href)
-                  ? "text-[var(--color-secondary)]"
-                  : "text-[var(--color-text)] hover:text-[var(--color-secondary)]",
+                  ? "text-[var(--color-primary)]"
+                  : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)]",
               )}
               aria-current={isActive(item.href) ? "page" : undefined}
             >
               {item.label}
               {isActive(item.href) ? (
-                <span className="absolute inset-x-3 bottom-2 h-0.5 bg-[var(--color-accent)]" />
+                <span className="absolute inset-x-3.5 bottom-2 h-px bg-[var(--color-accent)]" />
               ) : null}
             </Link>
           ))}
@@ -94,9 +94,9 @@ export function CorporateHeader({
         <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0">
           <ButtonLink
             href={withPreview("/contact")}
-            className="hidden rounded-none sm:inline-flex"
+            className="hidden rounded-none px-5 text-[0.8125rem] sm:inline-flex"
           >
-            Request a consultation
+            Start a project
           </ButtonLink>
           <MobileNav
             items={navItems.map((item) => ({
@@ -105,7 +105,7 @@ export function CorporateHeader({
             }))}
             currentPath={resolvedPath}
             ctaHref={withPreview("/contact")}
-            ctaLabel="Request a consultation"
+            ctaLabel="Start a project"
           />
         </div>
       </div>

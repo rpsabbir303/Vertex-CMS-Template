@@ -4,6 +4,10 @@ import {
   type PreviewPageProps,
 } from "@/app/preview/render-template-preview";
 
+/**
+ * Single preview route for home + nested pages.
+ * Avoids Next.js conflicts between `[templateSlug]/page` and `[...segments]`.
+ */
 export function generateMetadata(props: PreviewPageProps) {
   return generatePreviewMetadata(props);
 }

@@ -10,6 +10,8 @@ export type TemplateSectionId =
   | "about-story"
   | "delivery-approach"
   | "trust-credentials"
+  | "home-metrics"
+  | "home-craftsmanship"
   | "team"
   | "testimonials"
   | "contact-cta";

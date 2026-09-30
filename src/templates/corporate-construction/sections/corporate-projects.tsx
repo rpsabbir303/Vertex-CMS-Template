@@ -30,21 +30,20 @@ export function CorporateProjects({ projects, mode }: CorporateProjectsProps) {
       className="border-t border-[var(--color-border)] bg-[var(--color-surface)]"
       aria-labelledby="corporate-projects-heading"
     >
-      <div className="vertex-container py-12 md:py-14 lg:py-16">
-        <div className="flex flex-col gap-5 border-b border-[var(--color-border)] pb-7 md:flex-row md:items-end md:justify-between md:gap-10">
+      <div className="vertex-container py-16 md:py-20 lg:py-24">
+        <div className="flex flex-col gap-6 border-b border-[var(--color-border)] pb-10 md:flex-row md:items-end md:justify-between md:gap-12 md:pb-12">
           <div className="min-w-0">
-            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-secondary)]">
-              Portfolio
+            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.24em] text-[var(--color-secondary)]">
+              Selected work
             </p>
             <h2
               id="corporate-projects-heading"
-              className="mt-3 text-balance font-[family-name:var(--font-display)] text-3xl font-semibold text-[var(--color-primary)] md:text-4xl"
+              className="mt-4 text-balance font-[family-name:var(--font-display)] text-3xl font-semibold tracking-[-0.02em] text-[var(--color-primary)] md:text-4xl lg:text-[2.85rem]"
             >
               Featured projects
             </h2>
-            <p className="mt-3 max-w-xl text-pretty text-sm leading-relaxed text-[var(--color-text-muted)] md:text-base">
-              Selected work across sectors and delivery types—representative of scope, coordination,
-              and field execution.
+            <p className="mt-4 max-w-xl text-pretty text-sm leading-relaxed text-[var(--color-text-muted)] md:text-base">
+              Portfolio stories from the CMS—large photography with type, location, and scope.
             </p>
           </div>
           <Link

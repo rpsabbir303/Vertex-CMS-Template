@@ -1,6 +1,6 @@
 import type { TemplateRenderMode } from "@/registry/template-types";
 import type { Service, ServicesSectionCopy } from "@/templates/shared/cms/types/services";
-import { CorporateCapabilities } from "@/templates/corporate-construction/components/corporate-capabilities";
+import { HomeServicesIndex } from "@/templates/corporate-construction/components/home-services-index";
 import { previewHref } from "@/templates/corporate-construction/utils/preview-href";
 
 type CorporateServicesProps = {
@@ -16,9 +16,9 @@ export function CorporateServices({ services, copy, mode }: CorporateServicesPro
   }
 
   return (
-    <CorporateCapabilities
-      copy={copy}
+    <HomeServicesIndex
       services={services}
+      copy={copy}
       servicesHref={previewHref(mode, "/services")}
     />
   );

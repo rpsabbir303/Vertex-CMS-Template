@@ -22,9 +22,9 @@ export const corporateConstructionTheme: TemplateThemeTokens = {
     "--vertex-text-muted": "#667085",
     "--vertex-border": "#D9E0E8",
     "--vertex-text-inverse": "#FFFFFF",
-    "--vertex-section-y": "5rem",
-    "--vertex-section-y-lg": "7.5rem",
-    "--vertex-container-max": "76rem",
+    "--vertex-section-y": "5.5rem",
+    "--vertex-section-y-lg": "8rem",
+    "--vertex-container-max": "78rem",
     "--vertex-aspect-hero": "8 / 5",
   },
 };

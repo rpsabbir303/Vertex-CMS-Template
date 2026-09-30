@@ -70,7 +70,7 @@ export function CorporateConstructionAboutPage(props: TemplatePageProps) {
 
       {certifications.length ? <CorporateTrust certifications={certifications} /> : null}
 
-      {team.length ? <CorporateTeam members={team} /> : null}
+      {team.length ? <CorporateTeam members={team} mode={props.mode} /> : null}
 
       <CorporateAboutCta companyName={company.name} mode={props.mode} />
     </CorporatePageFrame>

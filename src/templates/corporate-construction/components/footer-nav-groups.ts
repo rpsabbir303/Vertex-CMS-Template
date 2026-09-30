@@ -17,11 +17,12 @@ const COMPANY_SLUGS = new Set(["about", "team", "contact"]);
 const WORK_SLUGS = new Set(["projects", "services"]);
 
 /** Approved legal optional-page slugs — only rendered when present in CMS. */
-const LEGAL_ROUTE_ORDER = ["privacy", "terms"] as const;
+const LEGAL_ROUTE_ORDER = ["privacy", "terms", "cookie"] as const;
 
 const LEGAL_LABELS: Record<(typeof LEGAL_ROUTE_ORDER)[number], string> = {
   privacy: "Privacy Policy",
   terms: "Terms & Conditions",
+  cookie: "Cookie Policy",
 };
 
 /** Preferred social platforms for the footer (max five). */

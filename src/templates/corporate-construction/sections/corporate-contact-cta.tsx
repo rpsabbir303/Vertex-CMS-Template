@@ -2,8 +2,9 @@ import Link from "next/link";
 import type { TemplateRenderMode } from "@/registry/template-types";
 import type { Company } from "@/templates/shared/cms/types/company";
 import type { Contact } from "@/templates/shared/cms/types/contact";
-import { ContactForm } from "@/templates/shared/components/forms/contact-form";
+import { ButtonLink } from "@/templates/shared/components/ui/button-link";
 import { resolveCorporateContact } from "@/templates/corporate-construction/utils/resolve-corporate-contact";
+import { previewHref } from "@/templates/corporate-construction/utils/preview-href";
 
 type CorporateContactCtaProps = {
   company: Company;
@@ -17,104 +18,70 @@ export function CorporateContactCta({
   mode,
 }: CorporateContactCtaProps) {
   const resolved = resolveCorporateContact(company, contact);
-  const { phone, email, addressInline, hours, form, hasDetails, hasForm } = resolved;
+  const { phone, email, hasDetails } = resolved;
 
-  if (!hasDetails && !hasForm) {
+  if (!hasDetails && !phone && !email) {
     return null;
   }
 
-  const previewBase =
-    mode === "preview" ? "/preview/corporate-construction" : "";
-  const contactPageHref = `${previewBase}/contact`;
+  const contactPageHref = previewHref(mode, "/contact");
 
   return (
     <section
-      className="border-t border-[var(--color-border)] bg-[var(--color-surface)]"
+      className="relative overflow-hidden border-t border-[var(--color-border)] bg-[var(--color-primary)] text-[var(--color-surface)]"
       aria-labelledby="corporate-contact-heading"
     >
-      <div className="vertex-container py-12 md:py-14 lg:py-16">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-x-12">
-          <div className="min-w-0 border-l-2 border-[var(--color-accent)] pl-5 md:pl-7 lg:col-span-5">
-            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-[var(--color-secondary)]">
-              Project inquiry
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
+          backgroundSize: "4.5rem 4.5rem",
+        }}
+      />
+
+      <div className="vertex-container relative py-20 md:py-24 lg:py-28">
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">
+          <div className="min-w-0 lg:col-span-8">
+            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.24em] text-white/50">
+              Start a project
             </p>
             <h2
               id="corporate-contact-heading"
-              className="mt-3 max-w-md text-balance break-words font-[family-name:var(--font-display)] text-4xl font-semibold leading-[1.05] text-[var(--color-primary)] md:text-5xl"
+              className="mt-5 max-w-[14ch] text-balance break-words font-[family-name:var(--font-display)] text-4xl font-semibold leading-[1.02] tracking-[-0.03em] md:text-5xl lg:text-[3.75rem]"
             >
-              Start a project conversation
+              Ready to build something that lasts?
             </h2>
-            <p className="mt-4 max-w-md text-pretty text-sm leading-relaxed text-[var(--color-text-muted)] md:text-base">
-              Share scope, schedule, and location details. Our preconstruction team routes
-              inquiries to the appropriate estimator or operations lead.
-            </p>
-            {hasDetails ? (
-              <ul className="mt-8 space-y-4 border-t border-[var(--color-border)] pt-8 text-sm md:text-base">
-                {phone ? (
-                  <li>
-                    <span className="block text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text-muted)]">
-                      Phone
-                    </span>
-                    <a
-                      className="mt-1 inline-flex min-h-11 items-center font-medium text-[var(--color-primary)] hover:underline"
-                      href={`tel:${phone.replace(/\s/g, "")}`}
-                    >
-                      {phone}
-                    </a>
-                  </li>
-                ) : null}
-                {email ? (
-                  <li>
-                    <span className="block text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text-muted)]">
-                      Email
-                    </span>
-                    <a
-                      className="mt-1 inline-flex min-h-11 items-center break-all font-medium text-[var(--color-primary)] hover:underline"
-                      href={`mailto:${email}`}
-                    >
-                      {email}
-                    </a>
-                  </li>
-                ) : null}
-                {addressInline ? (
-                  <li>
-                    <span className="block text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text-muted)]">
-                      Office
-                    </span>
-                    <span className="mt-1 block text-pretty break-words text-[var(--color-text)]">
-                      {addressInline}
-                    </span>
-                  </li>
-                ) : null}
-                {hours.map((entry) => (
-                  <li key={`${entry.days}-${entry.hours}`}>
-                    <span className="block text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-[var(--color-text-muted)]">
-                      {entry.days}
-                    </span>
-                    <span className="mt-1 block text-pretty break-words text-[var(--color-text)]">
-                      {entry.hours}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-            <p className="mt-8 text-sm">
-              <Link
-                href={contactPageHref}
-                className="inline-flex min-h-11 items-center font-medium text-[var(--color-secondary)] underline-offset-4 hover:text-[var(--color-primary)] hover:underline"
-              >
-                View full contact details
-              </Link>
+            <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-white/60 md:text-lg">
+              Tell us about scope, schedule, and location. Our team will help determine the right
+              next step—from early pricing through field delivery.
             </p>
           </div>
 
-          {hasForm && form ? (
-            <div className="min-w-0 lg:col-span-7">
-              <div className="border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-6 md:p-8 [&_button]:rounded-none [&_input]:rounded-none [&_select]:rounded-none [&_textarea]:rounded-none">
-                <ContactForm config={form} />
-              </div>
-            </div>
-          ) : null}
+          <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap lg:col-span-4 lg:justify-end">
+            <ButtonLink
+              href={contactPageHref}
+              className="rounded-none border-transparent bg-[var(--color-accent)] px-6 text-white hover:bg-[var(--color-accent-hover)]"
+            >
+              Start a project
+            </ButtonLink>
+            {phone ? (
+              <a
+                href={`tel:${phone.replace(/\s/g, "")}`}
+                className="inline-flex min-h-11 items-center justify-center rounded-none border border-white/40 px-5 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Contact us
+              </a>
+            ) : (
+              <Link
+                href={contactPageHref}
+                className="inline-flex min-h-11 items-center justify-center rounded-none border border-white/40 px-5 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Contact us
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </section>

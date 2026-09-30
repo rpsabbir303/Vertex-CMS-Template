@@ -1,12 +1,23 @@
-import { rmSync } from "node:fs";
+import { existsSync, rmSync } from "node:fs";
+import { resolve } from "node:path";
+
+const roots = [".next", ".next-dev"];
+
+for (const dir of roots) {
+  const target = resolve(process.cwd(), dir);
+  if (!existsSync(target)) {
+    console.log(`No ${dir} folder to remove`);
+    continue;
+  }
+  try {
+    rmSync(target, { recursive: true, force: true });
+    console.log(`Removed ${dir} cache`);
+  } catch (error) {
+    console.error(`Failed to remove ${dir}:`, error);
+    process.exitCode = 1;
+  }
+}
 
 console.log(
-  "Tip: Stop `npm run dev` before cleaning .next, or the dev server will return 500 until restarted.",
+  "Caches cleared. Start the app with `npm run dev` or `npm run dev:3001` (do not run `npm run build` against the same port process).",
 );
-
-try {
-  rmSync(".next", { recursive: true, force: true });
-  console.log("Removed .next cache");
-} catch {
-  console.log("No .next folder to remove");
-}

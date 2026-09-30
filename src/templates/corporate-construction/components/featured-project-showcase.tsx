@@ -6,6 +6,20 @@ import { cn } from "@/utils/cn";
 /** Homepage preview: one lead project plus up to three supporting (template-controlled). */
 export const HOMEPAGE_FEATURED_PROJECT_LIMIT = 4;
 
+function projectMetaParts(project: Project): { label: string; value: string }[] {
+  const parts: { label: string; value: string }[] = [];
+  if (project.metadata?.sector) {
+    parts.push({ label: "Type", value: project.metadata.sector });
+  }
+  if (project.location) {
+    parts.push({ label: "Location", value: project.location });
+  }
+  if (project.year) {
+    parts.push({ label: "Year", value: String(project.year) });
+  }
+  return parts;
+}
+
 function projectMeta(project: Project): string | undefined {
   const line = [project.metadata?.sector, project.location, project.year?.toString()]
     .filter(Boolean)
@@ -51,7 +65,7 @@ export function FeaturedProjectLead({
   compact = false,
   indexLabel = "01",
 }: FeaturedProjectLeadProps) {
-  const meta = projectMeta(project);
+  const metaParts = projectMetaParts(project);
   const hasImage = Boolean(project.image?.url);
 
   return (
@@ -62,8 +76,8 @@ export function FeaturedProjectLead({
         </p>
         <h3
           className={cn(
-            "min-w-0 text-balance break-words font-[family-name:var(--font-display)] font-semibold leading-tight text-[var(--color-primary)]",
-            compact ? "text-2xl md:text-3xl" : "text-3xl md:text-4xl lg:text-[2.5rem]",
+            "min-w-0 text-balance break-words font-[family-name:var(--font-display)] font-semibold leading-tight tracking-[-0.02em] text-[var(--color-primary)]",
+            compact ? "text-2xl md:text-3xl" : "text-3xl md:text-4xl lg:text-[2.65rem]",
           )}
         >
           <Link
@@ -76,13 +90,15 @@ export function FeaturedProjectLead({
       </div>
 
       {hasImage ? (
-        <Link href={detailHref} className={cn("mt-5 block min-w-0 md:mt-6", imageFrame)}>
+        <Link href={detailHref} className={cn("mt-6 block min-w-0 md:mt-7", imageFrame)}>
           <CmsImageMedia
             image={project.image}
             aspect="wide"
             className={cn(
               "w-full",
-              compact ? "max-h-[18rem] md:max-h-[22rem]" : "max-h-[22rem] md:max-h-[28rem] lg:max-h-[32rem]",
+              compact
+                ? "max-h-[20rem] md:max-h-[24rem]"
+                : "max-h-[24rem] md:max-h-[30rem] lg:max-h-[34rem]",
             )}
             sizes="(max-width: 1024px) 100vw, 70vw"
             priority={priorityImage}
@@ -90,17 +106,24 @@ export function FeaturedProjectLead({
         </Link>
       ) : null}
 
-      <div className={cn("min-w-0", hasImage ? "mt-5" : "mt-4")}>
-        {meta ? (
-          <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-text-muted)]">
-            {meta}
-          </p>
+      <div className={cn("min-w-0", hasImage ? "mt-6" : "mt-4")}>
+        {metaParts.length ? (
+          <dl className="flex flex-wrap gap-x-6 gap-y-2">
+            {metaParts.map((part) => (
+              <div key={part.label} className="min-w-0">
+                <dt className="text-[0.625rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-text-muted)]">
+                  {part.label}
+                </dt>
+                <dd className="mt-1 text-sm font-medium text-[var(--color-text)]">{part.value}</dd>
+              </div>
+            ))}
+          </dl>
         ) : null}
         {project.summary ? (
           <p
             className={cn(
               "max-w-2xl text-pretty break-words text-sm leading-relaxed text-[var(--color-text-muted)] md:text-base",
-              meta ? "mt-3" : undefined,
+              metaParts.length ? "mt-4" : undefined,
             )}
           >
             {project.summary}

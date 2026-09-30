@@ -48,7 +48,9 @@ export async function generatePreviewMetadata({
 }
 
 export async function TemplatePreviewPage({ params, searchParams }: PreviewPageProps) {
-  const { templateSlug, segments } = await params;
+  const raw = await params;
+  const templateSlug = raw.templateSlug.replaceAll("_", "-");
+  const segments = raw.segments;
   const { fixture, brandAccent, services, team, projects, testimonials } = await searchParams;
   const definition = getTemplateBySlug(templateSlug);
   const resolved = resolvePublicPath(segments);
