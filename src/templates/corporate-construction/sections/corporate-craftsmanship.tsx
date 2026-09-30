@@ -2,6 +2,7 @@ import type { Company } from "@/templates/shared/cms/types/company";
 import type { CmsImage } from "@/templates/shared/cms/types/media";
 import type { Project } from "@/templates/shared/cms/types/projects";
 import { CmsImageMedia } from "@/templates/shared/media/cms-image";
+import { ArchitecturalGrid } from "@/templates/corporate-construction/components/ui/architectural-grid";
 import { Reveal } from "@/templates/corporate-construction/components/ui/reveal";
 import { pad, ui } from "@/templates/corporate-construction/theme/ui";
 import { cn } from "@/utils/cn";
@@ -39,7 +40,7 @@ export function CorporateCraftsmanship({ company, projects }: CorporateCraftsman
 
   return (
     <section className="relative overflow-hidden bg-[#070c16] text-white" aria-labelledby="field-heading">
-      <div className="cc-grid cc-grid-dark pointer-events-none absolute inset-0" aria-hidden />
+      <ArchitecturalGrid tone="dark" className="absolute inset-0" />
       <div className="vertex-container relative grid gap-12 py-24 md:py-32 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <p className={ui.eyebrow}>Field execution</p>

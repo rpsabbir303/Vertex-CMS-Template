@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { CmsImage } from "@/templates/shared/cms/types/media";
 import { CmsImageMedia } from "@/templates/shared/media/cms-image";
+import { ArchitecturalGrid } from "@/templates/corporate-construction/components/ui/architectural-grid";
 import { Reveal } from "@/templates/corporate-construction/components/ui/reveal";
 import { ui } from "@/templates/corporate-construction/theme/ui";
 import { cn } from "@/utils/cn";
@@ -22,7 +23,7 @@ type PageIntroProps = {
 export function PageIntro({ eyebrow, title, lead, meta = [], image, actions, compact }: PageIntroProps) {
   return (
     <section className="relative overflow-hidden bg-[var(--color-surface)]">
-      <div className="cc-grid pointer-events-none absolute inset-x-0 top-0 h-[36rem]" aria-hidden />
+      <ArchitecturalGrid className="absolute inset-x-0 top-0 h-[36rem]" />
       <div className={cn("vertex-container relative pt-36 md:pt-44", compact ? "pb-12" : "pb-16 md:pb-20")}>
         <p className={cn(ui.eyebrow, "cc-rise")}>{eyebrow}</p>
         <h1

@@ -1,6 +1,7 @@
 import type { TemplateRenderMode } from "@/registry/template-types";
 import type { Company } from "@/templates/shared/cms/types/company";
 import { CmsImageMedia } from "@/templates/shared/media/cms-image";
+import { ArchitecturalGrid } from "@/templates/corporate-construction/components/ui/architectural-grid";
 import { Marquee } from "@/templates/corporate-construction/components/ui/marquee";
 import { Reveal } from "@/templates/corporate-construction/components/ui/reveal";
 import { previewHref } from "@/templates/corporate-construction/utils/preview-href";
@@ -34,7 +35,7 @@ export function CorporateHero({ company, mode, meta = [], marquee = [] }: Corpor
 
   return (
     <section className="relative overflow-hidden bg-[var(--color-surface)]">
-      <div className="cc-grid pointer-events-none absolute inset-x-0 top-0 h-[44rem]" aria-hidden />
+      <ArchitecturalGrid className="absolute inset-x-0 top-0 h-[44rem]" />
 
       <div className="vertex-container relative pt-40 md:pt-48">
         {rail.length ? (

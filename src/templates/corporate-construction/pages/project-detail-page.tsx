@@ -2,6 +2,7 @@ import type { TemplatePageProps } from "@/registry/template-types";
 import { getSortedCollectionItems } from "@/templates/shared/cms/resolve-content";
 import { CmsImageMedia } from "@/templates/shared/media/cms-image";
 import { CorporatePageFrame } from "@/templates/corporate-construction/components/corporate-page-frame";
+import { ArchitecturalGrid } from "@/templates/corporate-construction/components/ui/architectural-grid";
 import { CtaBand } from "@/templates/corporate-construction/components/ui/cta-band";
 import { Reveal } from "@/templates/corporate-construction/components/ui/reveal";
 import { splitParagraphs } from "@/templates/corporate-construction/utils/page-seo";
@@ -47,7 +48,7 @@ export function CorporateConstructionProjectDetailPage(props: TemplatePageProps)
   return (
     <CorporatePageFrame {...props}>
       <section className="relative overflow-hidden bg-[var(--color-surface)]">
-        <div className="cc-grid pointer-events-none absolute inset-x-0 top-0 h-[36rem]" aria-hidden />
+        <ArchitecturalGrid className="absolute inset-x-0 top-0 h-[36rem]" />
         <div className="vertex-container relative pt-36 md:pt-44">
           <p className={cn(ui.mono, "cc-rise flex flex-wrap items-center gap-x-4 gap-y-2 text-[var(--color-text-muted)]")}>
             <a href={previewHref(props.mode, "/projects")} className="hover:text-[var(--color-primary)]">

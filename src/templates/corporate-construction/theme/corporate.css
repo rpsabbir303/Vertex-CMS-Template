@@ -4,22 +4,8 @@
   --cc-ink: #0a1220;
   --cc-bone: #f4f3ef;
   --cc-orange: #e8590c;
-  --cc-line: rgba(10, 18, 32, 0.1);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
-}
-
-/* Blueprint hairline grid */
-.cc-grid {
-  background-image:
-    linear-gradient(to right, var(--cc-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--cc-line) 1px, transparent 1px);
-  background-size: 6rem 6rem;
-  -webkit-mask-image: radial-gradient(ellipse at top, #000 35%, transparent 80%);
-  mask-image: radial-gradient(ellipse at top, #000 35%, transparent 80%);
-}
-.cc-grid-dark {
-  --cc-line: rgba(255, 255, 255, 0.08);
 }
 
 /* Scroll reveal */

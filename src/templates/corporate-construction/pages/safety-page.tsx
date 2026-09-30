@@ -4,6 +4,7 @@ import type { OptionalPage } from "@/templates/shared/cms/types/pages";
 import { CmsImageMedia } from "@/templates/shared/media/cms-image";
 import { CorporatePageFrame } from "@/templates/corporate-construction/components/corporate-page-frame";
 import { planSafetyPageContent } from "@/templates/corporate-construction/components/safety-page-content";
+import { ArchitecturalGrid } from "@/templates/corporate-construction/components/ui/architectural-grid";
 import { CtaBand } from "@/templates/corporate-construction/components/ui/cta-band";
 import { PageIntro } from "@/templates/corporate-construction/components/ui/page-intro";
 import { Reveal } from "@/templates/corporate-construction/components/ui/reveal";
@@ -108,7 +109,7 @@ export function CorporateConstructionSafetyPage({ page, ...props }: CorporateSaf
 
       {content.commitmentHeading ? (
         <section className="relative overflow-hidden bg-[#070c16] text-white" aria-labelledby="commitment-heading">
-          <div className="cc-grid cc-grid-dark pointer-events-none absolute inset-0" aria-hidden />
+          <ArchitecturalGrid tone="dark" className="absolute inset-0" />
           <div className="vertex-container relative py-28 md:py-40">
             <p className={ui.eyebrow}>Commitment</p>
             <h2

@@ -1,4 +1,5 @@
 import type { TemplateRenderMode } from "@/registry/template-types";
+import { ArchitecturalGrid } from "@/templates/corporate-construction/components/ui/architectural-grid";
 import type { Company } from "@/templates/shared/cms/types/company";
 import type { Contact } from "@/templates/shared/cms/types/contact";
 import { previewHref } from "@/templates/corporate-construction/utils/preview-href";
@@ -25,7 +26,7 @@ export function CorporateContactCta({ company, contact, mode }: CorporateContact
 
   return (
     <section className="relative overflow-hidden bg-[var(--color-primary)] text-white" aria-labelledby="cta-heading">
-      <div className="cc-grid cc-grid-dark pointer-events-none absolute inset-0" aria-hidden />
+      <ArchitecturalGrid tone="dark" className="absolute inset-0" />
       <div className="vertex-container relative py-28 md:py-40">
         <p className={ui.eyebrow}>Next project</p>
         <h2

@@ -1,4 +1,5 @@
 import type { TemplateRenderMode } from "@/registry/template-types";
+import { ArchitecturalGrid } from "@/templates/corporate-construction/components/ui/architectural-grid";
 import { previewHref } from "@/templates/corporate-construction/utils/preview-href";
 import { ui } from "@/templates/corporate-construction/theme/ui";
 import { cn } from "@/utils/cn";
@@ -15,7 +16,7 @@ type CtaBandProps = {
 export function CtaBand({ mode, title, body, primaryLabel = "Start a project", secondary }: CtaBandProps) {
   return (
     <section className="relative overflow-hidden bg-[var(--color-primary)] text-white">
-      <div className="cc-grid cc-grid-dark pointer-events-none absolute inset-0" aria-hidden />
+      <ArchitecturalGrid tone="dark" className="absolute inset-0" />
       <div className="vertex-container relative grid gap-10 py-24 md:py-32 lg:grid-cols-12 lg:items-end">
         <h2 className={cn(ui.h2, "max-w-[12ch] !text-white lg:col-span-8")}>{title}</h2>
         <div className="flex flex-col gap-6 lg:col-span-4">
