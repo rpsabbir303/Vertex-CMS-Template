@@ -12,6 +12,7 @@ type MobileNavProps = {
   ctaLabel?: string;
   className?: string;
   panelClassName?: string;
+  buttonClassName?: string;
 };
 
 export function MobileNav({
@@ -21,6 +22,7 @@ export function MobileNav({
   ctaLabel,
   className,
   panelClassName,
+  buttonClassName,
 }: MobileNavProps) {
   const isActive = (href: string) =>
     href === currentPath ||
@@ -54,7 +56,10 @@ export function MobileNav({
     <div className={cn("lg:hidden", className)}>
       <button
         type="button"
-        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded border border-[var(--color-border)] px-3 text-sm font-medium text-[var(--color-text)]"
+        className={cn(
+          "inline-flex min-h-11 min-w-11 items-center justify-center rounded border border-[var(--color-border)] px-3 text-sm font-medium text-[var(--color-text)]",
+          buttonClassName,
+        )}
         aria-expanded={open}
         aria-controls={panelId}
         aria-labelledby={labelId}

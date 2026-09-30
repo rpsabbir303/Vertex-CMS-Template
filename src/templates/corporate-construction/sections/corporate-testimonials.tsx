@@ -1,72 +1,52 @@
-import type { CmsImage } from "@/templates/shared/cms/types/media";
 import type { Testimonial } from "@/templates/shared/cms/types/testimonials";
-import { CmsImageMedia } from "@/templates/shared/media/cms-image";
+import { Reveal } from "@/templates/corporate-construction/components/ui/reveal";
+import { ui } from "@/templates/corporate-construction/theme/ui";
+import { cn } from "@/utils/cn";
 
 type CorporateTestimonialsProps = {
   testimonials: Testimonial[];
-  projectImage?: CmsImage;
 };
 
-export function CorporateTestimonials({
-  testimonials,
-  projectImage,
-}: CorporateTestimonialsProps) {
-  if (!testimonials.length) {
-    return null;
-  }
+function attribution(t: Testimonial): string {
+  return [t.personName, [t.personRole, t.companyName].filter(Boolean).join(", ")]
+    .filter(Boolean)
+    .join(" · ");
+}
 
-  const primary = testimonials[0];
-  const hasImage = Boolean(projectImage?.url);
-  const context = [primary.personRole, primary.companyName].filter(Boolean).join(" · ");
+/**
+ * 11 — Client perspective. One quote at display size; the rest as a list.
+ */
+export function CorporateTestimonials({ testimonials }: CorporateTestimonialsProps) {
+  const [primary, ...rest] = testimonials.filter((t) => t.quote?.trim());
+  if (!primary) return null;
 
   return (
-    <section
-      className="border-t border-[var(--color-border)] bg-[var(--color-surface-muted)]"
-      aria-labelledby="corporate-testimonials-heading"
-    >
-      <div className="vertex-container py-16 md:py-20 lg:py-24">
-        <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.24em] text-[var(--color-secondary)]">
+    <section className="bg-[var(--color-surface)]" aria-labelledby="perspective-heading">
+      <div className="vertex-container py-24 md:py-32">
+        <p id="perspective-heading" className={ui.eyebrow}>
           Client perspective
         </p>
-        <h2
-          id="corporate-testimonials-heading"
-          className="mt-4 font-[family-name:var(--font-display)] text-3xl font-semibold tracking-[-0.02em] text-[var(--color-primary)] md:text-4xl lg:text-[2.65rem]"
-        >
-          What owners remember
-        </h2>
+        <Reveal as="blockquote" className="mt-8">
+          <p className="max-w-5xl text-balance font-[family-name:var(--font-display)] text-[clamp(1.875rem,4vw,4rem)] font-semibold leading-[1.02] tracking-[-0.04em] text-[var(--color-primary)]">
+            <span className="text-[var(--color-accent)]">“</span>
+            {primary.quote.trim()}
+            <span className="text-[var(--color-accent)]">”</span>
+          </p>
+          <footer className={cn(ui.mono, "mt-8 text-[var(--color-text-muted)]")}>{attribution(primary)}</footer>
+        </Reveal>
 
-        <div
-          className={`mt-12 grid gap-12 lg:mt-14 lg:items-center lg:gap-16 ${hasImage ? "lg:grid-cols-12" : ""}`}
-        >
-          <figure
-            className={`min-w-0 border-l-2 border-[var(--color-accent)] pl-5 md:pl-8 ${hasImage ? "lg:col-span-7" : "max-w-4xl"}`}
-          >
-            <blockquote className="text-pretty break-words font-[family-name:var(--font-display)] text-2xl font-medium leading-[1.25] text-[var(--color-primary)] md:text-3xl lg:text-[2.5rem] lg:leading-[1.2]">
-              “{primary.quote}”
-            </blockquote>
-            <figcaption className="mt-10 flex flex-col gap-1 border-t border-[var(--color-border)] pt-7">
-              <span className="text-base font-semibold text-[var(--color-text)]">
-                {primary.personName}
-              </span>
-              {context ? (
-                <span className="text-pretty break-words text-sm text-[var(--color-text-muted)]">
-                  {context}
-                </span>
-              ) : null}
-            </figcaption>
-          </figure>
-
-          {hasImage && projectImage ? (
-            <div className="min-w-0 overflow-hidden border border-[var(--color-border)] lg:col-span-5">
-              <CmsImageMedia
-                image={projectImage}
-                aspect="card"
-                className="min-h-[16rem] w-full md:min-h-[20rem] [&_img]:transition-transform [&_img]:duration-700 hover:[&_img]:scale-[1.02] motion-reduce:hover:[&_img]:scale-100"
-                sizes="(max-width: 1024px) 100vw, 40vw"
-              />
-            </div>
-          ) : null}
-        </div>
+        {rest.length ? (
+          <ul className={cn("mt-20 grid gap-10 border-t pt-10 md:grid-cols-3", ui.rule)}>
+            {rest.slice(0, 3).map((t, index) => (
+              <Reveal as="li" key={t.id} delay={(index % 4) as 0 | 1 | 2 | 3}>
+                <blockquote>
+                  <p className={cn(ui.lead, "!text-lg")}>“{t.quote.trim()}”</p>
+                  <footer className={cn(ui.mono, "mt-4 text-[var(--color-text-muted)]")}>{attribution(t)}</footer>
+                </blockquote>
+              </Reveal>
+            ))}
+          </ul>
+        ) : null}
       </div>
     </section>
   );

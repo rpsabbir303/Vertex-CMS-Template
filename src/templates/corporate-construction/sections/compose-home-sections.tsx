@@ -14,9 +14,11 @@ import { CorporateCraftsmanship } from "./corporate-craftsmanship";
 import { CorporateDelivery } from "./corporate-delivery";
 import { CorporateContactCta } from "./corporate-contact-cta";
 import { CorporateHero } from "./corporate-hero";
-import { CorporateHomeMetrics, buildHomeMetrics } from "./corporate-home-metrics";
+import { CorporateInsideWork } from "./corporate-inside-work";
+import { CorporateCredentials, uniqueSectors } from "./corporate-home-metrics";
 import { CorporateLeadership } from "./corporate-leadership";
-import { CorporateProjects } from "./corporate-projects";
+import { CorporateProjects, selectLeadProject } from "./corporate-projects";
+import { CorporateProjectStories } from "./corporate-project-stories";
 import { CorporateProofStrip } from "./corporate-proof-strip";
 import { CorporateServices } from "./corporate-services";
 import { CorporateTestimonials } from "./corporate-testimonials";
@@ -59,29 +61,19 @@ export function composeCorporateHomeSections(
     ];
   }
 
-  const capabilityMeta =
-    services.length > 0
-      ? `${services.length} ${services.length === 1 ? "capability" : "capabilities"}`
-      : undefined;
+  const heroMeta = [
+    services.length ? `${services.length} ${services.length === 1 ? "capability" : "capabilities"}` : undefined,
+    allProjects.length ? `${allProjects.length} ${allProjects.length === 1 ? "project" : "projects"} published` : undefined,
+  ].filter((v): v is string => Boolean(v));
 
-  const proofVisible =
-    Boolean(company.foundedYear) ||
-    Boolean(company.address) ||
-    certifications.length > 0 ||
-    services.length > 0;
+  // Live spec strip: sectors and capabilities straight from the CMS.
+  const marquee = [...uniqueSectors(allProjects), ...services.map((s) => s.title)];
 
-  const metricItems = buildHomeMetrics({
-    foundedYear: company.foundedYear,
-    projectCount: allProjects.length,
-    serviceCount: services.length,
-    teamCount: team.length,
-  });
-
-  // Leadership image: prefer a featured project photo so the section differs from the hero.
-  const leadershipImage =
-    featuredProjects.find((p) => p.image?.url)?.image ??
-    allProjects.find((p) => p.image?.url)?.image ??
-    (company.heroImage?.url ? company.heroImage : null);
+  const leadProject = selectLeadProject(featuredProjects);
+  const storyProjects = featuredProjects.filter((p) => p.id !== leadProject?.id);
+  // Keep the collage distinct from the Selected Work plate when there is enough material.
+  const insideCandidates = allProjects.filter((p) => p.id !== leadProject?.id && p.image?.url);
+  const insideProjects = insideCandidates.length >= 2 ? insideCandidates : allProjects;
 
   const sectionMap: Record<TemplateSectionId, ReactNode | null> = {
     hero: (
@@ -89,25 +81,29 @@ export function composeCorporateHomeSections(
         key="hero"
         company={getCorporateHeroCompany(company)}
         mode={mode}
-        capabilityMeta={capabilityMeta}
+        meta={heroMeta}
+        marquee={marquee}
       />
     ),
-    "trust-credentials": proofVisible ? (
+    "trust-credentials": (
       <CorporateProofStrip
         key="proof"
         company={company}
         certifications={certifications}
         serviceCount={services.length}
+        projectCount={allProjects.length}
       />
-    ) : null,
+    ),
+    "inside-the-work": (
+      <CorporateInsideWork
+        key="inside"
+        projects={insideProjects}
+        narrative={company.description?.split(/\n\n+/)[1]?.trim()}
+      />
+    ),
     services:
       hasOptionalSection(payload.services) && services.length ? (
-        <CorporateServices
-          key="services"
-          services={services}
-          copy={servicesCopy}
-          mode={mode}
-        />
+        <CorporateServices key="services" services={services} copy={servicesCopy} mode={mode} />
       ) : null,
     // Kept in type map for registry compatibility; not in homepage order.
     "about-story": null,
@@ -115,48 +111,32 @@ export function composeCorporateHomeSections(
       hasOptionalSection(payload.projects) && featuredProjects.length ? (
         <CorporateProjects key="projects" projects={featuredProjects} mode={mode} />
       ) : null,
-    "delivery-approach": <CorporateDelivery key="delivery" />,
-    "home-craftsmanship": (() => {
-      const hasProjectVisual = allProjects.some((p) => Boolean(p.image?.url));
-      const hasHeroVisual = Boolean(company.heroImage?.url);
-      const hasCopy = Boolean(company.description?.trim());
-      if (!hasProjectVisual && !hasHeroVisual && !hasCopy) {
-        return null;
-      }
-      return (
-        <CorporateCraftsmanship
-          key="craft"
-          company={company}
-          projects={allProjects}
-        />
-      );
-    })(),
-    "home-metrics": <CorporateHomeMetrics key="metrics" items={metricItems} />,
-    team:
-      company.description || company.foundedYear || leadershipImage ? (
-        <CorporateLeadership
-          key="leadership"
-          company={company}
+    "project-stories":
+      hasOptionalSection(payload.projects) && storyProjects.length ? (
+        <CorporateProjectStories
+          key="stories"
+          projects={storyProjects}
+          startIndex={2}
+          total={featuredProjects.length}
           mode={mode}
-          image={leadershipImage}
         />
+      ) : null,
+    "delivery-approach": <CorporateDelivery key="delivery" />,
+    "home-craftsmanship": (
+      <CorporateCraftsmanship key="craft" company={company} projects={allProjects} />
+    ),
+    "home-metrics": (
+      <CorporateCredentials key="credentials" certifications={certifications} projects={allProjects} />
+    ),
+    team:
+      hasOptionalSection(payload.team) && team.length ? (
+        <CorporateLeadership key="leadership" company={company} mode={mode} team={team} />
       ) : null,
     testimonials:
       hasOptionalSection(payload.testimonials) && testimonials.length ? (
-        <CorporateTestimonials
-          key="testimonials"
-          testimonials={testimonials}
-          projectImage={featuredProjects.find((p) => p.image?.url)?.image}
-        />
+        <CorporateTestimonials key="testimonials" testimonials={testimonials} />
       ) : null,
-    "contact-cta": (
-      <CorporateContactCta
-        key="contact"
-        company={company}
-        contact={contact}
-        mode={mode}
-      />
-    ),
+    "contact-cta": <CorporateContactCta key="contact" company={company} contact={contact} mode={mode} />,
   };
 
   return order
@@ -165,8 +145,6 @@ export function composeCorporateHomeSections(
 }
 
 function getHeroDescription(description?: string): string | undefined {
-  if (!description) {
-    return undefined;
-  }
+  if (!description) return undefined;
   return description.split(/\n\n+/)[0]?.trim();
 }

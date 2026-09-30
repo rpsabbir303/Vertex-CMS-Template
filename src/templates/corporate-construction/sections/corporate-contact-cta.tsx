@@ -1,10 +1,10 @@
-import Link from "next/link";
 import type { TemplateRenderMode } from "@/registry/template-types";
 import type { Company } from "@/templates/shared/cms/types/company";
 import type { Contact } from "@/templates/shared/cms/types/contact";
-import { ButtonLink } from "@/templates/shared/components/ui/button-link";
-import { resolveCorporateContact } from "@/templates/corporate-construction/utils/resolve-corporate-contact";
 import { previewHref } from "@/templates/corporate-construction/utils/preview-href";
+import { resolveCorporateContact } from "@/templates/corporate-construction/utils/resolve-corporate-contact";
+import { ui } from "@/templates/corporate-construction/theme/ui";
+import { cn } from "@/utils/cn";
 
 type CorporateContactCtaProps = {
   company: Company;
@@ -12,76 +12,56 @@ type CorporateContactCtaProps = {
   mode: TemplateRenderMode;
 };
 
-export function CorporateContactCta({
-  company,
-  contact,
-  mode,
-}: CorporateContactCtaProps) {
-  const resolved = resolveCorporateContact(company, contact);
-  const { phone, email, hasDetails } = resolved;
-
-  if (!hasDetails && !phone && !email) {
-    return null;
-  }
-
-  const contactPageHref = previewHref(mode, "/contact");
+/**
+ * 12 — Final call. Giant line, one button, live contact facts.
+ */
+export function CorporateContactCta({ company, contact, mode }: CorporateContactCtaProps) {
+  const { phone, email, addressInline } = resolveCorporateContact(company, contact);
+  const facts = [
+    ["Phone", phone, phone ? `tel:${phone.replace(/\s/g, "")}` : undefined],
+    ["Email", email, email ? `mailto:${email}` : undefined],
+    ["Office", addressInline, undefined],
+  ].filter((f): f is [string, string, string | undefined] => Boolean(f[1]));
 
   return (
-    <section
-      className="relative overflow-hidden border-t border-[var(--color-border)] bg-[var(--color-primary)] text-[var(--color-surface)]"
-      aria-labelledby="corporate-contact-heading"
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
-          backgroundSize: "4.5rem 4.5rem",
-        }}
-      />
-
-      <div className="vertex-container relative py-20 md:py-24 lg:py-28">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">
-          <div className="min-w-0 lg:col-span-8">
-            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.24em] text-white/50">
-              Start a project
+    <section className="relative overflow-hidden bg-[var(--color-primary)] text-white" aria-labelledby="cta-heading">
+      <div className="cc-grid cc-grid-dark pointer-events-none absolute inset-0" aria-hidden />
+      <div className="vertex-container relative py-28 md:py-40">
+        <p className={ui.eyebrow}>Next project</p>
+        <h2
+          id="cta-heading"
+          className="mt-6 font-[family-name:var(--font-display)] text-[clamp(3.5rem,11vw,12rem)] font-semibold leading-[0.85] tracking-[-0.06em]"
+        >
+          Let’s build.
+        </h2>
+        <div className="mt-14 grid gap-10 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-6">
+            <p className="max-w-md text-pretty text-lg leading-relaxed text-white/70">
+              Tell {company.name} about the site, the schedule, and what the building has to do. A
+              preconstruction lead will reply.
             </p>
-            <h2
-              id="corporate-contact-heading"
-              className="mt-5 max-w-[14ch] text-balance break-words font-[family-name:var(--font-display)] text-4xl font-semibold leading-[1.02] tracking-[-0.03em] md:text-5xl lg:text-[3.75rem]"
-            >
-              Ready to build something that lasts?
-            </h2>
-            <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-white/60 md:text-lg">
-              Tell us about scope, schedule, and location. Our team will help determine the right
-              next step—from early pricing through field delivery.
-            </p>
-          </div>
-
-          <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap lg:col-span-4 lg:justify-end">
-            <ButtonLink
-              href={contactPageHref}
-              className="rounded-none border-transparent bg-[var(--color-accent)] px-6 text-white hover:bg-[var(--color-accent-hover)]"
-            >
+            <a href={previewHref(mode, "/contact")} className={cn(ui.btnAccent, "mt-8")}>
               Start a project
-            </ButtonLink>
-            {phone ? (
-              <a
-                href={`tel:${phone.replace(/\s/g, "")}`}
-                className="inline-flex min-h-11 items-center justify-center rounded-none border border-white/40 px-5 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                Contact us
-              </a>
-            ) : (
-              <Link
-                href={contactPageHref}
-                className="inline-flex min-h-11 items-center justify-center rounded-none border border-white/40 px-5 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                Contact us
-              </Link>
-            )}
+            </a>
           </div>
+          {facts.length ? (
+            <dl className="grid gap-6 sm:grid-cols-3 lg:col-span-6">
+              {facts.map(([label, value, href]) => (
+                <div key={label} className="border-t border-white/15 pt-4">
+                  <dt className={cn(ui.mono, "text-white/45")}>{label}</dt>
+                  <dd className="mt-2 text-sm font-medium">
+                    {href ? (
+                      <a href={href} className="break-all transition-colors hover:text-[var(--color-accent)]">
+                        {value}
+                      </a>
+                    ) : (
+                      value
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
         </div>
       </div>
     </section>

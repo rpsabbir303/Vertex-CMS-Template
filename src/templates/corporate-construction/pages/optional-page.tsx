@@ -1,12 +1,14 @@
 import type { TemplatePageProps } from "@/registry/template-types";
 import { unwrapEnvelope } from "@/templates/shared/cms/resolve-content";
 import { isLegalPageSlug } from "@/templates/shared/cms/types/pages";
-import { ButtonLink } from "@/templates/shared/components/ui/button-link";
 import { CorporatePageFrame } from "@/templates/corporate-construction/components/corporate-page-frame";
-import { CorporatePageHero } from "@/templates/corporate-construction/components/corporate-page-hero";
+import { CtaBand } from "@/templates/corporate-construction/components/ui/cta-band";
+import { PageIntro } from "@/templates/corporate-construction/components/ui/page-intro";
 import { CorporateConstructionLegalPage } from "@/templates/corporate-construction/pages/legal-page";
 import { CorporateConstructionSafetyPage } from "@/templates/corporate-construction/pages/safety-page";
-import { previewHref } from "@/templates/corporate-construction/utils/preview-href";
+import { splitParagraphs } from "@/templates/corporate-construction/utils/page-seo";
+import { ui } from "@/templates/corporate-construction/theme/ui";
+import { cn } from "@/utils/cn";
 
 export function CorporateConstructionOptionalPage(props: TemplatePageProps) {
   const pages = unwrapEnvelope(props.payload.optionalPages) ?? [];
@@ -15,13 +17,9 @@ export function CorporateConstructionOptionalPage(props: TemplatePageProps) {
   if (!page) {
     return (
       <CorporatePageFrame {...props}>
-        <section className="vertex-container py-24">
-          <h1 className="font-[family-name:var(--font-display)] text-3xl text-[var(--color-primary)]">
-            Page unavailable
-          </h1>
-          <p className="mt-4 text-[var(--color-text-muted)]">
-            This optional page is not in the current CMS payload.
-          </p>
+        <section className="vertex-container pt-40 pb-24">
+          <h1 className={ui.h2}>Page unavailable</h1>
+          <p className={cn(ui.body, "mt-4")}>This optional page is not in the current CMS payload.</p>
         </section>
       </CorporatePageFrame>
     );
@@ -35,37 +33,30 @@ export function CorporateConstructionOptionalPage(props: TemplatePageProps) {
     return <CorporateConstructionLegalPage {...props} page={page} />;
   }
 
-  const paragraphs = page.body?.split(/\n\n+/).map((p) => p.trim()).filter(Boolean) ?? [];
+  const paragraphs = splitParagraphs(page.body);
 
   return (
     <CorporatePageFrame {...props}>
-      <CorporatePageHero
+      <PageIntro
         eyebrow={page.title}
-        title={page.title}
-        summary={paragraphs[0]}
-        image={page.heroImage}
+        title={page.headline?.trim() || page.title}
+        lead={paragraphs[0]}
+        image={page.heroImage?.url ? page.heroImage : null}
       />
       {paragraphs.length > 1 ? (
-        <section className="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
-          <div className="vertex-container max-w-3xl space-y-5 py-12 text-pretty text-lg leading-relaxed text-[var(--color-text-muted)] md:py-14">
-            {paragraphs.slice(1).map((paragraph) => (
-              <p key={paragraph.slice(0, 32)} className="break-words">
-                {paragraph}
-              </p>
-            ))}
+        <section className="bg-[var(--color-surface)]">
+          <div className="vertex-container grid gap-10 py-20 md:py-28 lg:grid-cols-12">
+            <div className="max-w-2xl space-y-5 lg:col-span-8 lg:col-start-4">
+              {paragraphs.slice(1).map((p) => (
+                <p key={p.slice(0, 32)} className={cn(ui.body, "text-lg")}>
+                  {p}
+                </p>
+              ))}
+            </div>
           </div>
         </section>
       ) : null}
-      <section className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
-        <div className="vertex-container flex flex-col gap-6 py-12 md:flex-row md:items-center md:justify-between md:py-14">
-          <p className="max-w-md text-pretty text-sm text-[var(--color-text-muted)] md:text-base">
-            Questions about this page can be directed to the project team.
-          </p>
-          <ButtonLink href={previewHref(props.mode, "/contact")} className="shrink-0 rounded-none">
-            Contact the project team
-          </ButtonLink>
-        </div>
-      </section>
+      <CtaBand mode={props.mode} title="Questions about this page?" primaryLabel="Contact the team" />
     </CorporatePageFrame>
   );
 }

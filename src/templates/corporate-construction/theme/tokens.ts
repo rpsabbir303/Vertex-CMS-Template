@@ -1,30 +1,32 @@
 import { sharedThemeDefaults } from "@/templates/shared/theme/base-tokens";
 import type { TemplateThemeTokens } from "@/templates/shared/theme/types";
 
-/** Corporate Construction — established, structured, credible (Figma-aligned when synced) */
+/** Corporate Construction — product-grade, modern, construction-first */
 export const corporateConstructionTheme: TemplateThemeTokens = {
   id: "corporate-construction",
   displayName: "Corporate Construction",
   cssVariables: {
     ...sharedThemeDefaults,
-    "--vertex-font-display": "var(--font-display-corporate, \"Source Serif 4\", ui-serif, Georgia, serif)",
-    "--vertex-font-body": "var(--font-body-corporate, \"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif)",
-    "--vertex-primary": "#0B1F33",
-    "--vertex-primary-hover": "#081726",
-    "--vertex-secondary": "#2F5496",
-    "--vertex-secondary-hover": "#244275",
-    "--vertex-accent": "#B94712",
-    "--vertex-accent-hover": "#963A0E",
-    "--vertex-accent-muted": "#F6EBE5",
+    "--vertex-font-display":
+      "var(--font-display-corporate, \"Inter Tight\", ui-sans-serif, system-ui, sans-serif)",
+    "--vertex-font-body": "var(--font-body-corporate, \"Inter\", ui-sans-serif, system-ui, sans-serif)",
+    "--vertex-font-mono": "var(--font-mono-corporate, \"IBM Plex Mono\", ui-monospace, monospace)",
+    "--vertex-primary": "#0A1220",
+    "--vertex-primary-hover": "#141F33",
+    "--vertex-secondary": "#3B4B63",
+    "--vertex-secondary-hover": "#2A3648",
+    "--vertex-accent": "#E8590C",
+    "--vertex-accent-hover": "#C64A08",
+    "--vertex-accent-muted": "#FDEBDF",
     "--vertex-surface": "#FFFFFF",
-    "--vertex-surface-muted": "#F7F8FA",
-    "--vertex-text": "#111827",
-    "--vertex-text-muted": "#667085",
-    "--vertex-border": "#D9E0E8",
+    "--vertex-surface-muted": "#F4F3EF",
+    "--vertex-text": "#0A1220",
+    "--vertex-text-muted": "#5B6472",
+    "--vertex-border": "#E3E2DC",
     "--vertex-text-inverse": "#FFFFFF",
-    "--vertex-section-y": "5.5rem",
-    "--vertex-section-y-lg": "8rem",
-    "--vertex-container-max": "78rem",
-    "--vertex-aspect-hero": "8 / 5",
+    "--vertex-section-y": "6rem",
+    "--vertex-section-y-lg": "9rem",
+    "--vertex-container-max": "84rem",
+    "--vertex-aspect-hero": "16 / 9",
   },
 };

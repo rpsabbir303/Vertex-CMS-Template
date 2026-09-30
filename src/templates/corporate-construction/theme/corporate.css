@@ -1,0 +1,93 @@
+/* Corporate Construction — template-scoped motion and texture */
+
+.corporate-root {
+  --cc-ink: #0a1220;
+  --cc-bone: #f4f3ef;
+  --cc-orange: #e8590c;
+  --cc-line: rgba(10, 18, 32, 0.1);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Blueprint hairline grid */
+.cc-grid {
+  background-image:
+    linear-gradient(to right, var(--cc-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--cc-line) 1px, transparent 1px);
+  background-size: 6rem 6rem;
+  -webkit-mask-image: radial-gradient(ellipse at top, #000 35%, transparent 80%);
+  mask-image: radial-gradient(ellipse at top, #000 35%, transparent 80%);
+}
+.cc-grid-dark {
+  --cc-line: rgba(255, 255, 255, 0.08);
+}
+
+/* Scroll reveal */
+.cc-reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.cc-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+.cc-reveal[data-delay="1"] { transition-delay: 0.08s; }
+.cc-reveal[data-delay="2"] { transition-delay: 0.16s; }
+.cc-reveal[data-delay="3"] { transition-delay: 0.24s; }
+
+/* Image plate settle */
+.cc-plate img {
+  transform: scale(1.04);
+  transition: transform 1.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.cc-plate.is-in img {
+  transform: scale(1);
+}
+
+/* Marquee */
+.cc-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.cc-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: cc-marquee 40s linear infinite;
+}
+.cc-marquee:hover .cc-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes cc-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Hero word entrance */
+.cc-rise {
+  animation: cc-rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.cc-rise[data-delay="1"] { animation-delay: 0.1s; }
+.cc-rise[data-delay="2"] { animation-delay: 0.2s; }
+.cc-rise[data-delay="3"] { animation-delay: 0.3s; }
+@keyframes cc-rise {
+  from { opacity: 0; transform: translateY(1.5rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-reveal,
+  .cc-plate img,
+  .cc-rise {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+  .cc-marquee-track {
+    animation: none;
+  }
+}

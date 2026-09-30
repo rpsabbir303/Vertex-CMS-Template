@@ -1,171 +1,122 @@
 "use client";
 
-import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useState } from "react";
+import type { TemplateRenderMode } from "@/registry/template-types";
 import type { Service, ServicesSectionCopy } from "@/templates/shared/cms/types/services";
 import { CmsImageMedia } from "@/templates/shared/media/cms-image";
+import { previewHref } from "@/templates/corporate-construction/utils/preview-href";
+import { pad, ui } from "@/templates/corporate-construction/theme/ui";
 import { cn } from "@/utils/cn";
 
 type HomeServicesIndexProps = {
   services: Service[];
   copy?: ServicesSectionCopy;
-  servicesHref: string;
+  mode: TemplateRenderMode;
 };
 
-function serviceCopy(service: Service): string | undefined {
-  return service.summary?.trim() || service.description?.trim() || undefined;
-}
+/**
+ * 04 — Capabilities. Dark index; the plate follows the pointer.
+ */
+export function HomeServicesIndex({ services, copy, mode }: HomeServicesIndexProps) {
+  const [active, setActive] = useState(0);
+  const current = services[active] ?? services[0];
+  if (!current) return null;
 
-export function HomeServicesIndex({
-  services,
-  copy,
-  servicesHref,
-}: HomeServicesIndexProps) {
-  const [activeId, setActiveId] = useState(services[0]?.id ?? "");
-  const active = services.find((s) => s.id === activeId) ?? services[0];
-  const title = copy?.title?.trim() || "Built for complex delivery";
-  const eyebrow = copy?.eyebrow?.trim() || "Capabilities";
-
-  const select = useCallback((id: string) => setActiveId(id), []);
-
-  if (!services.length || !active) {
-    return null;
-  }
-
-  const activeCopy = serviceCopy(active);
-  const activeImage = active.image?.url ? active.image : null;
-  const detailHref = active.href?.trim() || `${servicesHref}#${active.slug}`;
+  const servicesHref = previewHref(mode, "/services");
+  const hrefFor = (s: Service) => s.href ?? `${servicesHref}#${s.slug}`;
 
   return (
-    <section
-      className="border-b border-[var(--color-border)] bg-[var(--color-surface)]"
-      aria-labelledby="home-services-index-heading"
-    >
-      <div className="vertex-container py-16 md:py-20 lg:py-24">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
-          {/* ~42% content */}
-          <div className="order-2 min-w-0 lg:order-1 lg:col-span-5">
-            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.24em] text-[var(--color-secondary)]">
-              {eyebrow}
-            </p>
-            <h2
-              id="home-services-index-heading"
-              className="mt-4 text-balance font-[family-name:var(--font-display)] text-3xl font-semibold leading-[1.05] tracking-[-0.02em] text-[var(--color-primary)] md:text-4xl lg:text-[2.85rem]"
-            >
-              {title}
+    <section className="bg-[var(--color-primary)] text-white" aria-labelledby="capabilities-heading">
+      <div className="vertex-container py-24 md:py-32">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className={ui.eyebrow}>{copy?.eyebrow?.trim() || "Capabilities"}</p>
+            <h2 id="capabilities-heading" className={cn(ui.h2, "mt-5 max-w-[14ch] !text-white")}>
+              {copy?.title?.trim() || "Everything a building needs, under one contract."}
             </h2>
-            {copy?.description ? (
-              <p className="mt-5 max-w-md text-pretty text-sm leading-relaxed text-[var(--color-text-muted)] md:text-base">
-                {copy.description}
-              </p>
-            ) : null}
-
-            <ul
-              className="mt-10 divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]"
-              role="list"
-            >
-              {services.map((service, index) => {
-                const isActive = service.id === active.id;
-                const label = String(index + 1).padStart(2, "0");
-                return (
-                  <li key={service.id}>
-                    <button
-                      type="button"
-                      onMouseEnter={() => select(service.id)}
-                      onFocus={() => select(service.id)}
-                      onClick={() => select(service.id)}
-                      className={cn(
-                        "group flex w-full min-w-0 items-baseline gap-4 border-l-2 py-4 pl-4 text-left transition-colors duration-300 md:gap-5 md:py-5 md:pl-5",
-                        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]",
-                        "motion-reduce:transition-none",
-                        isActive
-                          ? "border-[var(--color-accent)] bg-[var(--color-surface-muted)]/70"
-                          : "border-transparent hover:border-[var(--color-border)] hover:bg-[var(--color-surface-muted)]/40",
-                      )}
-                      aria-current={isActive ? "true" : undefined}
-                    >
-                      <span
-                        className={cn(
-                          "shrink-0 font-[family-name:var(--font-display)] text-xs font-semibold tracking-[0.16em]",
-                          isActive
-                            ? "text-[var(--color-accent)]"
-                            : "text-[var(--color-text-muted)]",
-                        )}
-                      >
-                        {label}
-                      </span>
-                      <span
-                        className={cn(
-                          "min-w-0 text-balance break-words font-[family-name:var(--font-display)] text-lg font-semibold leading-snug md:text-xl",
-                          isActive
-                            ? "text-[var(--color-primary)]"
-                            : "text-[var(--color-text)] group-hover:text-[var(--color-primary)]",
-                        )}
-                      >
-                        {service.title}
-                      </span>
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-
-            {copy?.cta?.label && copy.cta.href ? (
-              <Link
-                href={copy.cta.href}
-                className="mt-8 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[var(--color-accent)] transition-colors hover:text-[var(--color-accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
-              >
-                {copy.cta.label}
-                <span aria-hidden>→</span>
-              </Link>
-            ) : (
-              <Link
-                href={servicesHref}
-                className="mt-8 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[var(--color-accent)] transition-colors hover:text-[var(--color-accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
-              >
-                View all services
-                <span aria-hidden>→</span>
-              </Link>
-            )}
           </div>
+          {copy?.description?.trim() ? (
+            <p className="max-w-sm text-pretty text-base leading-relaxed text-white/60">{copy.description}</p>
+          ) : null}
+        </div>
 
-          {/* ~58% visual */}
-          <div className="order-1 min-w-0 lg:order-2 lg:col-span-7">
-            <div
-              key={active.id}
-              className="transition-opacity duration-300 motion-reduce:transition-none"
-            >
-              {activeImage ? (
-                <div className="overflow-hidden border border-[var(--color-border)]">
-                  <CmsImageMedia
-                    image={activeImage}
-                    aspect="wide"
-                    className="min-h-[16rem] w-full md:min-h-[20rem] lg:min-h-[26rem] [&_img]:transition-transform [&_img]:duration-700"
-                    sizes="(max-width: 1024px) 100vw, 55vw"
-                  />
-                </div>
-              ) : null}
-              <div
-                className={cn(
-                  "min-w-0 border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-6 md:p-8",
-                  activeImage && "border-t-0",
-                )}
-              >
-                <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-secondary)]">
-                  {active.title}
+        <div className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-14">
+          <ul className="order-2 divide-y divide-white/10 lg:order-1 lg:col-span-6" role="list">
+            {services.map((service, index) => {
+              const isActive = index === active;
+              return (
+                <li key={service.id}>
+                  <button
+                    type="button"
+                    onMouseEnter={() => setActive(index)}
+                    onFocus={() => setActive(index)}
+                    onClick={() => setActive(index)}
+                    aria-pressed={isActive}
+                    className="group grid w-full grid-cols-[3rem_1fr_auto] items-center gap-4 py-5 text-left transition-colors motion-reduce:transition-none"
+                  >
+                    <span className={cn(ui.mono, isActive ? "text-[var(--color-accent)]" : "text-white/35")}>
+                      {pad(index + 1)}
+                    </span>
+                    <span
+                      className={cn(
+                        "font-[family-name:var(--font-display)] text-[clamp(1.5rem,2.4vw,2.5rem)] font-semibold leading-none tracking-[-0.03em] transition-colors motion-reduce:transition-none",
+                        isActive ? "text-white" : "text-white/40 group-hover:text-white/70",
+                      )}
+                    >
+                      {service.title}
+                    </span>
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "h-2 w-2 rounded-full transition-all motion-reduce:transition-none",
+                        isActive ? "scale-100 bg-[var(--color-accent)]" : "scale-0 bg-white",
+                      )}
+                    />
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="order-1 lg:order-2 lg:col-span-6">
+            <div className="lg:sticky lg:top-28">
+              <div className={cn(ui.plate, "relative h-[56vw] min-h-[16rem] bg-white/5 lg:h-[30rem]")}>
+                {services.map((service, index) => (
+                  <div
+                    key={service.id}
+                    className={cn(
+                      "absolute inset-0 transition-opacity duration-500 motion-reduce:transition-none",
+                      index === active ? "opacity-100" : "opacity-0",
+                    )}
+                    aria-hidden={index !== active}
+                  >
+                    <CmsImageMedia
+                      image={service.image}
+                      aspect="auto"
+                      className="h-full"
+                      sizes="(min-width: 1440px) 42vw, 100vw"
+                    />
+                  </div>
+                ))}
+                <span className={cn(ui.mono, "absolute left-4 top-4 rounded-full bg-black/40 px-3 py-1.5 text-white backdrop-blur")}>
+                  {pad(active + 1)} / {pad(services.length)}
+                </span>
+              </div>
+              <div className="mt-6 min-h-[7.5rem]">
+                <p className="text-pretty text-base leading-relaxed text-white/70">
+                  {current.summary?.trim() || current.description?.split(/\n\n+/)[0]?.trim()}
                 </p>
-                {activeCopy ? (
-                  <p className="mt-4 text-pretty break-words text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg">
-                    {activeCopy}
-                  </p>
-                ) : null}
-                <Link
-                  href={detailHref}
-                  className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[var(--color-accent)] transition-colors hover:text-[var(--color-accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]"
-                >
-                  Explore service
-                  <span aria-hidden>→</span>
-                </Link>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <a href={hrefFor(current)} className={ui.btnOnDark}>
+                    {current.title}
+                  </a>
+                  <a
+                    href={copy?.cta?.href ? previewHref(mode, copy.cta.href) : servicesHref}
+                    className="inline-flex min-h-12 items-center rounded-full border border-white/25 px-6 text-sm font-semibold text-white transition-colors hover:border-white"
+                  >
+                    {copy?.cta?.label?.trim() || "All capabilities"}
+                  </a>
+                </div>
               </div>
             </div>
           </div>

@@ -1,71 +1,56 @@
-const phases = [
-  {
-    label: "Discover",
-    copy: "Goals, site constraints, and budget parameters that shape a realistic delivery path.",
-  },
-  {
-    label: "Plan",
-    copy: "Estimating, scheduling, and constructability aligned before mobilization.",
-  },
-  {
-    label: "Build",
-    copy: "Field leadership, trade sequencing, and documented progress through construction.",
-  },
-  {
-    label: "Control",
-    copy: "Quality checks, safety routines, and cost/schedule transparency at every phase.",
-  },
-  {
-    label: "Deliver",
-    copy: "Inspections, punch completion, and a clean handover to operations.",
-  },
+import { Reveal } from "@/templates/corporate-construction/components/ui/reveal";
+import { pad, ui } from "@/templates/corporate-construction/theme/ui";
+import { cn } from "@/utils/cn";
+
+/** Template-level delivery sequence. Structural copy, not tenant data. */
+const PHASES = [
+  { title: "Discover", body: "Site, program, and budget reviewed before anything is priced." },
+  { title: "Plan", body: "Logistics, sequencing, and procurement set with the trades." },
+  { title: "Build", body: "Superintendent-led field work against a published schedule." },
+  { title: "Control", body: "Cost, quality, and safety tracked and reported every week." },
+  { title: "Deliver", body: "Commissioning, documentation, and a clean handover." },
 ];
 
+/**
+ * 07 — Process. Five steps as a horizontal rail.
+ */
 export function CorporateDelivery() {
   return (
-    <section
-      className="border-t border-[var(--color-border)] bg-[var(--color-surface-muted)]"
-      aria-labelledby="corporate-delivery-heading"
-    >
-      <div className="vertex-container py-16 md:py-20 lg:py-24">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="min-w-0 lg:col-span-4 lg:sticky lg:top-28 lg:self-start">
-            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.24em] text-[var(--color-secondary)]">
-              How we build
-            </p>
-            <h2
-              id="corporate-delivery-heading"
-              className="mt-4 font-[family-name:var(--font-display)] text-3xl font-semibold tracking-[-0.02em] text-[var(--color-primary)] md:text-4xl lg:text-[2.65rem]"
-            >
-              A disciplined sequence
+    <section className="bg-[var(--color-surface)]" aria-labelledby="process-heading">
+      <div className="vertex-container py-24 md:py-32">
+        <div className="grid gap-8 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-8">
+            <p className={ui.eyebrow}>How we deliver</p>
+            <h2 id="process-heading" className={cn(ui.h2, "mt-5 max-w-[14ch]")}>
+              One sequence, from first price to handover.
             </h2>
-            <p className="mt-5 text-pretty text-sm leading-relaxed text-[var(--color-text-muted)] md:text-base">
-              From early scoping through turnover—structured communication, field accountability,
-              and clear owner reporting.
-            </p>
           </div>
-
-          <ol className="min-w-0 divide-y divide-[var(--color-border)] border-y border-[var(--color-border)] bg-[var(--color-surface)] lg:col-span-8">
-            {phases.map((phase, index) => (
-              <li
-                key={phase.label}
-                className="group grid gap-4 px-5 py-8 md:grid-cols-[5.5rem_1fr] md:gap-8 md:px-8 md:py-10"
-              >
-                <p className="font-[family-name:var(--font-display)] text-4xl font-semibold leading-none tabular-nums tracking-[-0.03em] text-[var(--color-accent)] transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 md:text-5xl lg:text-[3.25rem]">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <div className="min-w-0 md:pt-1">
-                  <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold text-[var(--color-primary)] md:text-2xl">
-                    {phase.label}
-                  </h3>
-                  <p className="mt-2 max-w-xl text-pretty text-sm leading-relaxed text-[var(--color-text-muted)] md:text-base">
-                    {phase.copy}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <p className={cn(ui.body, "max-w-sm md:col-span-4")}>
+            The same team stays on the project from preconstruction through closeout, so nothing is
+            lost between phases.
+          </p>
         </div>
+
+        <ol className={cn("mt-16 grid gap-px overflow-hidden rounded-[1.25rem] bg-[var(--color-primary)]/10 sm:grid-cols-2 lg:grid-cols-5")}>
+          {PHASES.map((phase, index) => (
+            <Reveal
+              as="li"
+              key={phase.title}
+              delay={(index % 4) as 0 | 1 | 2 | 3}
+              className="group flex min-h-[16rem] flex-col justify-between bg-[var(--color-surface)] p-6 transition-colors hover:bg-[var(--color-surface-muted)] motion-reduce:transition-none lg:min-h-[20rem]"
+            >
+              <span className="font-[family-name:var(--font-display)] text-[clamp(3rem,4.5vw,4.5rem)] font-semibold leading-none tracking-[-0.05em] text-[var(--color-primary)]/15 transition-colors group-hover:text-[var(--color-accent)] motion-reduce:transition-none">
+                {pad(index + 1)}
+              </span>
+              <div>
+                <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-[-0.02em] text-[var(--color-primary)]">
+                  {phase.title}
+                </h3>
+                <p className={cn(ui.small, "mt-2")}>{phase.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </ol>
       </div>
     </section>
   );

@@ -8,13 +8,13 @@ type CorporateLegalPageProps = TemplatePageProps & {
 };
 
 /** Corporate Construction wrapper around the shared LegalPage layout. */
-export function CorporateConstructionLegalPage({
-  page,
-  ...props
-}: CorporateLegalPageProps) {
+export function CorporateConstructionLegalPage({ page, ...props }: CorporateLegalPageProps) {
   return (
     <CorporatePageFrame {...props}>
-      <LegalPageLayout page={page} />
+      {/* Clear the floating header */}
+      <div className="pt-24 md:pt-28">
+        <LegalPageLayout page={page} />
+      </div>
     </CorporatePageFrame>
   );
 }

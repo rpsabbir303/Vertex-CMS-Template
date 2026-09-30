@@ -2,199 +2,75 @@ import type { Company } from "@/templates/shared/cms/types/company";
 import type { CmsImage } from "@/templates/shared/cms/types/media";
 import type { Project } from "@/templates/shared/cms/types/projects";
 import { CmsImageMedia } from "@/templates/shared/media/cms-image";
-
-type FieldMeta = {
-  project?: string;
-  location?: string;
-  sector?: string;
-  scope?: string;
-};
+import { Reveal } from "@/templates/corporate-construction/components/ui/reveal";
+import { pad, ui } from "@/templates/corporate-construction/theme/ui";
+import { cn } from "@/utils/cn";
 
 type CorporateCraftsmanshipProps = {
-  company?: Company | null;
-  projects?: Project[];
+  company: Company;
+  projects: Project[];
 };
 
-const FIELD_PRINCIPLES = [
-  {
-    id: "supervision",
-    label: "Site supervision",
-    copy: "Continuous oversight from mobilization to completion.",
-  },
-  {
-    id: "quality",
-    label: "Quality control",
-    copy: "Every phase reviewed against project standards.",
-  },
-  {
-    id: "coordination",
-    label: "Coordination",
-    copy: "Trades, materials, and schedules kept aligned.",
-  },
-  {
-    id: "safety",
-    label: "Safety",
-    copy: "Disciplined execution from start to finish.",
-  },
-] as const;
+const PRINCIPLES = [
+  { title: "Supervision", body: "A superintendent on site every working day, accountable for the plan." },
+  { title: "Quality", body: "Work is checked against the drawings before the next trade starts." },
+  { title: "Coordination", body: "Trades, deliveries, and access sequenced in a weekly look-ahead." },
+  { title: "Safety", body: "Temporary protection and site controls reviewed before each phase." },
+];
 
-function truncateCopy(text: string, max = 140): string {
-  const trimmed = text.trim();
-  if (trimmed.length <= max) return trimmed;
-  const cut = trimmed.slice(0, max);
-  const lastSpace = cut.lastIndexOf(" ");
-  return `${(lastSpace > 70 ? cut.slice(0, lastSpace) : cut).trim()}…`;
-}
-
-function projectMeta(project: Project): FieldMeta | undefined {
-  const meta: FieldMeta = {};
-  if (project.title) meta.project = project.title;
-  if (project.location) meta.location = project.location;
-  if (project.metadata?.sector) meta.sector = project.metadata.sector;
-  if (project.metadata?.scope) meta.scope = project.metadata.scope;
-  return Object.keys(meta).length ? meta : undefined;
-}
-
-function resolveSiteVisual(
-  projects: Project[],
-  company?: Company | null,
-): { image: CmsImage; meta?: FieldMeta } | null {
-  const featured = projects.find((p) => p.featured && p.image?.url);
-  if (featured?.image) return { image: featured.image, meta: projectMeta(featured) };
-  const any = projects.find((p) => p.image?.url);
-  if (any?.image) return { image: any.image, meta: projectMeta(any) };
-  if (company?.heroImage?.url) return { image: company.heroImage };
+function resolveSiteVisual(company: Company, projects: Project[]): { image: CmsImage; caption?: string } | null {
+  for (const project of projects) {
+    const frame = project.gallery?.images?.find((img) => img.url);
+    if (frame) {
+      return { image: frame, caption: frame.caption ?? project.title };
+    }
+  }
+  const second = projects.filter((p) => p.image?.url)[1];
+  if (second?.image) return { image: second.image, caption: second.title };
+  if (company.heroImage?.url) return { image: company.heroImage };
   return null;
 }
 
-function supportingCopy(company?: Company | null): string {
-  const lead = company?.description
-    ?.split(/\n\n+/)
-    .map((p) => p.trim())
-    .filter(Boolean)[0];
-  if (lead) return truncateCopy(lead, 140);
-  return "Experienced teams, disciplined coordination, and continuous oversight keep every phase moving with precision.";
-}
-
-export function CorporateCraftsmanship({
-  company = null,
-  projects = [],
-}: CorporateCraftsmanshipProps) {
-  const visual = resolveSiteVisual(projects, company);
-  const body = supportingCopy(company);
-
-  if (!visual?.image && !company?.description) {
-    return null;
-  }
-
-  const labels: { label: string; value: string }[] = [];
-  if (visual?.meta?.sector) {
-    labels.push({ label: "Project", value: visual.meta.sector });
-  } else if (visual?.meta?.project) {
-    labels.push({ label: "Project", value: visual.meta.project });
-  }
-  labels.push({ label: "Phase", value: "Field execution" });
-  if (visual?.meta?.location) {
-    labels.push({ label: "Location", value: visual.meta.location });
-  }
+/**
+ * 08 — Field execution. Dark, one big plate, four principles.
+ */
+export function CorporateCraftsmanship({ company, projects }: CorporateCraftsmanshipProps) {
+  const visual = resolveSiteVisual(company, projects);
 
   return (
-    <section
-      className="relative overflow-hidden bg-[#070f18] text-white"
-      aria-labelledby="corporate-craft-heading"
-    >
-      <div className="vertex-container relative pt-16 md:pt-20 lg:pt-24">
-        <div className="flex flex-col gap-8 border-b border-white/10 pb-10 md:flex-row md:items-end md:justify-between md:gap-16 md:pb-12">
-          <div className="min-w-0 max-w-3xl">
-            <div className="flex items-center gap-3">
-              <span aria-hidden className="h-px w-10 bg-[var(--color-accent)]" />
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.28em] text-[var(--color-accent)]">
-                Field execution
-              </p>
-            </div>
-            <h2
-              id="corporate-craft-heading"
-              className="mt-6 max-w-[11ch] text-balance break-words font-[family-name:var(--font-display)] text-[2.85rem] font-semibold leading-[0.95] tracking-[-0.03em] md:text-5xl lg:text-[4.5rem]"
-            >
-              The work is in the details.
-            </h2>
-          </div>
-          <p className="max-w-sm text-pretty break-words text-sm leading-relaxed text-white/50 md:pb-1 md:text-base lg:max-w-xs">
-            {body}
-          </p>
+    <section className="relative overflow-hidden bg-[#070c16] text-white" aria-labelledby="field-heading">
+      <div className="cc-grid cc-grid-dark pointer-events-none absolute inset-0" aria-hidden />
+      <div className="vertex-container relative grid gap-12 py-24 md:py-32 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-5">
+          <p className={ui.eyebrow}>Field execution</p>
+          <h2 id="field-heading" className={cn(ui.h2, "mt-5 max-w-[12ch] !text-white")}>
+            The work is in the details.
+          </h2>
+          <ol className="mt-12 divide-y divide-white/10">
+            {PRINCIPLES.map((p, index) => (
+              <Reveal as="li" key={p.title} delay={(index % 4) as 0 | 1 | 2 | 3} className="grid grid-cols-[3rem_1fr] gap-4 py-5">
+                <span className={cn(ui.mono, "text-[var(--color-accent)]")}>{pad(index + 1)}</span>
+                <div>
+                  <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-[-0.02em]">
+                    {p.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-white/60">{p.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </ol>
         </div>
-      </div>
 
-      <div className="relative mt-8 md:mt-10">
-        {visual?.image ? (
-          <figure className="group relative m-0">
-            <div className="relative min-h-[24rem] overflow-hidden md:min-h-[34rem] lg:min-h-[min(80vh,48rem)]">
-              <CmsImageMedia
-                image={visual.image}
-                aspect="auto"
-                className="absolute inset-0 h-full min-h-[24rem] w-full md:min-h-[34rem] lg:min-h-[min(80vh,48rem)] [&_img]:h-full [&_img]:w-full [&_img]:object-cover [&_img]:transition-transform [&_img]:duration-[1.6s] group-hover:[&_img]:scale-[1.03] motion-reduce:[&_img]:transition-none motion-reduce:group-hover:[&_img]:scale-100"
-                sizes="100vw"
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-[#070f18] via-[#070f18]/20 to-transparent"
-              />
-              <span
-                aria-hidden
-                className="absolute left-5 top-5 h-7 w-7 border-l border-t border-white/35 md:left-10 md:top-10"
-              />
-              <span
-                aria-hidden
-                className="absolute bottom-5 right-5 h-7 w-7 border-b border-r border-white/35 md:bottom-10 md:right-10"
-              />
-
-              {/* Subtle architectural labels — not a dashboard panel */}
-              <figcaption className="absolute bottom-6 left-5 z-[1] flex flex-wrap gap-x-8 gap-y-3 md:bottom-10 md:left-10">
-                {labels.map((row) => (
-                  <div key={row.label} className="min-w-0">
-                    <p className="text-[0.5625rem] font-semibold uppercase tracking-[0.2em] text-white/45">
-                      {row.label}
-                    </p>
-                    <p className="mt-1 max-w-[14rem] text-pretty break-words text-sm font-medium text-white">
-                      {row.value}
-                    </p>
-                  </div>
-                ))}
-              </figcaption>
+        {visual ? (
+          <Reveal plate as="figure" className="lg:col-span-7">
+            <div className={cn(ui.plate, "relative h-[70vw] min-h-[18rem] bg-white/5 md:h-[36rem] lg:h-[44rem]")}>
+              <CmsImageMedia image={visual.image} aspect="auto" className="h-full" sizes="(min-width: 1440px) 58vw, 100vw" />
             </div>
-          </figure>
-        ) : (
-          <div
-            className="flex min-h-[14rem] items-end border-y border-white/10 bg-white/[0.03] px-6 py-8"
-            aria-hidden
-          >
-            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-white/30">
-              Field imagery unavailable
-            </p>
-          </div>
-        )}
-      </div>
-
-      <div className="vertex-container relative py-14 md:py-16 lg:py-20">
-        <ul className="grid gap-0 border-t border-white/12 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-white/12">
-          {FIELD_PRINCIPLES.map((item, index) => (
-            <li
-              key={item.id}
-              className="min-w-0 border-b border-white/10 py-7 sm:border-b-0 sm:odd:border-r sm:odd:border-white/10 sm:odd:pr-6 sm:even:pl-6 lg:border-0 lg:px-8 lg:py-3 lg:first:pl-0 lg:last:pr-0"
-            >
-              <p className="text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-white/30">
-                {String(index + 1).padStart(2, "0")}
-              </p>
-              <p className="mt-3 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-white">
-                {item.label}
-              </p>
-              <span aria-hidden className="mt-3 block h-px w-8 bg-[var(--color-accent)]" />
-              <p className="mt-3 max-w-[15rem] text-pretty text-sm leading-relaxed text-white/45">
-                {item.copy}
-              </p>
-            </li>
-          ))}
-        </ul>
+            {visual.caption ? (
+              <figcaption className={cn(ui.mono, "mt-3 text-white/50")}>{visual.caption}</figcaption>
+            ) : null}
+          </Reveal>
+        ) : null}
       </div>
     </section>
   );

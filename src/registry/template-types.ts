@@ -7,11 +7,13 @@ export type TemplateSectionId =
   | "hero"
   | "services"
   | "featured-projects"
+  | "project-stories"
   | "about-story"
   | "delivery-approach"
   | "trust-credentials"
   | "home-metrics"
   | "home-craftsmanship"
+  | "inside-the-work"
   | "team"
   | "testimonials"
   | "contact-cta";

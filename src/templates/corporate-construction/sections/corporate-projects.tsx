@@ -1,134 +1,84 @@
-import Link from "next/link";
 import type { TemplateRenderMode } from "@/registry/template-types";
 import type { Project } from "@/templates/shared/cms/types/projects";
-import {
-  FeaturedProjectLead,
-  FeaturedProjectSecondary,
-  homepageFeaturedProjects,
-  projectDetailHref,
-  projectIndexLabel,
-} from "@/templates/corporate-construction/components/featured-project-showcase";
+import { CmsImageMedia } from "@/templates/shared/media/cms-image";
+import { Reveal } from "@/templates/corporate-construction/components/ui/reveal";
+import { previewHref } from "@/templates/corporate-construction/utils/preview-href";
+import { pad, ui } from "@/templates/corporate-construction/theme/ui";
+import { cn } from "@/utils/cn";
 
 type CorporateProjectsProps = {
   projects: Project[];
   mode: TemplateRenderMode;
 };
 
-export function CorporateProjects({ projects, mode }: CorporateProjectsProps) {
-  const preview = homepageFeaturedProjects(projects);
-  if (!preview.length) {
-    return null;
-  }
+export function selectLeadProject(projects: Project[]): Project | undefined {
+  return projects.find((p) => p.image?.url) ?? projects[0];
+}
 
-  const previewBase = mode === "preview" ? "/preview/corporate-construction" : "";
-  const detail = (slug: string) => projectDetailHref(previewBase, slug);
-  const [lead, ...supporting] = preview;
-  const count = preview.length;
+/**
+ * 05 — Selected work. One project, full width, with its facts.
+ */
+export function CorporateProjects({ projects, mode }: CorporateProjectsProps) {
+  const lead = selectLeadProject(projects);
+  if (!lead) return null;
+
+  const facts = [
+    ["Sector", lead.metadata?.sector],
+    ["Location", lead.location],
+    ["Year", lead.year ? String(lead.year) : undefined],
+    ["Scope", lead.metadata?.scope],
+  ].filter((f): f is [string, string] => Boolean(f[1]));
+
+  const href = previewHref(mode, `/projects/${lead.slug}`);
 
   return (
-    <section
-      className="border-t border-[var(--color-border)] bg-[var(--color-surface)]"
-      aria-labelledby="corporate-projects-heading"
-    >
-      <div className="vertex-container py-16 md:py-20 lg:py-24">
-        <div className="flex flex-col gap-6 border-b border-[var(--color-border)] pb-10 md:flex-row md:items-end md:justify-between md:gap-12 md:pb-12">
-          <div className="min-w-0">
-            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.24em] text-[var(--color-secondary)]">
-              Selected work
-            </p>
-            <h2
-              id="corporate-projects-heading"
-              className="mt-4 text-balance font-[family-name:var(--font-display)] text-3xl font-semibold tracking-[-0.02em] text-[var(--color-primary)] md:text-4xl lg:text-[2.85rem]"
-            >
-              Featured projects
+    <section className="bg-[var(--color-surface)]" aria-labelledby="selected-heading">
+      <div className="vertex-container py-24 md:py-32">
+        <div className="grid gap-8 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-8">
+            <p className={ui.eyebrow}>Selected work</p>
+            <h2 id="selected-heading" className={cn(ui.h2, "mt-5 max-w-[14ch]")}>
+              <a href={href} className="transition-colors hover:text-[var(--color-accent)]">
+                {lead.title}
+              </a>
             </h2>
-            <p className="mt-4 max-w-xl text-pretty text-sm leading-relaxed text-[var(--color-text-muted)] md:text-base">
-              Portfolio stories from the CMS—large photography with type, location, and scope.
-            </p>
           </div>
-          <Link
-            href={`${previewBase}/projects`}
-            className="inline-flex min-h-11 shrink-0 items-center gap-2 border border-[var(--color-primary)] px-5 text-sm font-semibold text-[var(--color-primary)] no-underline transition-colors hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] motion-reduce:transition-none"
-          >
-            View all projects
-            <span aria-hidden>→</span>
-          </Link>
+          <p className={cn(ui.mono, "text-[var(--color-text-muted)] md:col-span-4 md:text-right")}>
+            {pad(1)} / {pad(projects.length)}
+          </p>
         </div>
 
-        {count === 1 && lead ? (
-          <div className="mt-10 min-w-0 lg:mt-12">
-            <FeaturedProjectLead project={lead} detailHref={detail(lead.slug)} priorityImage />
-          </div>
+        {lead.image?.url ? (
+          <Reveal plate className={cn(ui.plate, "mt-12 h-[70vh] min-h-[20rem] max-h-[56rem]")}>
+            <a href={href} className="block h-full" aria-label={`View ${lead.title}`}>
+              <CmsImageMedia image={lead.image} aspect="auto" className="h-full" sizes="100vw" />
+            </a>
+          </Reveal>
         ) : null}
 
-        {count === 2 && lead ? (
-          <div className="mt-10 grid min-w-0 gap-12 lg:mt-12 lg:grid-cols-12 lg:gap-x-12">
-            <div className="min-w-0 lg:col-span-7">
-              <FeaturedProjectLead project={lead} detailHref={detail(lead.slug)} priorityImage />
-            </div>
-            {supporting[0] ? (
-              <div className="min-w-0 border-t border-[var(--color-border)] pt-10 lg:col-span-5 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-2">
-                <FeaturedProjectSecondary
-                  project={supporting[0]}
-                  detailHref={detail(supporting[0].slug)}
-                  indexLabel={projectIndexLabel(1)}
-                  layout="stack"
-                />
-              </div>
+        <div className="mt-10 grid gap-10 lg:grid-cols-12">
+          {lead.summary ? <p className={cn(ui.lead, "max-w-xl lg:col-span-6")}>{lead.summary}</p> : null}
+          <div className={cn("lg:col-span-6", !lead.summary && "lg:col-span-12")}>
+            {facts.length ? (
+              <dl className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4">
+                {facts.map(([label, value]) => (
+                  <div key={label} className={cn("border-t pt-4", ui.rule)}>
+                    <dt className={cn(ui.mono, "text-[var(--color-text-muted)]")}>{label}</dt>
+                    <dd className="mt-2 text-sm font-medium text-[var(--color-primary)]">{value}</dd>
+                  </div>
+                ))}
+              </dl>
             ) : null}
-          </div>
-        ) : null}
-
-        {count === 3 && lead ? (
-          <div className="mt-10 grid min-w-0 gap-12 lg:mt-12 lg:grid-cols-12 lg:gap-10">
-            <div className="min-w-0 lg:col-span-7">
-              <FeaturedProjectLead
-                project={lead}
-                detailHref={detail(lead.slug)}
-                priorityImage
-                compact
-              />
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href={href} className={ui.btn}>
+                View the project
+              </a>
+              <a href={previewHref(mode, "/projects")} className={ui.btnGhost}>
+                All projects
+              </a>
             </div>
-            <ul className="grid min-w-0 content-start gap-10 lg:col-span-5">
-              {supporting.map((project, index) => (
-                <li
-                  key={project.id}
-                  className="min-w-0 border-t border-[var(--color-border)] pt-8 first:border-0 first:pt-0"
-                >
-                  <FeaturedProjectSecondary
-                    project={project}
-                    detailHref={detail(project.slug)}
-                    indexLabel={projectIndexLabel(index + 1)}
-                    layout="rail"
-                  />
-                </li>
-              ))}
-            </ul>
           </div>
-        ) : null}
-
-        {count >= 4 && lead ? (
-          <div className="mt-10 min-w-0 lg:mt-12">
-            <FeaturedProjectLead
-              project={lead}
-              detailHref={detail(lead.slug)}
-              priorityImage
-              compact
-            />
-            <ul className="mt-10 border-t border-[var(--color-border)]">
-              {supporting.map((project, index) => (
-                <li key={project.id} className="min-w-0 border-b border-[var(--color-border)] py-8">
-                  <FeaturedProjectSecondary
-                    project={project}
-                    detailHref={detail(project.slug)}
-                    indexLabel={projectIndexLabel(index + 1)}
-                    layout="rail"
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
+        </div>
       </div>
     </section>
   );

@@ -1,89 +1,68 @@
 import type { Certification } from "@/templates/shared/cms/types/certifications";
 import type { Company } from "@/templates/shared/cms/types/company";
+import { Reveal } from "@/templates/corporate-construction/components/ui/reveal";
+import { ui } from "@/templates/corporate-construction/theme/ui";
+import { cn } from "@/utils/cn";
 
 type CorporateProofStripProps = {
   company: Company;
   certifications: Certification[];
-  serviceCount?: number;
+  serviceCount: number;
+  projectCount: number;
 };
 
-function orderedCredentials(certifications: Certification[]): Certification[] {
-  return certifications
-    .map((item, index) => ({ item, index }))
-    .sort((a, b) => {
-      const orderA = a.item.sortOrder ?? Number.MAX_SAFE_INTEGER;
-      const orderB = b.item.sortOrder ?? Number.MAX_SAFE_INTEGER;
-      return orderA - orderB || a.index - b.index;
-    })
-    .map(({ item }) => item);
-}
-
-function serviceArea(company: Company): string | undefined {
-  const { address } = company;
-  if (!address) return undefined;
-  const parts = [address.city, address.region].filter(Boolean);
-  return parts.length ? parts.join(", ") : undefined;
-}
+type Fact = { value: string; label: string; note?: string };
 
 /**
- * Quiet credibility transition — typography + dividers only.
+ * 02 — The record. Only figures the CMS can back.
  */
 export function CorporateProofStrip({
   company,
   certifications,
-  serviceCount = 0,
+  serviceCount,
+  projectCount,
 }: CorporateProofStripProps) {
-  const certs = orderedCredentials(certifications);
-  const area = serviceArea(company);
-
-  const labels: string[] = [];
-  if (company.foundedYear) {
-    labels.push(`Established ${company.foundedYear}`);
+  const year = company.foundedYear;
+  const facts: Fact[] = [];
+  if (year) {
+    const years = new Date().getFullYear() - year;
+    facts.push({ value: String(years), label: "Years in operation", note: `Established ${year}` });
   }
-  if (area) {
-    labels.push(area);
+  if (projectCount) facts.push({ value: String(projectCount), label: "Projects published" });
+  if (serviceCount) facts.push({ value: String(serviceCount), label: "Capabilities on record" });
+  if (certifications.length) {
+    facts.push({
+      value: String(certifications.length),
+      label: "Credentials on file",
+      note: certifications.map((c) => c.name).join(" · "),
+    });
   }
-  if (serviceCount > 0) {
-    labels.push(serviceCount === 1 ? "Commercial capability" : "Commercial construction");
-  }
-  certs.slice(0, 4).forEach((cert) => {
-    if (cert.name?.trim()) labels.push(cert.name.trim());
-  });
-
-  const unique = labels.filter(
-    (label, index) =>
-      labels.findIndex((l) => l.toLowerCase() === label.toLowerCase()) === index,
-  );
-
-  if (!unique.length) {
-    return null;
-  }
+  if (facts.length < 2) return null;
 
   return (
-    <section
-      className="border-b border-[var(--color-border)] bg-[var(--color-surface-muted)]"
-      aria-labelledby="corporate-proof-heading"
-    >
-      <div className="vertex-container py-6 md:py-7">
-        <h2 id="corporate-proof-heading" className="sr-only">
-          Credentials
-        </h2>
-        <ul className="flex min-w-0 flex-wrap items-center justify-start gap-y-3 md:justify-between md:gap-y-2">
-          {unique.map((label, index) => (
-            <li
-              key={`${label}-${index}`}
-              className="flex min-w-0 items-center text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-[var(--color-text-muted)]"
-            >
-              {index > 0 ? (
-                <span
-                  aria-hidden
-                  className="mx-3 hidden h-3 w-px shrink-0 bg-[var(--color-border)] sm:mx-4 sm:block lg:mx-5"
-                />
-              ) : null}
-              <span className="text-pretty break-words">{label}</span>
-            </li>
-          ))}
-        </ul>
+    <section className="bg-[var(--color-surface-muted)]" aria-labelledby="proof-heading">
+      <div className="vertex-container py-20 md:py-28">
+        <div className="grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <p className={ui.eyebrow}>The record</p>
+            <h2 id="proof-heading" className={cn(ui.h3, "mt-4 max-w-[14ch]")}>
+              Counted from what is published, not rounded for effect.
+            </h2>
+          </div>
+          <dl className="grid gap-px overflow-hidden rounded-[1.25rem] bg-[var(--color-primary)]/10 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-2">
+            {facts.map((fact, index) => (
+              <Reveal key={fact.label} delay={(index % 4) as 0 | 1 | 2 | 3} className="bg-[var(--color-surface-muted)] p-6 md:p-8">
+                <dt className={cn(ui.mono, "text-[var(--color-text-muted)]")}>{fact.label}</dt>
+                <dd className="mt-6">
+                  <span className="block font-[family-name:var(--font-display)] text-[clamp(3.5rem,6vw,6rem)] font-semibold leading-none tracking-[-0.05em] text-[var(--color-primary)]">
+                    {fact.value}
+                  </span>
+                  {fact.note ? <span className={cn(ui.small, "mt-3 block")}>{fact.note}</span> : null}
+                </dd>
+              </Reveal>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );

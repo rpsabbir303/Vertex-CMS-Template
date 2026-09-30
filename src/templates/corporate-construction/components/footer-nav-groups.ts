@@ -35,9 +35,9 @@ const SOCIAL_PRIORITY: SocialLink["platform"][] = [
   "other",
 ];
 
-/** Flat Explore list for the footer (home omitted). Empty when nothing is published. */
+/** Flat Explore list for the footer, including Home. Empty when nothing is published. */
 export function footerExploreItems(navItems: SiteNavigationItem[]): SiteNavigationItem[] {
-  return navItems.filter((item) => item.pageSlug !== "home" && item.href && item.label);
+  return navItems.filter((item) => item.href && item.label);
 }
 
 /** Groups CMS navigation into footer columns; omits empty groups. */

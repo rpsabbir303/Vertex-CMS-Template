@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import type { TemplateRenderMode } from "@/registry/template-types";
 import type { CmsSitePayload } from "@/templates/shared/cms/types";
 import type { Company } from "@/templates/shared/cms/types/company";
@@ -8,9 +11,6 @@ import {
   isNavItemActive,
   resolvePublicNavigation,
 } from "@/templates/shared/navigation/resolve-navigation";
-import { ButtonLink } from "@/templates/shared/components/ui/button-link";
-import { CorporateUtilityBar } from "@/templates/corporate-construction/components/corporate-utility-bar";
-import { resolveCorporateContact } from "@/templates/corporate-construction/utils/resolve-corporate-contact";
 import { cn } from "@/utils/cn";
 
 type CorporateHeaderProps = {
@@ -21,35 +21,43 @@ type CorporateHeaderProps = {
   mode: TemplateRenderMode;
 };
 
-export function CorporateHeader({
-  payload,
-  company,
-  contact,
-  currentPath = "/",
-  mode,
-}: CorporateHeaderProps) {
+/**
+ * Floating glass bar. Sits over every page; tightens after the first scroll.
+ */
+export function CorporateHeader({ payload, company, currentPath = "/", mode }: CorporateHeaderProps) {
   const navItems = resolvePublicNavigation(payload);
-  const previewBase =
-    mode === "preview" ? "/preview/corporate-construction" : "";
+  const previewBase = mode === "preview" ? "/preview/corporate-construction" : "";
   const withPreview = (href: string) =>
     href === "/" && previewBase ? previewBase : `${previewBase}${href}`;
+  const resolvedPath = currentPath === "/" && previewBase ? previewBase : currentPath;
+  const isActive = (href: string) => {
+    const target = withPreview(href);
+    // Home must match only the index, not every nested preview route.
+    if (href === "/") return resolvedPath === target;
+    return isNavItemActive(target, resolvedPath);
+  };
 
-  const resolvedPath =
-    currentPath === "/" && previewBase ? previewBase : currentPath;
-
-  const isActive = (href: string) =>
-    isNavItemActive(withPreview(href), resolvedPath);
-
-  const resolvedContact = resolveCorporateContact(company, contact);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-border)]/80 bg-[var(--color-surface)]/95 backdrop-blur-[6px] supports-[backdrop-filter]:bg-[var(--color-surface)]/90">
-      <CorporateUtilityBar contact={resolvedContact} />
-
-      <div className="vertex-container flex items-center gap-5 py-3.5 lg:gap-8 lg:py-4">
+    <header className="fixed inset-x-0 top-0 z-40 px-3 pt-3 md:px-6 md:pt-5">
+      <div
+        className={cn(
+          "mx-auto flex max-w-[var(--spacing-container-max)] items-center gap-4 rounded-full border px-3 py-2 transition-[background-color,border-color,box-shadow] duration-300 motion-reduce:transition-none md:px-4",
+          scrolled
+            ? "border-[var(--color-primary)]/10 bg-white/85 shadow-[0_8px_30px_-12px_rgba(10,18,32,0.25)] backdrop-blur-xl"
+            : "border-transparent bg-white/60 backdrop-blur-md",
+        )}
+      >
         <Link
           href={withPreview("/")}
-          className="flex min-w-0 max-w-[min(100%,18rem)] items-center gap-3"
+          className="flex min-w-0 items-center gap-2.5 pl-1"
           aria-label={`${company.name} home`}
         >
           {company.logo?.url ? (
@@ -57,55 +65,49 @@ export function CorporateHeader({
             <img
               src={company.logo.url}
               alt=""
-              className="h-9 w-9 shrink-0 object-contain md:h-10 md:w-10"
-              width={40}
-              height={40}
+              className="h-8 w-8 shrink-0 rounded-md object-contain"
+              width={32}
+              height={32}
             />
-          ) : null}
-          <span className="min-w-0 text-balance font-[family-name:var(--font-display)] text-[0.9375rem] font-semibold leading-tight text-[var(--color-primary)] sm:text-base md:text-lg">
+          ) : (
+            <span className="h-8 w-8 shrink-0 rounded-md bg-[var(--color-primary)]" aria-hidden />
+          )}
+          <span className="hidden min-w-0 truncate font-[family-name:var(--font-display)] text-[0.9375rem] font-semibold tracking-[-0.02em] text-[var(--color-primary)] sm:block">
             {company.name}
           </span>
         </Link>
 
-        <nav
-          className="ml-auto hidden items-center gap-0.5 lg:flex"
-          aria-label="Primary"
-        >
+        <nav className="mx-auto hidden items-center gap-0.5 lg:flex" aria-label="Primary">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={withPreview(item.href)}
               className={cn(
-                "relative inline-flex min-h-11 items-center px-3.5 text-[0.8125rem] font-medium tracking-[0.02em] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)] xl:px-4",
+                "relative inline-flex min-h-10 items-center rounded-full px-3.5 text-[0.8125rem] font-medium transition-colors motion-reduce:transition-none",
                 isActive(item.href)
-                  ? "text-[var(--color-primary)]"
-                  : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)]",
+                  ? "bg-[var(--color-primary)]/[0.06] text-[var(--color-primary)]"
+                  : "text-[var(--color-text-muted)] hover:bg-[var(--color-primary)]/[0.05] hover:text-[var(--color-primary)]",
               )}
               aria-current={isActive(item.href) ? "page" : undefined}
             >
               {item.label}
-              {isActive(item.href) ? (
-                <span className="absolute inset-x-3.5 bottom-2 h-px bg-[var(--color-accent)]" />
-              ) : null}
             </Link>
           ))}
         </nav>
 
         <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-0">
-          <ButtonLink
+          <Link
             href={withPreview("/contact")}
-            className="hidden rounded-none px-5 text-[0.8125rem] sm:inline-flex"
+            className="hidden min-h-10 items-center rounded-full bg-[var(--color-primary)] px-4 text-[0.8125rem] font-semibold text-white transition-colors hover:bg-[var(--color-accent)] sm:inline-flex"
           >
             Start a project
-          </ButtonLink>
+          </Link>
           <MobileNav
-            items={navItems.map((item) => ({
-              ...item,
-              href: withPreview(item.href),
-            }))}
+            items={navItems.map((item) => ({ ...item, href: withPreview(item.href) }))}
             currentPath={resolvedPath}
             ctaHref={withPreview("/contact")}
             ctaLabel="Start a project"
+            buttonClassName="rounded-full border-[var(--color-primary)]/15"
           />
         </div>
       </div>
