@@ -16,8 +16,9 @@ import { CorporateContactCta } from "./corporate-contact-cta";
 import { CorporateHero } from "./corporate-hero";
 import { CorporateInsideWork } from "./corporate-inside-work";
 import { CorporateCredentials, uniqueSectors } from "./corporate-home-metrics";
-import { CorporateProjects, selectLeadProject } from "./corporate-projects";
-import { CorporateProjectStories } from "./corporate-project-stories";
+import { selectLeadProject } from "./corporate-projects";
+import { HomeSelectedWorkShowcase } from "@/templates/corporate-construction/components/home-selected-work-showcase";
+import { selectHomeSelectedWorkProjects } from "@/templates/corporate-construction/utils/home-selected-work";
 import { CorporateProofStrip } from "./corporate-proof-strip";
 import { CorporateServices } from "./corporate-services";
 import { CorporateTestimonials } from "./corporate-testimonials";
@@ -45,6 +46,7 @@ export function composeCorporateHomeSections(
   const servicesCopy = unwrapEnvelope(payload.services)?.section;
   const allProjects = getSortedCollectionItems(payload.projects);
   const featuredProjects = allProjects.filter((p) => p.featured);
+  const selectedWorkProjects = selectHomeSelectedWorkProjects(allProjects);
   const testimonials = getSortedCollectionItems(payload.testimonials);
   const certifications = unwrapCollectionItems(payload.certifications);
 
@@ -67,8 +69,7 @@ export function composeCorporateHomeSections(
   // Live spec strip: sectors and capabilities straight from the CMS.
   const marquee = [...uniqueSectors(allProjects), ...services.map((s) => s.title)];
 
-  const leadProject = selectLeadProject(featuredProjects);
-  const storyProjects = featuredProjects.filter((p) => p.id !== leadProject?.id);
+  const leadProject = selectLeadProject(featuredProjects.length ? featuredProjects : allProjects);
   // Keep the collage distinct from the Selected Work plate when there is enough material.
   const insideCandidates = allProjects.filter((p) => p.id !== leadProject?.id && p.image?.url);
   const insideProjects = insideCandidates.length >= 2 ? insideCandidates : allProjects;
@@ -105,19 +106,10 @@ export function composeCorporateHomeSections(
       ) : null,
     // Kept in type map for registry compatibility; not in homepage order.
     "about-story": null,
-    "featured-projects":
-      hasOptionalSection(payload.projects) && featuredProjects.length ? (
-        <CorporateProjects key="projects" projects={featuredProjects} mode={mode} />
-      ) : null,
+    "featured-projects": null,
     "project-stories":
-      hasOptionalSection(payload.projects) && storyProjects.length ? (
-        <CorporateProjectStories
-          key="stories"
-          projects={storyProjects}
-          startIndex={2}
-          total={featuredProjects.length}
-          mode={mode}
-        />
+      hasOptionalSection(payload.projects) && selectedWorkProjects.length ? (
+        <HomeSelectedWorkShowcase key="stories" projects={selectedWorkProjects} mode={mode} />
       ) : null,
     "delivery-approach": <CorporateDelivery key="delivery" />,
     "home-craftsmanship": (

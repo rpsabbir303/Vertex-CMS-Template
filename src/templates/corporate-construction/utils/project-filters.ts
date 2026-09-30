@@ -53,6 +53,14 @@ export function projectsWithBeforeAfter(projects: Project[]): Project[] {
   return projects.filter(projectHasBeforeAfter);
 }
 
+/** Default curated showcase size on the Projects page. */
+export const PROJECTS_SHOWCASE_SIZE = 4;
+
+/** First N projects from filtered CMS list (display order). */
+export function selectShowcaseProjects(projects: Project[], max = PROJECTS_SHOWCASE_SIZE): Project[] {
+  return projects.slice(0, max);
+}
+
 export function formatProjectStatusLabel(status: ProjectBuildStatus | undefined): string | undefined {
   if (!status) return undefined;
   return status === "completed" ? "Completed" : "Ongoing";

@@ -13,23 +13,29 @@ type CorporateProjectStoriesProps = {
   mode: TemplateRenderMode;
 };
 
+/** Home Selected Work — up to four editorial project rows. */
+export const HOME_PROJECT_STORIES_MAX = 4;
+
 /**
  * 06 — Project stories. Alternating plate / text rows on bone.
  */
 export function CorporateProjectStories({
   projects,
-  startIndex = 2,
+  startIndex = 1,
   total,
   mode,
 }: CorporateProjectStoriesProps) {
-  const stories = projects.slice(0, 3);
+  const stories = projects.slice(0, HOME_PROJECT_STORIES_MAX);
   if (!stories.length) return null;
+
+  const indexTotal = total > 0 ? total : stories.length;
 
   return (
     <section className="bg-[var(--color-surface-muted)]" aria-labelledby="stories-heading">
       <div className="vertex-container py-24 md:py-32">
+        <p className={ui.eyebrow}>Selected work</p>
         <h2 id="stories-heading" className="sr-only">
-          More selected work
+          Selected work
         </h2>
         <ol className="space-y-20 md:space-y-28">
           {stories.map((project, index) => {
@@ -51,7 +57,7 @@ export function CorporateProjectStories({
                 </Reveal>
                 <Reveal className={cn("lg:col-span-5", flip && "lg:order-1")}>
                   <p className={cn(ui.mono, "text-[var(--color-text-muted)]")}>
-                    {pad(startIndex + index)} / {pad(total)}
+                    {pad(startIndex + index)} / {pad(indexTotal)}
                     {meta ? <span className="ml-4 normal-case tracking-normal">{meta}</span> : null}
                   </p>
                   <h3 className={cn(ui.h3, "mt-4 max-w-[16ch]")}>

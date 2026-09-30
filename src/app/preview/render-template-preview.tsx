@@ -71,10 +71,11 @@ export async function TemplatePreviewPage({ params, searchParams }: PreviewPageP
   if (isServicesVariant(services)) {
     payload = withServicesVariant(payload, services);
   }
+  const isHomePage = resolved.page === "home";
   payload = applyHomepageVariants(payload, {
-    team: isTeamVariant(team) ? team : undefined,
-    projects: isProjectsVariant(projects) ? projects : undefined,
-    testimonials: isTestimonialsVariant(testimonials) ? testimonials : undefined,
+    team: isHomePage && isTeamVariant(team) ? team : undefined,
+    projects: isHomePage && isProjectsVariant(projects) ? projects : undefined,
+    testimonials: isHomePage && isTestimonialsVariant(testimonials) ? testimonials : undefined,
   });
 
   if (resolved.page === "optional") {

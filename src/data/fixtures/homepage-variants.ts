@@ -6,7 +6,7 @@ import type { TeamMember } from "@/templates/shared/cms/types/team";
 import type { Testimonial } from "@/templates/shared/cms/types/testimonials";
 
 export type TeamVariantId = "1" | "2" | "3" | "4" | "5" | "6" | "8" | "none";
-export type ProjectsVariantId = "1" | "2" | "3" | "5" | "none";
+export type ProjectsVariantId = "1" | "2" | "3" | "4" | "5" | "none";
 export type TestimonialsVariantId = "none" | "1" | "3";
 
 function teamNames(count: number): TeamMember[] {
@@ -112,7 +112,7 @@ export function isTeamVariant(value?: string): value is TeamVariantId {
 }
 
 export function isProjectsVariant(value?: string): value is ProjectsVariantId {
-  return Boolean(value && ["1", "2", "3", "5", "none"].includes(value));
+  return Boolean(value && ["1", "2", "3", "4", "5", "none"].includes(value));
 }
 
 export function isTestimonialsVariant(value?: string): value is TestimonialsVariantId {
