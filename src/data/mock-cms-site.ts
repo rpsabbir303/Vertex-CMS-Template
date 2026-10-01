@@ -1,5 +1,6 @@
 import type { CmsSitePayload } from "@/templates/shared/cms/types";
 import { createEnvelope } from "@/templates/shared/cms/types/cms-state";
+import { coordinationArticleSections } from "./blog-article-sections/coordination-keeps-projects-moving";
 import { demoMedia } from "./demo-media";
 
 export const mockCmsSitePayload: CmsSitePayload = {
@@ -9,6 +10,84 @@ export const mockCmsSitePayload: CmsSitePayload = {
     tagline: "Midwest commercial builder",
     description:
       "Alden Commercial Builders plans and builds occupied, phased, and ground-up commercial work for healthcare, education, workplace, and industrial clients.\n\nProject teams stay with the work from early pricing through closeout, so owners have one point of accountability for schedule, field coordination, and turnover.",
+    aboutSupporting: [
+      "Complex schedules, occupied buildings, and multi-trade coordination are planned with the same team that will run the field.",
+      "Superintendents, preconstruction, and project controls stay aligned through weekly reporting so owners have one accountable record.",
+    ],
+    aboutHistory: {
+      eyebrow: "Our history",
+      headline: "Built over decades. Still close to the work.",
+      image: demoMedia.worker,
+      milestones: [
+        { year: "1978", title: "Company founded" },
+        { year: "Later", title: "Regional growth" },
+        { year: "Today", title: "Commercial construction practice" },
+      ],
+    },
+    aboutHowWeWork: {
+      eyebrow: "How we work",
+      headline: "The same team stays close from first conversation to closeout.",
+      intro:
+        "Commercial work breaks down when planning, pricing, and field execution live in separate conversations. Alden keeps preconstruction, superintendents, and project controls on one thread — from early scope conversations through turnover.\n\n" +
+        "That continuity shows up in weekly reporting, published phase plans, and superintendents who were in the room when the schedule was set.",
+      principles: [
+        { title: "Early involvement", body: "Constructability and logistics are reviewed before numbers are issued, not after buyout." },
+        { title: "Clear communication", body: "Owners see the same look-ahead and open-item list the field uses every week." },
+        { title: "Field accountability", body: "Superintendents run the published plan and escalate changes through one project record." },
+        { title: "Quality control", body: "Hold points and inspections are sequenced before the next trade mobilizes." },
+        { title: "Closeout discipline", body: "Documentation, punch, and commissioning are tracked alongside the last interior finishes." },
+      ],
+    },
+    aboutLeadership: {
+      eyebrow: "Leadership",
+      headline: "Leadership that stays close to the work.",
+      intro:
+        "Leadership here is measured in decisions that reach the field — how phases are released, how trades are coordinated, and how owners get a straight answer when the plan shifts.",
+      image: demoMedia.steel,
+      leaders: [
+        { role: "President / CEO", teamMemberId: "team_jordan", note: "Owner relationships and preconstruction alignment for healthcare and workplace accounts." },
+        { role: "VP, Operations", teamMemberId: "team_marcus", note: "Superintendents, site logistics, and day-to-day field coordination." },
+        { role: "VP, Preconstruction", teamMemberId: "team_priya", note: "Estimates, schedules, and constructability before mobilization." },
+      ],
+    },
+    aboutOfficeToField: {
+      eyebrow: "From office to field",
+      headline: "One team. Different places. Same responsibility.",
+      statement: "The people who price and plan the work stay accountable to the superintendents who run it.",
+      image: demoMedia.hero,
+      stages: [
+        { label: "Preconstruction", body: "Plans, budgets and sequencing." },
+        { label: "Office", body: "Coordination, documentation and decisions." },
+        { label: "Field", body: "Supervision, quality and safety." },
+        { label: "Closeout", body: "Documentation, commissioning and handover." },
+      ],
+    },
+    aboutBeliefs: {
+      eyebrow: "What we believe",
+      headline: "A few things don't change.",
+      principles: [
+        {
+          title: "Accountability",
+          body: "The people responsible for the plan\nstay close to the work that delivers it.",
+        },
+        {
+          title: "Clarity",
+          body: "Owners, designers and field teams should\nknow what happens next and why.",
+        },
+        {
+          title: "Safety",
+          body: "Every project decision begins with the\npeople working on and around the site.",
+        },
+        {
+          title: "Quality",
+          body: "Details are checked before they become\nproblems.",
+        },
+        {
+          title: "Respect",
+          body: "Good projects depend on trust across\nowners, designers, trades and field teams.",
+        },
+      ],
+    },
     logo: demoMedia.logo,
     heroImage: demoMedia.hero,
     /** Prefer contact envelope on the Contact page; company fields are fallback only. */
@@ -152,7 +231,80 @@ export const mockCmsSitePayload: CmsSitePayload = {
           duration: "22 months",
           status: "ongoing",
           buildingType: "commercial",
+          deliveryMethod: "General contracting",
         },
+        introduction:
+          "The owner needed clinic and imaging capacity on a campus where the main hospital entries could not close. The addition had to tie into existing utilities, match infection-control expectations, and release floors for occupancy while steel and envelope work continued nearby.\n\n" +
+          "That combination — tight urban site, active healthcare operations, and a four-story structural frame — made the delivery approach as important as the drawings.\n\n" +
+          "The team treated discovery and phasing as the first deliverable: map what could not stop, then build the schedule and temporary controls around those constraints.",
+        deliveryStages: [
+          {
+            slug: "discover",
+            narrative:
+              "Walk-throughs with facilities and clinical staff documented which entries, routes, and departments had to stay open without exception. Existing utilities, vibration limits, and after-hours delivery windows were recorded before pricing was finalized.\n\n" +
+              "Geotechnical and structural reviews confirmed how the new frame would tie into the campus without compromising the active hospital wing.",
+            insight: {
+              title: "Key consideration",
+              body: "Patient access and emergency routes were fixed constraints — every later phase was sequenced backward from that list.",
+            },
+            images: [demoMedia.plans, demoMedia.renovation],
+          },
+          {
+            slug: "plan",
+            narrative:
+              "Preconstruction aligned scope, budget, and the three-phase occupancy plan with the owner’s capital team. Long-lead imaging equipment and switchgear releases were tracked alongside structural and envelope packages.\n\n" +
+              "Trade coordination focused on after-hours steel deliveries, protected walkways, and a weekly look-ahead shared with hospital operations.",
+            milestones: [
+              { label: "Preconstruction", title: "Budget + scope alignment" },
+              { label: "Phasing", title: "Occupied-area sequencing" },
+              { label: "Procurement", title: "Long-lead coordination" },
+              { label: "Ready to build", title: "Field execution plan established" },
+            ],
+            images: [demoMedia.plans],
+          },
+          {
+            slug: "build",
+            narrative:
+              "Structural steel rose beside the existing entry with a protected walkway and phased hoist operations. Envelope and MEP rough-in followed the published sequence so inspections did not overlap with active clinic days.\n\n" +
+              "Interior build-out released floor by floor as temporary partitions and infection-control barriers moved with the work.",
+            buildPhases: [
+              { label: "Foundation & structure", description: "Frame tied to campus utilities with vibration monitoring." },
+              { label: "Enclosure", description: "Curtain wall and roofing sequenced between occupancy windows." },
+              { label: "Interior", description: "Clinic and imaging shells released by floor." },
+              { label: "Completion", description: "Punch and owner fit-out coordination." },
+            ],
+            progress: {
+              currentPhaseLabel: "Interior build-out",
+              milestoneLabels: ["Structure complete", "Envelope closed", "Level 3 released for inspection"],
+            },
+            images: [demoMedia.steel, demoMedia.healthcare, demoMedia.worker],
+          },
+          {
+            slug: "control",
+            narrative:
+              "Superintendents, project controls, and the owner’s facilities group reviewed the same weekly report: schedule, open items, inspections, and temporary controls changing that week.",
+            controlPillars: [
+              { label: "Quality", body: "Hold points for steel, envelope, and infection-control barriers before the next trade mobilized." },
+              { label: "Safety", body: "Site controls and pedestrian separation reviewed before each phase shift." },
+              { label: "Schedule", body: "Three-week look-ahead published to trades and hospital operations every Monday." },
+              { label: "Cost", body: "Change and contingency tracked against the agreed phase releases." },
+              { label: "Coordination", body: "Architect, owner equipment vendors, and field trades in one coordination log." },
+            ],
+          },
+          {
+            slug: "deliver",
+            narrative:
+              "Closeout documentation, commissioning support, and punch were organized by floor so clinical areas could open as they were accepted.\n\n" +
+              "The same team that priced the job remained the point of contact through turnover and owner fit-out coordination.",
+            images: [demoMedia.interior],
+          },
+        ],
+        outcome: {
+          eyebrow: "Project outcome",
+          summary:
+            "From early campus coordination through interior build-out, the pavilion work was sequenced around operating entries and clinical schedules — with one team carrying continuity from discovery to turnover.",
+        },
+        relatedProjectSlugs: ["north-campus-science-hall", "westbridge-distribution-hall"],
         sortOrder: 1,
       },
       {
@@ -307,52 +459,210 @@ export const mockCmsSitePayload: CmsSitePayload = {
   blog: createEnvelope({
     items: [
       {
+        id: "post_featured_coordination",
+        title: "How Better Coordination Keeps Complex Projects Moving",
+        slug: "how-better-coordination-keeps-projects-moving",
+        excerpt:
+          "A practical look at the coordination decisions, field communication, and documentation practices that help keep complex commercial work moving.",
+        body:
+          "Complex commercial projects rarely fail in a single dramatic moment. They stall in small gaps — a delivery that was not confirmed, a hold point that was skipped, a corridor that was not protected before the next trade arrived.\n\n" +
+          "Better coordination starts with a published sequence everyone can see: owners, designers, superintendents, and trade foremen working from the same look-ahead.\n\n" +
+          "When that record is maintained weekly, the field team spends less time reacting and more time building.",
+        sections: coordinationArticleSections,
+        image: demoMedia.steel,
+        imageCaption: "Construction coordination during structural work.",
+        category: "Project Delivery",
+        author: "Marcus Ellison",
+        authorProfile: {
+          name: "Marcus Ellison",
+          role: "Project Delivery",
+          teamMemberId: "team_marcus",
+          bio: "Oversees superintendents and field coordination on complex commercial work. Demo author bio for template preview.",
+        },
+        tags: ["Project Delivery", "Coordination", "Field Operations", "Construction Management"],
+        relatedSlugs: [
+          "coordination-decisions-that-keep-projects-moving",
+          "from-preconstruction-to-handover",
+          "what-field-teams-need-from-project-documentation",
+        ],
+        publishedAt: "2026-10-08",
+        readingTimeMinutes: 12,
+        featured: true,
+        status: "published",
+        locale: "en",
+        seo: {
+          title: "How Better Coordination Keeps Complex Projects Moving",
+          description:
+            "A practical look at coordination, field communication, and documentation on complex commercial projects.",
+          canonicalPath: "/blog/how-better-coordination-keeps-projects-moving",
+        },
+        sortOrder: 1,
+      },
+      {
+        id: "post_coordination_decisions",
+        title: "The Coordination Decisions That Keep Projects Moving",
+        slug: "coordination-decisions-that-keep-projects-moving",
+        excerpt: "Where coordination actually happens — and what gets documented before the next trade starts.",
+        body: "Sample article body for template preview.",
+        image: demoMedia.crane,
+        category: "Project Delivery",
+        author: "Elena Vargas",
+        publishedAt: "2026-09-22",
+        readingTimeMinutes: 6,
+        status: "published",
+        sortOrder: 2,
+      },
+      {
+        id: "post_field_documentation",
+        title: "What Field Teams Need From Project Documentation",
+        slug: "what-field-teams-need-from-project-documentation",
+        excerpt: "Drawings, RFIs, and look-aheads only help when they reach the superintendent in time to act.",
+        body: "Sample article body for template preview.",
+        image: demoMedia.plans,
+        category: "Field Operations",
+        author: "Marcus Ellison",
+        publishedAt: "2026-09-05",
+        readingTimeMinutes: 7,
+        status: "published",
+        sortOrder: 3,
+      },
+      {
+        id: "post_occupied_spaces",
+        title: "Planning Around Occupied Spaces",
+        slug: "planning-around-occupied-spaces",
+        excerpt: "Phasing, temporary protection, and owner communication when the building stays open.",
+        body: "Sample article body for template preview.",
+        image: demoMedia.renovation,
+        category: "Construction Management",
+        author: "Priya Shah",
+        publishedAt: "2026-08-18",
+        readingTimeMinutes: 9,
+        status: "published",
+        sortOrder: 4,
+      },
+      {
         id: "post_phasing",
         title: "Phasing an occupied hospital addition without closing the front door",
         slug: "phasing-occupied-hospital-addition",
         excerpt:
           "How the Lakeshore team split structural, envelope, and interior work into three occupancy phases while the existing entries stayed open.",
         body:
-          "Additions to working hospitals are planned backwards from what cannot stop: patient access, emergency routes, and clinical schedules. On Lakeshore, the team mapped those constraints first and then built the construction sequence around them.\n\n" +
-          "Structural steel went up beside the existing entry with a protected walkway and after-hours deliveries. The envelope followed in a second window, and interior build-out was released floor by floor so inspections never overlapped with active clinic days.\n\n" +
-          "The lesson is simple to state and hard to do: publish the phase plan to the owner's operations staff before mobilization, then hold every trade to it in the weekly look-ahead.",
+          "Additions to working hospitals are planned backwards from what cannot stop: patient access, emergency routes, and clinical schedules.\n\n" +
+          "Structural steel went up beside the existing entry with a protected walkway and after-hours deliveries.",
         image: demoMedia.healthcare,
-        category: "Field notes",
+        category: "Construction Management",
         author: "Marcus Ellison",
-        publishedAt: "2026-08-18",
-        sortOrder: 1,
+        publishedAt: "2026-08-01",
+        readingTimeMinutes: 10,
+        status: "published",
+        sortOrder: 5,
       },
       {
-        id: "post_longlead",
-        title: "What long-lead review actually covers in preconstruction",
-        slug: "long-lead-review-preconstruction",
-        excerpt:
-          "Switchgear, elevators, curtain wall, and lab casework decide the schedule long before the slab is poured. Here is how we review them.",
-        body:
-          "Long-lead review is a preconstruction checklist that asks one question of every major system: when does this have to be ordered for the schedule to hold?\n\n" +
-          "For most commercial work the answer is driven by electrical switchgear, elevators, exterior enclosure, and any owner-furnished equipment. Each gets a release date, a fallback product, and a named decision owner.\n\n" +
-          "When the answer lands before design documents are frozen, the owner can trade scope for schedule with real numbers instead of guesses.",
-        image: demoMedia.plans,
-        category: "Preconstruction",
+        id: "post_safety_sequence",
+        title: "Safety Is Built Into the Sequence",
+        slug: "safety-built-into-the-sequence",
+        excerpt: "Temporary controls and trade order are planned together — not added after mobilization.",
+        body: "Sample article body for template preview.",
+        image: demoMedia.concrete,
+        category: "Safety",
+        author: "Jordan Hale",
+        publishedAt: "2026-07-15",
+        readingTimeMinutes: 5,
+        status: "published",
+        sortOrder: 6,
+      },
+      {
+        id: "post_precon_handover",
+        title: "From Preconstruction to Handover",
+        slug: "from-preconstruction-to-handover",
+        excerpt: "Continuity from estimating through closeout when one team owns the record.",
+        body: "Sample article body for template preview.",
+        image: demoMedia.towers,
+        category: "Project Delivery",
         author: "Priya Shah",
         publishedAt: "2026-07-02",
-        sortOrder: 2,
+        readingTimeMinutes: 8,
+        status: "published",
+        sortOrder: 7,
       },
       {
-        id: "post_lookahead",
-        title: "The weekly look-ahead: one page that keeps a site honest",
-        slug: "weekly-look-ahead",
-        excerpt:
-          "A superintendent's three-week look-ahead is the most useful document on any of our jobs. This is what goes on it.",
-        body:
-          "Every Alden superintendent publishes a three-week look-ahead each Monday. It lists the trades on site, the deliveries expected, the inspections scheduled, and the temporary controls that change that week.\n\n" +
-          "The look-ahead is reviewed with trade foremen and shared with the owner's facilities contact. When it is accurate, coordination problems show up on paper before they show up on the floor.\n\n" +
-          "It is also the record we return to when the schedule is questioned. What was planned, what moved, and why is written down every week.",
+        id: "post_communication",
+        title: "Why Clear Communication Matters on Complex Sites",
+        slug: "clear-communication-on-complex-sites",
+        excerpt: "One coordination log beats a chain of side conversations when access and inspections change weekly.",
+        body: "Sample article body for template preview.",
         image: demoMedia.worker,
-        category: "Field notes",
+        category: "Leadership",
         author: "Jordan Hale",
-        publishedAt: "2026-05-21",
-        sortOrder: 3,
+        publishedAt: "2026-06-10",
+        readingTimeMinutes: 6,
+        status: "published",
+        sortOrder: 8,
+      },
+      {
+        id: "post_data_decisions",
+        title: "Using Better Data to Make Better Project Decisions",
+        slug: "using-better-data-for-project-decisions",
+        excerpt: "Schedule, cost, and field reports should tell the same story before leadership makes a call.",
+        body: "Sample article body for template preview.",
+        image: demoMedia.commercial,
+        category: "Technology",
+        author: "Elena Vargas",
+        publishedAt: "2026-05-28",
+        readingTimeMinutes: 7,
+        status: "published",
+        sortOrder: 9,
+      },
+      {
+        id: "post_owner_expectations",
+        title: "What Owners Should Expect During Construction",
+        slug: "what-owners-should-expect-during-construction",
+        excerpt: "Reporting rhythm, decision points, and how field conditions reach the owner team.",
+        body: "Sample article body for template preview.",
+        image: demoMedia.interior,
+        category: "Construction Management",
+        author: "Priya Shah",
+        publishedAt: "2026-05-12",
+        readingTimeMinutes: 6,
+        status: "published",
+        sortOrder: 10,
+      },
+      {
+        id: "post_schedule_details",
+        title: "The Details That Protect the Schedule",
+        slug: "details-that-protect-the-schedule",
+        excerpt: "Long-lead releases, inspection windows, and after-hours work — planned as one sequence.",
+        body: "Sample article body for template preview.",
+        image: demoMedia.industrial,
+        category: "Field Operations",
+        author: "Marcus Ellison",
+        publishedAt: "2026-04-30",
+        readingTimeMinutes: 5,
+        status: "published",
+        sortOrder: 11,
+      },
+      {
+        id: "post_draft_sample",
+        title: "Draft article (not public)",
+        slug: "draft-sample",
+        excerpt: "This post should not appear on the public blog listing.",
+        body: "Draft content.",
+        image: demoMedia.plans,
+        category: "Project Delivery",
+        status: "draft",
+        sortOrder: 99,
+      },
+      {
+        id: "post_archived_sample",
+        title: "Archived article (not public)",
+        slug: "archived-sample",
+        excerpt: "This post should not appear on the public blog listing.",
+        body: "Archived content.",
+        image: demoMedia.education,
+        category: "Leadership",
+        status: "archived",
+        publishedAt: "2024-01-01",
+        sortOrder: 100,
       },
     ],
   }),
@@ -489,6 +799,95 @@ export const mockCmsSitePayload: CmsSitePayload = {
           description:
             "Field leadership reviews incidents, near misses, and temporary protection adjustments with the project team.",
           sortOrder: 6,
+        },
+      ],
+      safetySections: [
+        {
+          number: 1,
+          slug: "site-safety-planning",
+          layoutType: "editorialSplit",
+          title: "Site safety planning",
+          description:
+            "Logistics, temporary protection, and trade sequencing are reviewed before mobilization and ahead of major phase changes.",
+          image: demoMedia.concrete,
+          supportingItems: ["Site access", "Temporary protection", "Trade sequencing", "Phase transitions"],
+        },
+        {
+          number: 2,
+          slug: "daily-site-coordination",
+          layoutType: "immersiveDark",
+          title: "Daily site coordination",
+          headline: "Daily coordination keeps the site moving.",
+          description:
+            "Superintendents coordinate crews around access, temporary controls, changing site conditions, and active work areas before work continues.",
+          image: demoMedia.crane,
+          supportingItems: ["Access", "Temporary controls", "Site conditions", "Trade coordination"],
+        },
+        {
+          number: 3,
+          slug: "worker-orientation",
+          layoutType: "peopleFeature",
+          title: "Worker orientation",
+          headline: "Every worker should know the site before they start the work.",
+          description: "New workers receive site orientation covering:",
+          image: demoMedia.worker,
+          supportingItems: [
+            "Access routes",
+            "Temporary protection",
+            "Emergency procedures",
+            "Muster points",
+            "Site expectations",
+          ],
+        },
+        {
+          number: 4,
+          slug: "ppe-site-controls",
+          layoutType: "technicalList",
+          title: "PPE and site controls",
+          description:
+            "Required personal protective equipment and temporary site controls stay visible and enforced for occupied or constrained work.",
+          image: demoMedia.plans,
+          supportingItems: [
+            "Personal protective equipment",
+            "Temporary protection",
+            "Site access controls",
+            "Occupied-area controls",
+            "Restricted work areas",
+          ],
+        },
+        {
+          number: 5,
+          slug: "emergency-preparedness",
+          layoutType: "timeline",
+          title: "Emergency preparedness",
+          headline: "Prepared before the unexpected happens.",
+          description:
+            "Muster points, first-aid locations, emergency contacts, and response procedures are reviewed with trade partners.",
+          timelineSteps: [
+            { label: "Identify" },
+            { label: "Prepare" },
+            { label: "Communicate" },
+            { label: "Respond" },
+            { label: "Review" },
+          ],
+          supportingItems: ["Muster points", "First-aid locations", "Emergency contacts", "Trade partner communication"],
+        },
+        {
+          number: 6,
+          slug: "safety-reviews",
+          layoutType: "evidence",
+          title: "Safety reviews",
+          headline: "Safety is reviewed throughout the work.",
+          description:
+            "Field leadership reviews incidents, near misses, and temporary protection adjustments with the project team — without waiting for closeout.",
+          image: demoMedia.steel,
+          evidenceFlow: [
+            "Field review",
+            "Incident / near miss",
+            "Corrective action",
+            "Follow-up",
+            "Project team review",
+          ],
         },
       ],
       showInNavigation: true,
@@ -719,7 +1118,8 @@ export const mockCmsSitePayload: CmsSitePayload = {
     {
       pageSlug: "blog",
       title: "Blog",
-      description: "Field notes and preconstruction insight from Alden Commercial Builders.",
+      description:
+        "Perspectives on construction, project delivery, coordination, and the work behind complex commercial projects.",
     },
     {
       pageSlug: "contact",

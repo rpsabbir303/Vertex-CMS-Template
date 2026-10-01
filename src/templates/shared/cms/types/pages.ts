@@ -20,6 +20,37 @@ export type OptionalPagePractice = {
   sortOrder?: number;
 };
 
+/** Presentation hint for Safety topic sections (template maps to layout components). */
+export type SafetySectionLayoutType =
+  | "editorialSplit"
+  | "immersiveDark"
+  | "peopleFeature"
+  | "technicalList"
+  | "timeline"
+  | "evidence";
+
+export type SafetyTimelineStep = {
+  label: string;
+  title?: string;
+};
+
+/** CMS-driven safety topic with separate content from presentation `layoutType`. */
+export type SafetySection = {
+  number?: number;
+  slug: string;
+  title: string;
+  description?: string;
+  /** Optional section headline distinct from title. */
+  headline?: string;
+  /** Extra paragraphs (blank-line separated). */
+  content?: string;
+  image?: CmsImage;
+  supportingItems?: string[];
+  timelineSteps?: SafetyTimelineStep[];
+  evidenceFlow?: string[];
+  layoutType: SafetySectionLayoutType;
+};
+
 /** Structured section for legal / long-form optional pages. */
 export type LegalSection = {
   id: string;
@@ -45,6 +76,8 @@ export type OptionalPage = {
   commitmentBody?: string;
   /** Repeatable practice items when the tenant supplies them. */
   practices?: OptionalPagePractice[];
+  /** Structured safety topics with layout types (preferred over practice grid). */
+  safetySections?: SafetySection[];
   /**
    * Legal-page fields (privacy / terms / cookie).
    * When `sections` is present, the LegalPage layout is used.

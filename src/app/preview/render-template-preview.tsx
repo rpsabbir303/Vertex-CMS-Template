@@ -94,7 +94,8 @@ export async function TemplatePreviewPage({ params, searchParams }: PreviewPageP
 
   if (resolved.page === "blog-post") {
     const posts = payload.blog ? (unwrapEnvelope(payload.blog)?.items ?? []) : [];
-    if (!posts.some((post) => post.slug === resolved.entitySlug)) {
+    const match = posts.find((post) => post.slug === resolved.entitySlug);
+    if (!match || (match.status ?? "published") !== "published") {
       notFound();
     }
   }

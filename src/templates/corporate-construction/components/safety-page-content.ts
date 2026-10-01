@@ -1,8 +1,6 @@
 import type { Certification } from "@/templates/shared/cms/types/certifications";
-import type {
-  OptionalPage,
-  OptionalPagePractice,
-} from "@/templates/shared/cms/types/pages";
+import type { OptionalPage, OptionalPagePractice, SafetySection } from "@/templates/shared/cms/types/pages";
+import { resolveSafetySections } from "@/templates/corporate-construction/utils/safety-sections";
 import type { CmsImage } from "@/templates/shared/cms/types/media";
 
 function splitParagraphs(body?: string): string[] {
@@ -47,6 +45,7 @@ export type SafetyPageContent = {
   approachHeading?: string;
   approachParagraphs: string[];
   practices: OptionalPagePractice[];
+  safetySections: SafetySection[];
   records: Certification[];
   commitmentHeading?: string;
   commitmentBody?: string;
@@ -64,6 +63,7 @@ export function planSafetyPageContent(
   const heroDescription = paragraphs[0];
   const approachFromBody = paragraphs.slice(1);
   const practices = orderedPractices(page.practices ?? []);
+  const safetySections = resolveSafetySections(page);
   const records = orderedRecords(certifications);
 
   const approachHeading = page.approachHeading?.trim() || undefined;
@@ -89,6 +89,7 @@ export function planSafetyPageContent(
     approachHeading,
     approachParagraphs,
     practices,
+    safetySections,
     records,
     commitmentHeading,
     commitmentBody,
