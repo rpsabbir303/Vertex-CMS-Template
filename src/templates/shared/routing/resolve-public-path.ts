@@ -20,7 +20,9 @@ export function resolvePublicPath(segments?: string[]): ResolvedPublicPath | nul
     case "about":
       return second ? null : { page: "about", path: "/about" };
     case "services":
-      return second ? null : { page: "services", path: "/services" };
+      return second
+        ? { page: "service-detail", entitySlug: second, path: `/services/${second}` }
+        : { page: "services", path: "/services" };
     case "projects":
       return second
         ? { page: "project-detail", entitySlug: second, path: `/projects/${second}` }

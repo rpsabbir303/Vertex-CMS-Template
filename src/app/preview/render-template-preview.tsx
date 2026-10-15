@@ -45,7 +45,7 @@ export async function generatePreviewMetadata({
   const pageSlug =
     resolved?.page === "optional" ? (resolved.entitySlug ?? "home") : (resolved?.page ?? "home");
   const seoSlug =
-    pageSlug === "project-detail" ? "projects" : pageSlug === "blog-post" ? "blog" : pageSlug;
+    pageSlug === "project-detail" ? "projects" : pageSlug === "service-detail" ? "services" : pageSlug === "blog-post" ? "blog" : pageSlug;
   return buildPageMetadata(payload, seoSlug);
 }
 
@@ -85,6 +85,14 @@ export async function TemplatePreviewPage({ params, searchParams }: PreviewPageP
     }
   }
 
+  if (resolved.page === "service-detail") {
+    const services = unwrapEnvelope(payload.services)?.items ?? [];
+    const match = services.find((service) => service.slug === resolved.entitySlug);
+    if (!match || match.visible === false) {
+      notFound();
+    }
+  }
+
   if (resolved.page === "project-detail") {
     const projects = unwrapEnvelope(payload.projects)?.items ?? [];
     if (!projects.some((project) => project.slug === resolved.entitySlug)) {
@@ -104,12 +112,9 @@ export async function TemplatePreviewPage({ params, searchParams }: PreviewPageP
     ? { colors: { accent: `#${brandAccent.replace(/^#/, "")}` } }
     : undefined;
 
+  const previewBase = `/preview/${definition.slug}`;
   const currentPath =
-    definition.slug === "corporate-construction"
-      ? resolved.path === "/"
-        ? "/preview/corporate-construction"
-        : `/preview/corporate-construction${resolved.path}`
-      : resolved.path;
+    resolved.path === "/" ? previewBase : `${previewBase}${resolved.path}`;
 
   return (
     <TemplateShell

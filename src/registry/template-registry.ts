@@ -1,6 +1,17 @@
 import { corporateConstructionTheme } from "@/templates/corporate-construction/theme/tokens";
 import { industrialCivilTheme } from "@/templates/industrial-civil/theme/tokens";
 import { minimalProfessionalTheme } from "@/templates/minimal-professional/theme/tokens";
+import { modernHomeSectionOrder } from "@/templates/modern-contractor/config/home-sections";
+import { ModernContractorAboutPage } from "@/templates/modern-contractor/pages/about-page";
+import { ModernContractorBlogPage } from "@/templates/modern-contractor/pages/blog-page";
+import { ModernContractorBlogPostPage } from "@/templates/modern-contractor/pages/blog-post-page";
+import { ModernContractorContactPage } from "@/templates/modern-contractor/pages/contact-page";
+import { ModernContractorHomePage } from "@/templates/modern-contractor/pages/home-page";
+import { ModernContractorOptionalPage } from "@/templates/modern-contractor/pages/optional-page";
+import { ModernContractorProjectDetailPage } from "@/templates/modern-contractor/pages/project-detail-page";
+import { ModernContractorProjectsPage } from "@/templates/modern-contractor/pages/projects-page";
+import { ModernContractorServiceDetailPage } from "@/templates/modern-contractor/pages/service-detail-page";
+import { ModernContractorServicesPage } from "@/templates/modern-contractor/pages/services-page";
 import { modernContractorTheme } from "@/templates/modern-contractor/theme/tokens";
 import { premiumBuilderTheme } from "@/templates/premium-builder/theme/tokens";
 import { projectPortfolioTheme } from "@/templates/project-portfolio/theme/tokens";
@@ -72,15 +83,19 @@ const registry: TemplateDefinition[] = [
       "testimonials",
       "contact-cta",
     ],
-    homeSectionOrder: [
-      "hero",
-      "featured-projects",
-      "services",
-      "about-story",
-      "testimonials",
-      "contact-cta",
-    ],
-    pages: {},
+    homeSectionOrder: modernHomeSectionOrder,
+    pages: {
+      home: ModernContractorHomePage,
+      about: ModernContractorAboutPage,
+      services: ModernContractorServicesPage,
+      "service-detail": ModernContractorServiceDetailPage,
+      projects: ModernContractorProjectsPage,
+      "project-detail": ModernContractorProjectDetailPage,
+      blog: ModernContractorBlogPage,
+      "blog-post": ModernContractorBlogPostPage,
+      contact: ModernContractorContactPage,
+    },
+    optionalPage: ModernContractorOptionalPage,
     preview: {
       thumbnailLabel: "Modern Contractor",
       tags: ["contemporary", "direct", "imagery-forward"],

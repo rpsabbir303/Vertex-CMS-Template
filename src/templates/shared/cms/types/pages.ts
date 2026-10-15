@@ -4,6 +4,7 @@ export type PageSlug =
   | "home"
   | "about"
   | "services"
+  | "service-detail"
   | "projects"
   | "project-detail"
   | "team"
@@ -51,6 +52,37 @@ export type SafetySection = {
   layoutType: SafetySectionLayoutType;
 };
 
+/** Presentation hint for Specialty Contractor optional pages (Modern Contractor template). */
+export type SpecialtySectionLayoutType =
+  | "introSplit"
+  | "tradeGrid"
+  | "processRail"
+  | "darkSpotlight"
+  | "metricsBand"
+  | "integrationSplit"
+  | "practiceCards";
+
+export type SpecialtyMetric = {
+  label: string;
+  value: string;
+};
+
+/** CMS-driven specialty trade / self-perform topics for optional pages. */
+export type SpecialtySection = {
+  number?: number;
+  slug: string;
+  title: string;
+  headline?: string;
+  description?: string;
+  /** Extra paragraphs (blank-line separated). */
+  content?: string;
+  image?: CmsImage;
+  supportingItems?: string[];
+  metrics?: SpecialtyMetric[];
+  timelineSteps?: SafetyTimelineStep[];
+  layoutType: SpecialtySectionLayoutType;
+};
+
 /** Structured section for legal / long-form optional pages. */
 export type LegalSection = {
   id: string;
@@ -78,6 +110,8 @@ export type OptionalPage = {
   practices?: OptionalPagePractice[];
   /** Structured safety topics with layout types (preferred over practice grid). */
   safetySections?: SafetySection[];
+  /** Structured specialty trade content (e.g. Modern Contractor specialty page). */
+  specialtySections?: SpecialtySection[];
   /**
    * Legal-page fields (privacy / terms / cookie).
    * When `sections` is present, the LegalPage layout is used.

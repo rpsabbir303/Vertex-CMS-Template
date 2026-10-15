@@ -334,6 +334,67 @@ export const mockCmsSitePayload: CmsSitePayload = {
           status: "completed",
           buildingType: "commercial",
         },
+        introduction:
+          "The owner needed a cross-dock hall with trailer courts and a raised platform for sortation equipment. Racks and sortation had to install after the envelope closed, so the structure, slab, and utility yard had to be set with the equipment vendor before that work was covered.",
+        deliveryStages: [
+          {
+            slug: "discover",
+            narrative:
+              "The brief was a ground-up distribution building: trailer courts, a mezzanine for sortation, and a path for the owner's equipment to install without reopening the envelope.\n\n" +
+              "Openings, slab recesses, and the utility yard had to be known before the structure was released.",
+            insight: {
+              title: "Key consideration",
+              body: "Sortation equipment had to land after the envelope closed. The slab and utility yard were planned backward from that install.",
+            },
+            images: [demoMedia.industrial],
+          },
+          {
+            slug: "plan",
+            narrative:
+              "Preconstruction coordinated the structure, slab, and utility yard with the equipment vendor so racks and sortation could install on the published sequence.",
+            milestones: [
+              { label: "Scope", title: "Trailer courts, mezzanine, and equipment platform" },
+              { label: "Vendor", title: "Sortation layout set before envelope close-in" },
+              { label: "Site", title: "Slab and dock wall sequence" },
+              { label: "Ready to build", title: "Ground-up structure and site work released" },
+            ],
+            images: [demoMedia.plans],
+          },
+          {
+            slug: "build",
+            narrative:
+              "Field work followed the slab and dock wall sequence, then the structure and envelope, so the equipment platform was ready without reopening finished work.",
+            buildPhases: [
+              { label: "Slab & docks", description: "Slab and dock walls sequenced for the trailer courts." },
+              { label: "Structure", description: "Frame and mezzanine for the sortation platform." },
+              { label: "Envelope", description: "Closed before the equipment install." },
+              { label: "Equipment ready", description: "Utility yard and platform left clear for the vendor." },
+            ],
+            images: [demoMedia.concrete, demoMedia.industrial],
+          },
+          {
+            slug: "control",
+            narrative:
+              "The field record tracked the vendor install against the envelope. Changes to openings or the utility yard were written before that work was covered.",
+            controlPillars: [
+              { label: "Coordination", body: "Structure, slab, and utility yard reviewed with the equipment vendor." },
+              { label: "Sequence", body: "The envelope stayed closed for the rack and sortation install." },
+              { label: "Quality", body: "Dock and slab hold points cleared before the next sequence." },
+            ],
+          },
+          {
+            slug: "deliver",
+            narrative:
+              "The hall was completed in 2023. Racks and sortation could install without reopening the envelope.",
+            images: [demoMedia.industrial],
+          },
+        ],
+        outcome: {
+          eyebrow: "Project outcome",
+          summary:
+            "A ground-up distribution hall, coordinated with the equipment vendor so racks and sortation could install without reopening the envelope.",
+        },
+        relatedProjectSlugs: ["lakeshore-outpatient-pavilion", "harbor-exchange-workplace"],
         sortOrder: 2,
       },
       {
@@ -356,6 +417,67 @@ export const mockCmsSitePayload: CmsSitePayload = {
           status: "completed",
           buildingType: "commercial",
         },
+        introduction:
+          "Teaching laboratories had to be rebuilt without missing a fall term. The campus calendar left two summer windows, and corridor protection had to keep the rest of the hall usable around that work.",
+        deliveryStages: [
+          {
+            slug: "discover",
+            narrative:
+              "The owner needed laboratory classrooms rebuilt between academic terms. Fall classes could not move, so the available time was two summer windows.\n\n" +
+              "Mechanical risers, casework rough-in, and the corridors students would still use were the constraints recorded before the schedule was published.",
+            insight: {
+              title: "Key consideration",
+              body: "The campus calendar was fixed. Every later release was sequenced inside the two summer windows.",
+            },
+            images: [demoMedia.education],
+          },
+          {
+            slug: "plan",
+            narrative:
+              "Preconstruction set mechanical risers, lab casework rough-in, and corridor protection against the campus calendar so the rooms could open with fall classes.",
+            milestones: [
+              { label: "Calendar", title: "Two summer windows" },
+              { label: "Systems", title: "Mechanical risers and casework rough-in" },
+              { label: "Protection", title: "Corridors kept usable around the labs" },
+              { label: "Ready to build", title: "Work released to finish before fall classes" },
+            ],
+            images: [demoMedia.plans],
+          },
+          {
+            slug: "build",
+            narrative:
+              "The laboratories were rebuilt inside the two summer windows. Corridor protection moved with the work so the rest of the hall stayed on the campus calendar.",
+            buildPhases: [
+              { label: "First summer", description: "Riser and rough-in work inside the first window." },
+              { label: "Protection", description: "Corridors separated from the laboratory rooms." },
+              { label: "Second summer", description: "Remaining classrooms completed before term." },
+              { label: "Open", description: "Rooms released for fall classes." },
+            ],
+            images: [demoMedia.renovation, demoMedia.education],
+          },
+          {
+            slug: "control",
+            narrative:
+              "The field record followed the campus calendar. A room did not release until risers, casework rough-in, and corridor protection for that window were closed.",
+            controlPillars: [
+              { label: "Schedule", body: "Both summer windows published against the academic term." },
+              { label: "Protection", body: "Corridor protection held so adjacent space stayed usable." },
+              { label: "Quality", body: "Riser and casework hold points cleared before a room was called complete." },
+            ],
+          },
+          {
+            slug: "deliver",
+            narrative:
+              "The renovation was completed in 2023. Fall classes opened in the rebuilt laboratories on the campus calendar.",
+            images: [demoMedia.education],
+          },
+        ],
+        outcome: {
+          eyebrow: "Project outcome",
+          summary:
+            "Teaching laboratories rebuilt in two summer windows, with mechanical risers, casework, and corridor protection planned so fall classes could open on schedule.",
+        },
+        relatedProjectSlugs: ["lakeshore-outpatient-pavilion", "harbor-exchange-workplace"],
         sortOrder: 3,
       },
       {
@@ -382,6 +504,67 @@ export const mockCmsSitePayload: CmsSitePayload = {
           status: "completed",
           buildingType: "commercial",
         },
+        introduction:
+          "The building stayed occupied. Lobby, core restrooms, and three workplace floors had to be updated while other tenants remained, and the lobby had to reopen each morning.",
+        deliveryStages: [
+          {
+            slug: "discover",
+            narrative:
+              "Other tenants stayed in the building through the work. The lobby, core restrooms, and three workplace floors were the scope, and the lobby could not stay closed during the day.\n\n" +
+              "Noisy work and finish work had to be split before a crew was released.",
+            insight: {
+              title: "Key consideration",
+              body: "The lobby had to reopen each morning. Noisy work was planned for after hours around that rule.",
+            },
+            images: [demoMedia.commercial],
+          },
+          {
+            slug: "plan",
+            narrative:
+              "Preconstruction split after-hours noisy work from daytime finishes so the lobby, restrooms, and workplace floors could move without closing the building.",
+            milestones: [
+              { label: "Occupancy", title: "Other tenants remained in the building" },
+              { label: "Lobby", title: "Reopen each morning" },
+              { label: "Floors", title: "Three workplace floors and core restrooms" },
+              { label: "Ready to build", title: "After-hours and daytime work published separately" },
+            ],
+            images: [demoMedia.plans],
+          },
+          {
+            slug: "build",
+            narrative:
+              "Base-building work and the workplace interiors followed that split. Noisy work ran after hours. Daytime crews returned to finishes so the lobby could open in the morning.",
+            buildPhases: [
+              { label: "Lobby", description: "Base-building refresh with a morning reopen." },
+              { label: "Core", description: "Restrooms sequenced around tenants still in the building." },
+              { label: "Floors", description: "Three workplace floors, finishes in daytime hours." },
+              { label: "Furniture ready", description: "Floors left clear before furniture." },
+            ],
+            images: [demoMedia.commercial, demoMedia.interior],
+          },
+          {
+            slug: "control",
+            narrative:
+              "The field record separated after-hours noisy work from daytime finishes. A morning lobby opening was the hold point for the night's work.",
+            controlPillars: [
+              { label: "Occupancy", body: "Tenants remained. Work was limited to the published floors and the lobby." },
+              { label: "Hours", body: "Noisy work after hours. Finishes during the day." },
+              { label: "Handoff", body: "The lobby was cleared to reopen each morning." },
+            ],
+          },
+          {
+            slug: "deliver",
+            narrative:
+              "The base-building refresh and workplace interiors were completed in 2022, with the building occupied through the work.",
+            images: [demoMedia.interior],
+          },
+        ],
+        outcome: {
+          eyebrow: "Project outcome",
+          summary:
+            "Lobby, core restrooms, and three workplace floors updated while other tenants stayed in the building, with the lobby reopened each morning.",
+        },
+        relatedProjectSlugs: ["lakeshore-outpatient-pavilion", "north-campus-science-hall"],
         sortOrder: 4,
       },
     ],
@@ -894,6 +1077,199 @@ export const mockCmsSitePayload: CmsSitePayload = {
       sortOrder: 1,
     },
     {
+      id: "opt_specialty",
+      title: "Specialty Contractor",
+      slug: "specialty-contractor",
+      headline: "Focused trade packages, coordinated like a single project record",
+      heroImage: demoMedia.steel,
+      body:
+        "Specialty scopes — structure, envelope, interiors, and building systems — are released with the same look-ahead, RFIs, and superintendent coordination as core building work.\n\n" +
+        "Trade partners and self-perform crews join a published phase plan. Access, temporary protection, and inspections are sequenced before the next package mobilizes so occupied and phased sites stay predictable.\n\n" +
+        "Preconstruction prices scope, logistics, and long-lead items with the team that will run the field. Superintendents hold the same weekly record owners see for schedule, open items, and turnover readiness.",
+      approachHeading: "How specialty work is organized",
+      commitmentHeading: "Every trade package maps to the same superintendent plan.",
+      commitmentBody:
+        "Specialty contractors do not work from a parallel schedule — releases, hold points, and turnover lists stay on one project record from mobilization through closeout.",
+      practices: [
+        {
+          id: "spec_structural",
+          title: "Structural & concrete",
+          description:
+            "Formwork, reinforcing, and pour sequences are aligned to crane picks, shoring, and inspection hold points before the next level releases. The superintendent publishes that sequence before the crane is committed, so a hold point is not discovered after the pick is scheduled.",
+          image: demoMedia.concrete,
+          sortOrder: 1,
+        },
+        {
+          id: "spec_envelope",
+          title: "Building envelope",
+          description:
+            "Curtain wall, roofing, and waterproofing transitions are reviewed against interior fit-out releases and temporary protection requirements. Roof, sill, and slab-edge conditions are marked before interior trades close the wall.",
+          image: demoMedia.towers,
+          sortOrder: 2,
+        },
+        {
+          id: "spec_mep",
+          title: "Mechanical & electrical coordination",
+          description:
+            "Overhead routing, pad locations, and energization sequences are coordinated with ceiling grid, commissioning, and owner IT/security requirements. Routing is agreed before the ceiling grid is released, so energization does not wait on a redraw.",
+          image: demoMedia.worker,
+          sortOrder: 3,
+        },
+        {
+          id: "spec_interiors",
+          title: "Interiors & finishes",
+          description:
+            "Framing, drywall, and finish packages follow published corridor and occupancy phasing with shared punch and protection standards. Finish packages follow the occupancy plan, including protection of work the owner has already accepted.",
+          image: demoMedia.interior,
+          sortOrder: 4,
+        },
+        {
+          id: "spec_renovation",
+          title: "Renovation & occupied work",
+          description:
+            "Selective demolition, ICRA barriers, and after-hours work windows are planned with the same superintendent record as new construction phases. Occupied areas stay on that record so a renovation package is not scheduled as if the building were empty.",
+          image: demoMedia.renovation,
+          sortOrder: 5,
+        },
+        {
+          id: "spec_closeout",
+          title: "Systems closeout",
+          description:
+            "TAB, O&M manuals, training, and warranty items are tracked alongside finish punch so turnover is not deferred to the last week. A floor can be accepted without a separate specialty closeout waiting at the end of the job.",
+          image: demoMedia.plans,
+          sortOrder: 6,
+        },
+      ],
+      specialtySections: [
+        {
+          number: 1,
+          slug: "scope-clarity",
+          layoutType: "introSplit",
+          title: "Scope clarity",
+          headline: "Trade packages start with constructible scope.",
+          description:
+            "Drawings, specifications, and alternates are reviewed with the superintendent before buyout so field releases match what was priced.",
+          content:
+            "Long-lead equipment, embedded items, and inspection milestones are flagged during preconstruction — not after mobilization.\n\n" +
+            "Submittals, shop drawings, and alternates stay numbered with the core-building set. A specialty release cannot drift from the documents the superintendent is building from.\n\n" +
+            "Before buyout, the field team marks what must be decided — embeds, openings, equipment pads, and inspection witnesses — and what can wait until the look-ahead.\n\n" +
+            "When scope shifts, changes route through the same RFI and bulletin record the owner already receives for core building work.",
+          image: demoMedia.plans,
+        },
+        {
+          number: 2,
+          slug: "trade-packages",
+          layoutType: "tradeGrid",
+          title: "Trade packages",
+          headline: "Packages we routinely coordinate on commercial work.",
+          description:
+            "Each package below is sequenced against structure, envelope, and occupancy constraints — not treated as an isolated bid item.",
+          content:
+            "Structure releases first. Steel, miscellaneous metals, and concrete have to clear crane picks, shoring, and inspection hold points before the next level opens.\n\n" +
+            "Envelope follows the structure. Curtain wall, roofing, and waterproofing are checked against interior fit-out dates and temporary protection so the building can close without trapping wet work.\n\n" +
+            "Building systems and finishes then share one overhead and occupancy plan. Mechanical, electrical, fire protection, ceilings, and architectural finishes are bought as packages, then sequenced so concealment does not happen before the owner walk.",
+          image: demoMedia.commercial,
+          supportingItems: [
+            "Structural steel & misc metals",
+            "Cast-in-place & precast concrete",
+            "Curtain wall & glazing",
+            "Roofing & waterproofing",
+            "Mechanical & plumbing",
+            "Electrical & low voltage",
+            "Drywall & acoustical ceilings",
+            "Architectural finishes",
+            "Fire protection",
+          ],
+        },
+        {
+          number: 3,
+          slug: "coordination-rail",
+          layoutType: "processRail",
+          title: "Coordination",
+          headline: "From release to turnover on one thread.",
+          description:
+            "Superintendents publish the same look-ahead specialty crews use for access, protection, and inspections.",
+          content:
+            "A package does not mobilize because a bid was awarded. It mobilizes when access, protection, and the previous hold point are written on the look-ahead.\n\n" +
+            "Owners see the same thread: what released this week, what is waiting on an inspection, and what must be decided before the next trade arrives.",
+          timelineSteps: [
+            { label: "Scope & buyout", title: "Constructibility and logistics reviewed with field leadership." },
+            { label: "Mobilize", title: "Access, protection, and orientations aligned to the phase plan." },
+            { label: "Execute", title: "Hold points cleared before the next trade or level releases." },
+            { label: "Inspect", title: "Third-party and owner witnesses scheduled in the look-ahead." },
+            { label: "Turnover", title: "O&M, training, and warranty items tracked with punch." },
+          ],
+          supportingItems: ["Weekly look-ahead", "Shared punch record", "Owner reporting"],
+        },
+        {
+          number: 4,
+          slug: "self-perform",
+          layoutType: "darkSpotlight",
+          title: "Self-perform",
+          headline: "When we self-perform, the same team owns the plan.",
+          description:
+            "Concrete, carpentry, and select interior packages run under the project superintendent — not a separate program.",
+          content:
+            "Crews attend the same coordination meetings, use the same protection standards, and close work through the same inspection checklist as partner trades.\n\n" +
+            "Self-perform does not create a second schedule or a second safety program. Concrete, carpentry, and select interior crews take direction from the project superintendent.\n\n" +
+            "When a self-perform package affects a partner trade — a pour that blocks a hoist, or carpentry that changes a corridor — it is written into the weekly look-ahead before the work starts.",
+          image: demoMedia.crane,
+        },
+        {
+          number: 5,
+          slug: "delivery-model",
+          layoutType: "metricsBand",
+          title: "Delivery model",
+          headline: "How owners experience specialty coordination",
+          description:
+            "These describe the coordination model on specialty packages — not performance guarantees.",
+          content:
+            "Owners should expect one plan, not a stack of trade schedules. Releases follow the published look-ahead. Open items live in one log. Closeout combines punch, training, and operation-and-maintenance documents instead of a separate specialty handover.\n\n" +
+            "None of the items below are performance guarantees. They describe how the work is organized when the packages are coordinated under one superintendent plan.",
+          metrics: [
+            { label: "Coordination record", value: "One superintendent plan" },
+            { label: "Release rhythm", value: "Published look-ahead" },
+            { label: "Owner visibility", value: "Shared open-item log" },
+            { label: "Closeout", value: "Combined punch & O&M" },
+          ],
+        },
+        {
+          number: 6,
+          slug: "gc-integration",
+          layoutType: "integrationSplit",
+          title: "GC integration",
+          headline: "Specialty partners work inside the general contract — not beside it.",
+          description:
+            "Design, preconstruction, and field teams stay aligned so specialty contractors inherit the same logistics, safety, and documentation standards as core building trades.",
+          supportingItems: [
+            "Shared BIM/coordination sessions for congested overhead zones",
+            "Uniform site orientation and muster expectations",
+            "Aligned temporary power, hoist, and laydown sequencing",
+            "Common RFI, submittal, and bulletin numbering",
+            "Joint owner walkthroughs before concealment",
+            "Single closeout matrix for warranties and training",
+          ],
+          content:
+            "When Alden holds the general contract, specialty partners receive releases that match the published phase plan — including occupancy restrictions and after-hours windows on renovation work.\n\n" +
+            "Partners do not invent their own site rules. Orientation, muster points, temporary power, hoist time, and laydown are assigned from the general-contract plan.\n\n" +
+            "Documentation uses the same numbers the owner already sees. Walkthroughs before concealment include the specialty partner and the superintendent, and the owner’s representative when the work will be covered.",
+        },
+        {
+          number: 7,
+          slug: "field-practices",
+          layoutType: "practiceCards",
+          title: "Field practices",
+          headline: "What specialty coordination looks like on site.",
+          description:
+            "Representative packages from recent healthcare, workplace, and institutional work — described at the coordination level, not as marketing claims.",
+          content:
+            "These are the packages most often coordinated on healthcare, workplace, education, and industrial work. Each note describes how the package is sequenced. It is not a claim about volume, speed, or a certification.",
+        },
+      ],
+      showInNavigation: true,
+      sortOrder: 2,
+    },
+    {
       id: "opt_privacy",
       title: "Privacy Policy",
       slug: "privacy",
@@ -1082,6 +1458,7 @@ export const mockCmsSitePayload: CmsSitePayload = {
     { label: "Blog", href: "/blog", pageSlug: "blog" },
     { label: "Contact", href: "/contact", pageSlug: "contact" },
     { label: "Safety", href: "/safety", pageSlug: "safety" },
+    { label: "Specialty", href: "/specialty-contractor", pageSlug: "specialty-contractor" },
   ]),
 
   siteSeo: createEnvelope({
