@@ -17,7 +17,7 @@ export function ArticleBlocks({ blocks }: { blocks: BlogArticleBlock[] }) {
         }
         if (block.type === "highlight") {
           return (
-            <p key={index} className="whitespace-pre-line rounded-[12px] bg-[#FFF1E8] px-6 py-5 font-semibold text-[#03071E]">
+            <p key={index} className="whitespace-pre-line rounded-[12px] bg-[#FFF1E8] p-6 font-semibold text-[#03071E]">
               {block.body}
             </p>
           );
