@@ -1,5 +1,14 @@
 import { corporateConstructionTheme } from "@/templates/corporate-construction/theme/tokens";
 import { industrialCivilTheme } from "@/templates/industrial-civil/theme/tokens";
+import { IndustrialCivilAboutPage } from "@/templates/industrial-civil/pages/about-page";
+import { IndustrialCivilBlogPage } from "@/templates/industrial-civil/pages/blog-page";
+import { IndustrialCivilBlogPostPage } from "@/templates/industrial-civil/pages/blog-post-page";
+import { IndustrialCivilContactPage } from "@/templates/industrial-civil/pages/contact-page";
+import { IndustrialCivilHomePage } from "@/templates/industrial-civil/pages/home-page";
+import { IndustrialCivilOptionalPage } from "@/templates/industrial-civil/pages/optional-page";
+import { IndustrialCivilProjectDetailPage } from "@/templates/industrial-civil/pages/project-detail-page";
+import { IndustrialCivilProjectsPage } from "@/templates/industrial-civil/pages/projects-page";
+import { IndustrialCivilServicesPage } from "@/templates/industrial-civil/pages/services-page";
 import { minimalProfessionalTheme } from "@/templates/minimal-professional/theme/tokens";
 import { modernHomeSectionOrder } from "@/templates/modern-contractor/config/home-sections";
 import { ModernContractorAboutPage } from "@/templates/modern-contractor/pages/about-page";
@@ -153,7 +162,17 @@ const registry: TemplateDefinition[] = [
       "team",
       "contact-cta",
     ],
-    pages: {},
+    pages: {
+      home: IndustrialCivilHomePage,
+      about: IndustrialCivilAboutPage,
+      services: IndustrialCivilServicesPage,
+      projects: IndustrialCivilProjectsPage,
+      "project-detail": IndustrialCivilProjectDetailPage,
+      blog: IndustrialCivilBlogPage,
+      "blog-post": IndustrialCivilBlogPostPage,
+      contact: IndustrialCivilContactPage,
+    },
+    optionalPage: IndustrialCivilOptionalPage,
     preview: {
       thumbnailLabel: "Industrial / Civil",
       tags: ["infrastructure", "technical", "certifications"],
